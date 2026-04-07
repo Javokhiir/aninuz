@@ -48,16 +48,14 @@ jobs:
         env:
           NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
 
-      - name: Deploy to cPanel public_html via SSH
-        uses: appleboy/scp-action@v0.1.7
+      - name: Deploy to cPanel public_html via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          host: ${{ secrets.CPANEL_HOST }}
-          username: ${{ secrets.CPANEL_USER }}
-          key: ${{ secrets.CPANEL_SSH_KEY }}
-          port: 2222
-          source: "antares-front/out/*"
-          target: "public_html/"
-          strip_components: 2
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USER }}
+          password: ${{ secrets.FTP_PASS }}
+          local-dir: antares-front/out/
+          server-dir: public_html/
 
   deploy-backend:
     needs: detect-changes
