@@ -59,7 +59,7 @@ const HeroSection = () => {
             className="absolute top-36 left-0 flex h-[70px] w-[70px] items-center justify-center overflow-clip bg-contain bg-no-repeat sm:top-20 md:h-[100px] md:w-[100px] lg:h-[120px] lg:w-[120px] lg:-translate-x-full"
             style={{ backgroundImage: "url('/images/badge.svg') " }}
           >
-            <Icons.ArrowRight className="absolute max-w-[15px] -rotate-[30deg] text-white md:max-w-[18px] lg:max-w-[25px]" />
+            <Icons.ArrowRight className="absolute max-w-[20px] -rotate-[30deg] text-white md:max-w-[18px] lg:max-w-[25px]" />
             <SpinningText
               radius={width < 768 ? 4 : width < 1024 ? 4.25 : 4.5}
               fontSize={width < 768 ? 0.5 : width < 1024 ? 0.7 : 0.8}
