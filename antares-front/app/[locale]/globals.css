@@ -72,6 +72,7 @@
 
   --animate-trail: trail var(--duration) linear infinite;
 
+  --animate-shimmer: shimmer 2s linear infinite;
   --animate-marquee: marquee 20s linear infinite;
 
   @keyframes marquee {
@@ -81,6 +82,11 @@
     100% {
       transform: translateX(-100%);
     }
+  }
+
+  @keyframes shimmer {
+    0% { background-position: 200% center; }
+    100% { background-position: -200% center; }
   }
 
   @keyframes trail {

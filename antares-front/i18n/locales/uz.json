@@ -216,5 +216,11 @@
     "section7-2": "7.2. Shartnomadagi o‘zgarishlardan so‘ng Saytdan foydalanishni davom ettirish, yangi tahrirni avtomatik ravishda qabul qilishni anglatadi.",
     "section7-3": "7.3. Barcha kelishmovchiliklar O‘zbekiston Respublikasi qonunchiligiga muvofiq hal qilinadi.",
     "section7-4": "7.4. Sayt egasi O‘zbekiston Respublikasida ro‘yxatdan o‘tgan \"Antares Investment\" MChJ hisoblanadi."
+  },
+  "maintenance": {
+    "title": "Ta'mirlash ishlari olib borilmoqda",
+    "desc": "Bu bo'lim hozirda to'ldirilmoqda. Keyinroq qaytib keling — biz eng yaxshi kontentni tayyorlamoqdamiz.",
+    "status": "Ishlar davom etmoqda",
+    "close": "Tushundim, davom etish"
   }
 }

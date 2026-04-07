@@ -48,26 +48,9 @@ const HeroSection = () => {
     <main className="relative flex flex-col items-center justify-center py-20 md:min-h-screen md:py-0">
       <div className="relative z-[5] mx-auto h-full w-full space-y-5 px-5 md:space-y-10 md:px-0 lg:max-w-[1400px]">
         <div className="relative z-[2] mx-auto space-y-24 md:w-max md:space-y-10">
-          <h1
-            className="mx-auto w-full max-w-[1000px] text-center font-extrabold uppercase md:leading-[80px]"
-            style={{
-              backgroundImage:
-                "linear-gradient(120deg, #000 20%, #1d4ed8 40%, #60a5fa 50%, #1d4ed8 60%, #000 80%)",
-              backgroundSize: "200% auto",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundClip: "text",
-              animation: "shimmer 3s linear infinite",
-            }}
-          >
+          <h1 className="mx-auto w-full max-w-[1000px] bg-gradient-to-r from-black via-blue-700 to-black bg-clip-text text-center font-extrabold text-transparent uppercase md:leading-[80px]">
             {t("title")}
           </h1>
-          <style>{`
-            @keyframes shimmer {
-              0% { background-position: 200% center; }
-              100% { background-position: -200% center; }
-            }
-          `}</style>
 
           <p className="mx-auto mt-10 max-w-[700px] text-center text-sm md:mt-0 md:text-lg">
             {t("p")}

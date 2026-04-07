@@ -216,5 +216,11 @@
     "section7-2": "7.2. Continued use of the Website after changes implies automatic acceptance of the new version.",
     "section7-3": "7.3. All disputes are resolved under the laws of the Republic of Uzbekistan.",
     "section7-4": "7.4. The Website is owned by Antares Investment LLC, registered in the Republic of Uzbekistan."
+  },
+  "maintenance": {
+    "title": "Under Maintenance",
+    "desc": "This section is currently being prepared. Please check back later — we are working hard to bring you the best content.",
+    "status": "Work in progress",
+    "close": "Got it, continue browsing"
   }
 }
