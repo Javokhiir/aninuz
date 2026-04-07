@@ -1,9 +1,9 @@
-Options -MultiViews
+Options -MultiViews -Indexes
+DirectoryIndex index.html
 RewriteEngine On
 
-# Serve existing files and directories directly
-RewriteCond %{REQUEST_FILENAME} -f [OR]
-RewriteCond %{REQUEST_FILENAME} -d
+# Serve existing files directly (not directories)
+RewriteCond %{REQUEST_FILENAME} -f
 RewriteRule ^ - [L]
 
 # Handle Next.js static export routes
