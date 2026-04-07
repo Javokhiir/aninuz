@@ -10,11 +10,12 @@ export async function generateStaticParams() {
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/brands`)
     const data = await res.json()
-    return (data?.data ?? []).map((brand: { slug: string }) => ({
+    const slugs = (data?.data ?? []).map((brand: { slug: string }) => ({
       companyId: brand.slug,
     }))
+    return slugs.length > 0 ? slugs : [{ companyId: "_" }]
   } catch {
-    return []
+    return [{ companyId: "_" }]
   }
 }
 

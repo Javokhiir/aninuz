@@ -1,0 +1,23 @@
+Options -MultiViews
+RewriteEngine On
+
+# Serve existing files and directories directly
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# Handle Next.js static export routes
+# Dynamic product detail pages: /[locale]/products/[companyId]/[product]
+RewriteRule ^(ru|en|uz)/products/([^/]+)/([^/]+)/?$ /$1/products/_/_/index.html [L]
+
+# Dynamic company products: /[locale]/products/[companyId]
+RewriteRule ^(ru|en|uz)/products/([^/]+)/?$ /$1/products/_/index.html [L]
+
+# Dynamic events: /[locale]/events/[event]
+RewriteRule ^(ru|en|uz)/events/([^/]+)/?$ /$1/events/_/index.html [L]
+
+# Dynamic services: /[locale]/services/[service]
+RewriteRule ^(ru|en|uz)/services/([^/]+)/?$ /$1/services/_/index.html [L]
+
+# Fallback: serve index.html for locale roots
+RewriteRule ^(ru|en|uz)/?$ /$1/index.html [L]

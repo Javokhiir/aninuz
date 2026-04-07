@@ -10,11 +10,12 @@ export async function generateStaticParams() {
       `${process.env.NEXT_PUBLIC_API_URL}/events?expand=images`
     )
     const data = await res.json()
-    return (data?.data ?? []).map((event: { slug: string }) => ({
+    const slugs = (data?.data ?? []).map((event: { slug: string }) => ({
       event: event.slug,
     }))
+    return slugs.length > 0 ? slugs : [{ event: "_" }]
   } catch {
-    return []
+    return [{ event: "_" }]
   }
 }
 

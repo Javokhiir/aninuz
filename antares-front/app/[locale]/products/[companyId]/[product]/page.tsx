@@ -19,9 +19,9 @@ export async function generateStaticParams() {
         params.push({ companyId: brand.slug, product: p.slug })
       )
     }
-    return params
+    return params.length > 0 ? params : [{ companyId: "_", product: "_" }]
   } catch {
-    return []
+    return [{ companyId: "_", product: "_" }]
   }
 }
 
