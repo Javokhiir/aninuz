@@ -48,10 +48,9 @@ const HeroSection = () => {
     <main className="relative flex flex-col items-center justify-center py-20 md:min-h-screen md:py-0">
       <div className="relative z-[5] mx-auto h-full w-full space-y-5 px-5 md:space-y-10 md:px-0 lg:max-w-[1400px]">
         <div className="relative z-[2] mx-auto space-y-24 md:w-max md:space-y-10">
-          <h1 className="mx-auto w-full max-w-[1000px] bg-gradient-to-r from-green-500 via-yellow-400 to-green-500 bg-clip-text text-center font-extrabold text-transparent uppercase md:leading-[80px]">
+          <h1 className="mx-auto w-full max-w-[1000px] bg-gradient-to-r from-black via-blue-700 to-black bg-clip-text text-center font-extrabold text-transparent uppercase md:leading-[80px]">
             {t("title")}
           </h1>
-          <p style={{ color: "red", textAlign: "center", fontSize: "32px", fontWeight: "bold" }}>TEST 123 DEPLOOOOOOOY!</p>
 
           <p className="mx-auto mt-10 max-w-[700px] text-center text-sm md:mt-0 md:text-lg">
             {t("p")}
