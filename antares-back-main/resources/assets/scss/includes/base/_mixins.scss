@@ -1,0 +1,11 @@
+@mixin default-font($type, $weight) {
+    $url: "./fonts/Inter/Inter-#{$type}";
+    @font-face {
+        font-family: 'Inter';
+        src: local('Inter #{type}'), local('Inter-#{type}'),
+            url('#{$url}.eot?#iefix') format('embedded-opentype'),
+            url('#{$url}.woff') format('woff'),
+            url('#{$url}.ttf') format('truetype');
+        font-weight: $weight;
+    }
+}

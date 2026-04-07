@@ -1,0 +1,18 @@
+@include media-breakpoint-up(md) {
+    .sidebar {
+        display: block;
+    }
+
+    .mobile-sidebar {
+        display: none;
+    }
+
+    .content {
+        height: 100vh;
+        margin-left: 290px;
+
+        .navbar {
+            display: flex;
+        }
+    }
+}

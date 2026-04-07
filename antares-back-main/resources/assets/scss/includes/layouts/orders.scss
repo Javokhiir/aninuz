@@ -1,0 +1,82 @@
+.order-detail {
+    .order-control {
+        .btn {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 32px;
+            height: 32px;
+            margin-inline: auto 10px;
+            color: $white;
+            font-size: 14px;
+            background-color: rgba($color: $white, $alpha: .12);
+            border-radius: 10px !important;
+
+            &:hover {
+                background-color: $btn-hover-color;
+            }
+        }
+    }
+
+    .order__progress {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        max-width: 100%;
+        overflow-x: hidden;
+
+        &::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 23px;
+            width: 2px;
+            height: 100%;
+            background: url('../images/order_progress.svg');
+            background-repeat: no-repeat;
+        }
+
+        &-col {
+            display: flex;
+            align-items: center;
+            margin-bottom: 80px;
+            z-index: 1;
+
+            &:last-of-type {
+                margin-bottom: 0;
+            }
+        }
+
+        &-info {
+            margin-left: 20px;
+            margin-right: auto;
+        }
+
+        &-circle {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 50px;
+            height: 50px;
+            font-size: 24px;
+            color: $text-color;
+            background-color: $white;
+            border-radius: 50%;
+            box-shadow: rgba(112, 144, 176, 0.1) 0px 18px 22px inset;
+            transition: .4s ease;
+
+            &.active {
+                color: $btn-hover-color;
+            }
+        }
+
+        &-status {
+            font-size: 30px;
+            color: $text-color;
+
+            &.active {
+                color: $success;
+            }
+        }
+    }
+}

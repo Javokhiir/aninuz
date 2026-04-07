@@ -1,0 +1,126 @@
+.checkout {
+    input[type=checkbox], input[type=radio] {
+        display: none;
+    }
+
+    & input[type=checkbox]:checked~label, & input[type=radio]:checked~label {
+        background: $gray-200;
+        border-color: $primary;
+        border-width: 2px;
+
+        &::before {
+            border-width: 5px;
+        }
+    }
+
+    .radio-input {
+        position: relative;
+        display: flex;
+        align-items: center;
+        padding: .5rem 2.5rem .5rem .9375rem;
+        height: 75px;
+        border: 1px solid $gray-400;
+        border-radius: 5px;
+        cursor: pointer;
+
+        div {
+            margin: 0 .5em;
+
+            &:first-of-type {
+                margin-left: 0;
+            }
+
+            &:last-of-type {
+                margin-right: 0;
+            }
+        }
+
+        .radio-label_title {
+            padding-left: 1.5em;
+            font-weight: 600;
+            line-height: 20px;
+        }
+
+        .radio-label__description {
+            line-height: 20px;
+        }
+
+        .radio-label__img {
+            width: 65px;
+            height: 100%;
+            padding: 3px;
+            border: 1px solid rgba($color: $primary, $alpha: .7);
+            border-radius: 5px;
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+            }
+        }
+
+        &::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: 10px;
+            width: 14px;
+            height: 14px;
+            border: 1px solid $primary;
+            border-radius: 50%;
+        }
+
+        &:hover {
+            background: $gray-200;
+            border-color: $primary;
+            border-width: 2px;
+        }
+    }
+
+    .products {
+        .col {
+            margin: 0;
+            padding: 0;
+
+            .card {
+                padding: 25px 0;
+                border: none;
+                border-bottom: 1px solid $gray-400;
+                border-radius: 0;
+
+                .card-title {
+                    margin-bottom: 0;
+                }
+
+                .card-body {
+                    padding: 0;
+                    margin-left: 15px;
+                    text-align: left;
+                }
+            }
+
+            .img-block {
+                height: 90px;
+                margin-bottom: 0;
+                background-color: $gray-200;
+                border: none;
+
+                img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                }
+            }
+
+            .star-ratings-css {
+                margin: 15px 0;
+                font-size: 16px;
+            }
+        
+            .card-title, .price {
+                font-size: 14px;
+            }
+        }
+    }
+}
