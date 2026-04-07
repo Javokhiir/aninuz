@@ -51,7 +51,7 @@ const HeroSection = () => {
           <h1 className="mx-auto w-full max-w-[1000px] bg-gradient-to-r from-green-500 via-yellow-400 to-green-500 bg-clip-text text-center font-extrabold text-transparent uppercase md:leading-[80px]">
             {t("title")}
           </h1>
-          <p style={{ color: "red", textAlign: "center", fontSize: "24px" }}>AUTO DEPLOY TEST ✓</p>
+          <p style={{ color: "red", textAlign: "center", fontSize: "32px", fontWeight: "bold" }}>🚀 DEPLOY ISHLAYAPTI!</p>
 
           <p className="mx-auto mt-10 max-w-[700px] text-center text-sm md:mt-0 md:text-lg">
             {t("p")}
