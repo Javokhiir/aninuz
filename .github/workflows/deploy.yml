@@ -45,7 +45,8 @@ jobs:
       - name: Build static export
         working-directory: antares-front
         run: npm run build
-        # next.config.ts da output: "export" bor, build qilganda "out" papka hosil bo'ladi
+        env:
+          NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
 
       - name: Deploy to cPanel public_html via SSH
         uses: appleboy/scp-action@v0.1.7
