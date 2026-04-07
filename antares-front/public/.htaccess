@@ -1,23 +1,26 @@
-Options -MultiViews -Indexes
+Options -Indexes
 DirectoryIndex index.html
 RewriteEngine On
 
-# Serve existing files directly (not directories)
+# Serve existing files directly
 RewriteCond %{REQUEST_FILENAME} -f
 RewriteRule ^ - [L]
 
-# Handle Next.js static export routes
-# Dynamic product detail pages: /[locale]/products/[companyId]/[product]
+# /en/ /ru/ /uz/ → locale/index.html
+RewriteRule ^(ru|en|uz)/?$ /$1/index.html [L]
+
+# Dynamic product detail: /[locale]/products/[brand]/[product]
 RewriteRule ^(ru|en|uz)/products/([^/]+)/([^/]+)/?$ /$1/products/_/_/index.html [L]
 
-# Dynamic company products: /[locale]/products/[companyId]
+# Dynamic company: /[locale]/products/[brand]
 RewriteRule ^(ru|en|uz)/products/([^/]+)/?$ /$1/products/_/index.html [L]
 
-# Dynamic events: /[locale]/events/[event]
+# Dynamic events
 RewriteRule ^(ru|en|uz)/events/([^/]+)/?$ /$1/events/_/index.html [L]
 
-# Dynamic services: /[locale]/services/[service]
+# Dynamic services
 RewriteRule ^(ru|en|uz)/services/([^/]+)/?$ /$1/services/_/index.html [L]
 
-# Fallback: serve index.html for locale roots
-RewriteRule ^(ru|en|uz)/?$ /$1/index.html [L]
+# /[locale]/[page]/ → locale/page/index.html
+RewriteCond %{REQUEST_FILENAME}/index.html -f
+RewriteRule ^(.+?)/?$ /$1/index.html [L]
