@@ -1,6 +1,6 @@
 "use client"
 
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { motion } from "framer-motion"
 import { useTranslations } from "next-intl"
 
@@ -9,6 +9,14 @@ import { Icons } from "@/components/icons"
 
 const WhySection = () => {
   const t = useTranslations("about.whyUs")
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    setIsMobile(window.innerWidth <= 768)
+    const handleResize = () => setIsMobile(window.innerWidth <= 768)
+    window.addEventListener("resize", handleResize)
+    return () => window.removeEventListener("resize", handleResize)
+  }, [])
   return (
     <section className="layout-container space-y-10 overflow-y-clip md:space-y-20">
       <h2 className="w-full bg-gradient-to-r from-black via-blue-700 to-black bg-clip-text text-center font-extrabold text-transparent uppercase md:text-left md:leading-16">
@@ -47,7 +55,7 @@ const WhySection = () => {
             whileInView={{
               opacity: 1,
               marginTop: 0,
-              rotate: window.innerWidth <= 768 ? -15 : -20,
+              rotate: isMobile ? -15 : -20,
             }}
             transition={{ duration: 1, delay: 0.6 }}
             viewport={{ once: true }}
@@ -62,7 +70,7 @@ const WhySection = () => {
             whileInView={{
               opacity: 1,
               marginTop: 0,
-              rotate: window.innerWidth <= 768 ? -25 : 22,
+              rotate: isMobile ? -25 : 22,
             }}
             transition={{ duration: 1, delay: 0.4 }}
             viewport={{ once: true }}
@@ -75,11 +83,11 @@ const WhySection = () => {
           <motion.div
             initial={{
               opacity: 0,
-              marginTop: window.innerWidth <= 768 ? "-20rem" : "-40rem",
+              marginTop: isMobile ? "-20rem" : "-40rem",
             }}
             whileInView={{
               opacity: 1,
-              marginTop: window.innerWidth <= 768 ? "0rem" : "-2rem",
+              marginTop: isMobile ? "0rem" : "-2rem",
             }}
             viewport={{ once: true }}
             transition={{ duration: 1 }}
@@ -93,8 +101,8 @@ const WhySection = () => {
             initial={{ opacity: 0, marginTop: -600, rotate: 0 }}
             whileInView={{
               opacity: 1,
-              marginTop: window.innerWidth <= 768 ? -40 : 0,
-              rotate: window.innerWidth <= 768 ? 0 : -15,
+              marginTop: isMobile ? -40 : 0,
+              rotate: isMobile ? 0 : -15,
             }}
             transition={{ duration: 1, delay: 0.2 }}
             viewport={{ once: true }}

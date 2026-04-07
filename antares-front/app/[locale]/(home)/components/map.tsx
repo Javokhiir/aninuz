@@ -1,3 +1,5 @@
+"use client"
+
 import React from "react"
 import Map from "@/public/images/map/map"
 import { useTranslations } from "next-intl"

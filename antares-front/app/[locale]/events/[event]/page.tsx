@@ -1,7 +1,9 @@
+import { setRequestLocale } from "next-intl/server"
+
 import EventId from "./components"
 
 interface Props {
-  params: Promise<{ event: string }>
+  params: Promise<{ locale: string; event: string }>
 }
 
 export async function generateStaticParams() {
@@ -20,7 +22,8 @@ export async function generateStaticParams() {
 }
 
 const EventsPage = async ({ params }: Props) => {
-  const { event } = await params
+  const { locale, event } = await params
+  setRequestLocale(locale)
   return <EventId event={event} />
 }
 

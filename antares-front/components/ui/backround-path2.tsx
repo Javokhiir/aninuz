@@ -61,13 +61,19 @@ function FloatingPaths({ position }: { position: number }) {
 
 export function BackgroundPaths() {
   const [currentIndex, setCurrentIndex] = useState(0)
+  const [winWidth, setWinWidth] = useState(1024)
 
   useEffect(() => {
+    setWinWidth(window.innerWidth)
+    const handleResize = () => setWinWidth(window.innerWidth)
+    window.addEventListener("resize", handleResize)
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % 3)
     }, 3000)
-
-    return () => clearInterval(interval)
+    return () => {
+      clearInterval(interval)
+      window.removeEventListener("resize", handleResize)
+    }
   }, [])
   const renderCarouselItem = (activeIndex: number) => (
     <CarouselItem className="flex h-[60px] items-center gap-2">
@@ -125,16 +131,16 @@ export function BackgroundPaths() {
               <Icons.ArrowRight className="absolute max-w-[15px] -rotate-[30deg] text-white md:max-w-[18px] lg:max-w-[25px]" />
               <SpinningText
                 radius={
-                  window.innerWidth < 768
+                  winWidth < 768
                     ? 4
-                    : window.innerWidth < 1024
+                    : winWidth < 1024
                       ? 4.25
                       : 4.5
                 }
                 fontSize={
-                  window.innerWidth < 768
+                  winWidth < 768
                     ? 0.5
-                    : window.innerWidth < 1024
+                    : winWidth < 1024
                       ? 0.7
                       : 0.8
                 }

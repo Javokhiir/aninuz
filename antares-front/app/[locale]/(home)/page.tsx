@@ -1,3 +1,6 @@
+import { setRequestLocale } from "next-intl/server"
+import { Locale } from "@/i18n/routing"
+
 import FieldsSection from "./components/fields"
 import HeroSection from "./components/hero"
 import LineSection from "./components/line"
@@ -5,7 +8,13 @@ import MapSection from "./components/map"
 import Partners from "./components/partners"
 import StepperSection from "./components/stepper"
 
-export default function Home() {
+export default async function Home({
+  params,
+}: {
+  params: Promise<{ locale: Locale }>
+}) {
+  const { locale } = await params
+  setRequestLocale(locale)
   return (
     <div className="space-y-10 md:space-y-20">
       <HeroSection />

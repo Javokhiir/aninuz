@@ -1,9 +1,10 @@
 import React from "react"
+import { setRequestLocale } from "next-intl/server"
 
 import CompanyProducts from "./components"
 
 interface Props {
-  params: Promise<{ companyId: string }>
+  params: Promise<{ locale: string; companyId: string }>
 }
 
 export async function generateStaticParams() {
@@ -20,7 +21,8 @@ export async function generateStaticParams() {
 }
 
 const CompanyIdPage = async ({ params }: Props) => {
-  const { companyId } = await params
+  const { locale, companyId } = await params
+  setRequestLocale(locale)
   return <CompanyProducts companyId={companyId} />
 }
 

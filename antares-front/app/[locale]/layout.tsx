@@ -6,7 +6,9 @@ import "./globals.css"
 import { routing, Locale } from "@/i18n/routing"
 import { siteConfig } from "@/siteConfig"
 import { NextIntlClientProvider } from "next-intl"
-import { getMessages } from "next-intl/server"
+import { getMessages, setRequestLocale } from "next-intl/server"
+
+import { Suspense } from "react"
 
 import { Toaster } from "@/components/ui/sonner"
 import Footer from "@/components/footer"
@@ -60,6 +62,7 @@ const RootLayout = async ({
 }>) => {
   const { locale: finalLocale } = await params
 
+  setRequestLocale(finalLocale)
   const messages = await getMessages({ locale: finalLocale })
   return (
     <html lang={finalLocale} suppressHydrationWarning>
@@ -69,7 +72,9 @@ const RootLayout = async ({
       >
         <Providers>
           <NextIntlClientProvider messages={messages} locale={finalLocale}>
-            <NavBar />
+            <Suspense>
+              <NavBar />
+            </Suspense>
             <div className="min-h-svh pt-[60px] md:mt-[90px] md:pt-0">
               {children}
             </div>
