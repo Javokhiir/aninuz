@@ -1,0 +1,59 @@
+import { cn } from "@/lib/utils"
+
+interface AnimatedTrailProps extends React.HTMLAttributes<HTMLDivElement> {
+  /**
+   * The duration of the animation.
+   * @default "10s"
+   */
+  duration?: string
+
+  contentClassName?: string
+
+  trailColor?: string
+  trailSize?: "sm" | "md" | "lg"
+}
+
+const sizes = {
+  sm: 5,
+  md: 10,
+  lg: 20,
+}
+
+export default function AnimatedBorderTrail({
+  children,
+  className,
+  duration = "10s",
+  trailColor = "#1B3BAB",
+  trailSize = "md",
+  contentClassName,
+  ...props
+}: AnimatedTrailProps) {
+  return (
+    <div
+      {...props}
+      className={cn(
+        "relative z-[10] h-fit w-fit rounded-2xl bg-gray-200 p-[2px]",
+        className
+      )}
+    >
+      <div
+        className="animate-trail absolute inset-0 z-[10] h-full w-full"
+        style={
+          {
+            "--duration": duration ?? "10s",
+            "--angle": "0deg",
+            background: `conic-gradient(from var(--angle) at 50% 50%, transparent ${100 - sizes[trailSize]}%, ${trailColor})`,
+          } as React.CSSProperties
+        }
+      />
+      <div
+        className={cn(
+          "relative z-[10] h-full w-full rounded-[15px] bg-white",
+          contentClassName
+        )}
+      >
+        {children}
+      </div>
+    </div>
+  )
+}

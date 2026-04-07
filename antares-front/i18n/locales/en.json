@@ -1,0 +1,220 @@
+{
+  "nav": {
+    "home": "Home",
+    "products": "Products",
+    "services": "More",
+    "childServices": "Services",
+    "certificates": "Certificates",
+    "events": "Events",
+    "catalog": "Catalogs",
+    "about": "About Us",
+    "contact": "Contact",
+    "gallery": "Gallery"
+  },
+  "footer": {
+    "title": "Get in touch with us",
+    "home": "Home",
+    "products": "Products",
+    "about": "About Us",
+    "contact": "Contact",
+    "desc": "Leave a request – our manager will contact you",
+    "descBold": "within 10 minutes!",
+    "leaveRequestBtn": "Leave a request",
+    "userAgreement": "User agreement"
+  },
+  "home": {
+    "hero": {
+      "title": "Innovations and solutions that help",
+      "p": "The products and solutions we offer are guaranteed to improve your processes and make your business more modern",
+      "goToCatalogBtn": "Go to products",
+      "spinningText": "Equipment • of the future •",
+      "100Subtitle": "Investment tools",
+      "richYourGoal": "Achieve your goals with our innovative platform",
+      "carousel1": "Reliable supply of equipment and components",
+      "carousel2": "Professional 24/7 technical support",
+      "carousel3": "Customized solutions for your business"
+    },
+    "partners": {
+      "title": "We work with leading partners"
+    },
+    "stepper": {
+      "title": "Antares Investments — a modern solution for industry across Uzbekistan",
+      "subtitle": "We offer various tools, components, and equipment for industries such as engineering, energy, oil & gas, and metallurgy.",
+      "more": "More about the company",
+      "step1": "Direct deliveries from manufacturers",
+      "step2": "Quality assurance and certification",
+      "step3": "Fast logistics and personalized solutions"
+    },
+    "fields": {
+      "title": "INDUSTRIES",
+      "subtitle": "We supply equipment and provide warranty service",
+      "field1": "Mechanical Engineering",
+      "field1Desc": "Parts, units, and assemblies",
+      "field2": "Energy",
+      "field2Desc": "Components for power plants",
+      "field3": "Oil & Gas",
+      "field3Desc": "Reliable solutions for tough conditions",
+      "field4": "Metallurgy",
+      "field4Desc": "Parts, units, and assemblies"
+    },
+    "map": {
+      "title": "Service Area",
+      "subtitle": "Reliable delivery of equipment and components for industry across Uzbekistan"
+    },
+    "line": {
+      "title": "HOW WE WORK"
+    }
+  },
+  "about": {
+    "hero": {
+      "title": "About the Company",
+      "subtitleBold": "Your reliable partner in industrial supply",
+      "subtitle": "Antares Investments is a team of professionals specializing in comprehensive supply of components and industrial equipment for key sectors of the economy."
+    },
+    "whyUs": {
+      "title": "Why choose us?",
+      "subtitle": "Reliable equipment supplier for industry",
+      "getInTouch": "Contact us",
+      "bubble1": "Flexibility and individual approach",
+      "bubble2": "Certified quality",
+      "bubble3": "Direct deliveries from manufacturers",
+      "bubble4": "Fast logistics"
+    },
+    "offers": {
+      "title": "What do we offer?",
+      "card1Title": "Spare parts and components",
+      "card1Text": "Wide range of parts for industrial equipment",
+      "card2Title": "Tools",
+      "card2Text": "Tool sets for maintaining your equipment",
+      "card3Title": "Comprehensive solutions",
+      "card3Text": "Design and installation of equipment for your business",
+      "card4Title": "Custom deliveries",
+      "card4Text": "Sourcing and delivery of specific parts and specialized tools to order"
+    }
+  },
+  "contacts": {
+    "title": "Get in touch — we are always available!",
+    "contactInfo": "CONTACT INFORMATION",
+    "address": "Republic of Uzbekistan, Shakhrisabz city, Ipak Yuli Street 90A",
+    "leaveRequest": "Leave a request – our manager will contact you within 10 minutes!",
+    "leaveRequestBtn": "Send request",
+    "name": "Name",
+    "email": "Email",
+    "phoneNumber": "Phone number",
+    "message": "Message"
+  },
+  "catalog": {
+    "title": "catalog",
+    "notFound": "Catalog not found"
+  },
+  "cart": {
+    "title": "cart",
+    "priceoOnRequest": "PRICE UPON REQUEST",
+    "emptyCart": "Your cart is empty"
+  },
+  "checkout": {
+    "title": "checkout",
+    "credentials": "Your Information",
+    "name": "First Name",
+    "surname": "Last Name",
+    "email": "Email",
+    "phoneNumber": "Phone number",
+    "city": "City for delivery",
+    "cityPlaceholder": "Tashkent",
+    "address": "Delivery address",
+    "addressPlaceholder": "Pushkin St.",
+    "btn": "Submit request",
+    "price": "PRICE UPON REQUEST"
+  },
+  "certificates": {
+    "title": "CERTIFICATES",
+    "quotation": "Reliability and quality",
+    "quotationSubtitle": "We strive for high quality and reliability in our products and services.",
+    "10years": "years",
+    "experience": "Of experience leading to success"
+  },
+  "events": {
+    "title": "Corporate events and exhibitions",
+    "learnMore": "Learn more",
+    "nearestEvents": "Upcoming events",
+    "notFound": "No events found"
+  },
+  "products": {
+    "title": "Products",
+    "notFound": "No products found",
+    "filter": "Filter",
+    "all": "All",
+    "filterSuccess": "Filter successfully applied!",
+    "productCard": {
+      "price": "Price upon request",
+      "more": "More details"
+    },
+    "productId": {
+      "functionalities": "Functions",
+      "findOutPrice": "Find out the price",
+      "sendRequest": "Send request",
+      "requestHasBeenSent": "Request has been sent!",
+      "smthWentWrong": "Something went wrong",
+      "leaveYourContact": "Leave your contacts and we will contact you",
+      "name": "Full Name",
+      "phone": "Phone number",
+      "price": "PRICE UPON REQUEST",
+      "addToCard": "add to cart",
+      "technicalDetails": "Technical specifications",
+      "faq": "Frequently Asked Questions",
+      "detailedView": "Detailed view of the tool"
+    }
+  },
+  "services": {
+    "title": "Services"
+  },
+  "error": {
+    "title": "Oops, something went wrong!",
+    "subtitle": "Sorry for the inconvenience. Please try again later."
+  },
+  "notFound": {
+    "title": "Oops, something went wrong!",
+    "subtitle": "Unfortunately, we can't find the page you're looking for."
+  },
+  "gallery": {
+    "title": " Every photo — a request fulfilled",
+    "subtitle": " We showcase how deliveries and projects are implemented according to client needs. Equipment, specialists, and tools — just as they are.",
+    "individual": "Industrial precision in the frame",
+    "quote": "Photos from real facilities, production sites, and implementation stages. Custom solutions for every project — in action"
+  },
+  "userAgreement": {
+    "title": "User Agreement",
+    "revision": "Revision as of April 22, 2025",
+    "section1Title": "1. General Provisions",
+    "section1-1": "1.1. By using the Website, the User confirms that they are familiar with and agree to the terms of this Agreement.",
+    "section1-2": "1.2. If the User does not agree to the terms of the Agreement, they must immediately stop using the Website.",
+    "section1-3": "1.3. The Website is for informational purposes only and is not an online store, e-commerce platform, or paid service.",
+    "section2Title": "2. Purpose of the Website",
+    "section2-1": "2.1. The Website provides information about events, galleries, projects, and products of Antares Investment.",
+    "section2-2": "2.2. All data (including text, images, catalogs, project descriptions) are for free viewing and do not constitute a public offer.",
+    "section2-3": "2.3. Prices and online payment through the Website are not provided.",
+    "section3Title": "3. Use of the Feedback Form",
+    "section3-1": "3.1. The Website contains a feedback form intended for collecting messages and inquiries from Users.",
+    "section3-2": "3.2. By submitting a message, the User agrees to transmit the entered data to the Company and its processing in accordance with the Privacy Policy.",
+    "section4Title": "4. Personal Data",
+    "section4-1": "4.1. When using the feedback form, the User voluntarily provides personal data (e.g., name, email, phone number).",
+    "section4-2": "4.2. All personal data is processed in accordance with the Law of the Republic of Uzbekistan \"On Personal Data.\"",
+    "section4-3": "4.3. The Company agrees to use the data only for contacting the User and not to share it with third parties without legal grounds.",
+    "section5Title": "5. Intellectual Property",
+    "section5-1": "5.1. All materials on the Website, including texts, images, logos, design elements, and the Website structure, are the intellectual property of Antares Investment LLC or are used legally.",
+    "section5-2": "5.2. Copying, distribution, and commercial or public use without written consent of the copyright holder is prohibited.",
+    "section6Title": "6. Restrictions and Liability",
+    "section6-1": "6.1. The User is allowed to:",
+    "section6-1-list1": "view any information posted on the Website;",
+    "section6-1-list2": "use the feedback form to send messages.",
+    "section6-2": "6.2. The User is prohibited from:",
+    "section6-2-list1": "attempting to damage, hack, or otherwise disrupt the Website;",
+    "section6-2-list2": "posting spam or malicious data via the feedback form.",
+    "section6-3": "6.3. The Company is not responsible for temporary interruptions, data loss, or possible technical errors.",
+    "section7Title": "7. Final Provisions",
+    "section7-1": "7.1. This Agreement may be amended without prior notice. The current version is always available on the Website.",
+    "section7-2": "7.2. Continued use of the Website after changes implies automatic acceptance of the new version.",
+    "section7-3": "7.3. All disputes are resolved under the laws of the Republic of Uzbekistan.",
+    "section7-4": "7.4. The Website is owned by Antares Investment LLC, registered in the Republic of Uzbekistan."
+  }
+}

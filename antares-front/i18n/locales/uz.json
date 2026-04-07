@@ -1,0 +1,220 @@
+{
+  "nav": {
+    "home": "Bosh sahifa",
+    "products": "Mahsulotlar",
+    "services": "Boshqalar",
+    "childServices": "Xizmatlar",
+    "certificates": "Sertifikatlar",
+    "events": "Tadbirlar",
+    "catalog": "Kataloglar",
+    "about": "Biz haqimizda",
+    "contact": "Bogʻlanish",
+    "gallery": "Galereya"
+  },
+  "footer": {
+    "title": "Biz bilan bogʻlaning",
+    "home": "Bosh sahifa",
+    "products": "Mahsulotlar",
+    "about": "Biz haqimizda",
+    "contact": "Bogʻlanish",
+    "desc": "Soʻrov qoldiring — menejerimiz siz bilan",
+    "descBold": "10 daqiqa ichida bogʻlanadi!",
+    "leaveRequestBtn": "Soʻrov qoldirish",
+    "userAgreement": "Foydalanuvchi kelishuvi"
+  },
+  "home": {
+    "hero": {
+      "title": "Jarayonlarga yordam beruvchi innovatsiyalar va yechimlar",
+      "p": "Biz taklif qilayotgan mahsulotlar va yechimlar sizning jarayonlaringizni yaxshilaydi va biznesingizni zamonaviylashtiradi",
+      "goToCatalogBtn": "Mahsulotlarga oʻtish",
+      "spinningText": "Kelajak uskunalari •",
+      "100Subtitle": "Investitsion vositalar",
+      "richYourGoal": "Innovatsion platformamiz bilan maqsadlaringizga erishing",
+      "carousel1": "Uskuna va butlovchi qismlarni ishonchli yetkazib berish",
+      "carousel2": "24/7 texnik yordam xizmati",
+      "carousel3": "Biznesingiz uchun moslashtirilgan yechimlar"
+    },
+    "partners": {
+      "title": "Biz yetakchi hamkorlar bilan ishlaymiz"
+    },
+    "stepper": {
+      "title": "Antares Investments — butun O‘zbekiston bo‘ylab sanoat uchun zamonaviy yechim",
+      "subtitle": "Biz muhandislik, energetika, neft-gaz va metallurgiya kabi sohalar uchun turli xil uskunalar, komponentlar va vositalarni taklif qilamiz.",
+      "more": "Kompaniya haqida batafsil",
+      "step1": "Ishlab chiqaruvchilardan toʻgʻridan-toʻgʻri yetkazib berish",
+      "step2": "Sifat kafolati va sertifikatlash",
+      "step3": "Tez logistika va individual yechimlar"
+    },
+    "fields": {
+      "title": "SOHALAR",
+      "subtitle": "Biz uskuna yetkazib beramiz va kafolatli xizmat koʻrsatamiz",
+      "field1": "Mashinasozlik",
+      "field1Desc": "Ehtiyot qismlar, agregatlar va uzellar",
+      "field2": "Energetika",
+      "field2Desc": "Elektr stansiyalari uchun komponentlar",
+      "field3": "Neft va gaz",
+      "field3Desc": "Ogʻir sharoitlar uchun ishonchli yechimlar",
+      "field4": "Metallurgiya",
+      "field4Desc": "Ehtiyot qismlar, agregatlar va uzellar"
+    },
+    "map": {
+      "title": "Xizmat koʻrsatish hududi",
+      "subtitle": "Butun Oʻzbekiston boʻylab sanoat uchun uskuna va qismlarni ishonchli yetkazib berish"
+    },
+    "line": {
+      "title": "ISHLASH TARTIBIMIZ"
+    }
+  },
+  "about": {
+    "hero": {
+      "title": "Kompaniya haqida",
+      "subtitleBold": "Sanoat ta’minotida ishonchli hamkoringiz",
+      "subtitle": "Antares Investments — bu asosiy iqtisodiy sohalar uchun uskunalar va komponentlar bilan kompleks ta’minotga ixtisoslashgan professionallar jamoasi."
+    },
+    "whyUs": {
+      "title": "Nega aynan biz?",
+      "subtitle": "Sanoat uchun ishonchli uskuna yetkazib beruvchi",
+      "getInTouch": "Biz bilan bogʻlaning",
+      "bubble1": "Moslashuvchanlik va individual yondashuv",
+      "bubble2": "Sertifikatlangan sifat",
+      "bubble3": "Toʻgʻridan-toʻgʻri ishlab chiqaruvchilardan yetkazib berish",
+      "bubble4": "Tez logistika"
+    },
+    "offers": {
+      "title": "Biz nimalarni taklif qilamiz?",
+      "card1Title": "Ehtiyot qismlar va komponentlar",
+      "card1Text": "Sanoat uskunalari uchun keng assortimentdagi qismlar",
+      "card2Title": "Asboblar",
+      "card2Text": "Uskunalaringizni saqlash uchun asboblar to‘plami",
+      "card3Title": "Kompleks yechimlar",
+      "card3Text": "Biznesingiz uchun uskuna loyihalash va o‘rnatish",
+      "card4Title": "Buyurtma asosidagi yetkazib berish",
+      "card4Text": "Muayyan qismlar va maxsus asboblarni izlab topish va yetkazib berish"
+    }
+  },
+  "contacts": {
+    "title": "Bogʻlaning — biz har doim aloqadamiz!",
+    "contactInfo": "ALOQA MA'LUMOTLARI",
+    "address": "O‘zbekiston Respublikasi, Shahrisabz shahri, Ipak Yo‘li ko‘chasi 90A",
+    "leaveRequest": "Soʻrov qoldiring — menejerimiz siz bilan 10 daqiqa ichida bogʻlanadi!",
+    "leaveRequestBtn": "Soʻrov yuborish",
+    "name": "Ism",
+    "email": "Elektron pochta",
+    "phoneNumber": "Telefon raqami",
+    "message": "Xabar"
+  },
+  "catalog": {
+    "title": "katalog",
+    "notFound": "Katalog topilmadi"
+  },
+  "cart": {
+    "title": "savat",
+    "priceoOnRequest": "NARX SO‘ROV ASOSIDA",
+    "emptyCart": "Savatingiz boʻsh"
+  },
+  "checkout": {
+    "title": "buyurtma",
+    "credentials": "Ma'lumotlaringiz",
+    "name": "Ism",
+    "surname": "Familiya",
+    "email": "Email",
+    "phoneNumber": "Telefon raqami",
+    "city": "Yetkazib berish shahri",
+    "cityPlaceholder": "Toshkent",
+    "address": "Yetkazib berish manzili",
+    "addressPlaceholder": "Pushkin ko'chasi",
+    "btn": "Soʻrov yuborish",
+    "price": "NARX SO‘ROV ASOSIDA"
+  },
+  "certificates": {
+    "title": "SERTIFIKATLAR",
+    "quotation": "Ishonchlilik va sifat",
+    "quotationSubtitle": "Biz mahsulotlarimiz va xizmatlarimizda yuqori sifat va ishonchlilikka intilamiz.",
+    "10years": "yil",
+    "experience": "Muvaffaqiyat sari tajriba"
+  },
+  "events": {
+    "title": "Korporativ tadbirlar va ko‘rgazmalar",
+    "learnMore": "Batafsil",
+    "nearestEvents": "Yaqin tadbirlar",
+    "notFound": "Tadbirlar topilmadi"
+  },
+  "products": {
+    "title": "Mahsulotlar",
+    "notFound": "Mahsulotlar topilmadi",
+    "filter": "Filter",
+    "all": "Barchasi",
+    "filterSuccess": "Filter muvaffaqiyatli yoqildi!",
+    "productCard": {
+      "price": "Narx soʻrov asosida",
+      "more": "Batafsil"
+    },
+    "productId": {
+      "functionalities": "Funktsiyalar",
+      "findOutPrice": "Narxni aniqlash",
+      "name": "Ism Familya",
+      "requestHasBeenSent": "So'rov muvaffaqiyatli yuborildi!",
+      "smthWentWrong": "Xatolik yuz berdi!",
+      "phone": "Telefon raqam",
+      "sendRequest": "Soʻrov yuborish",
+      "leaveYourContact": "Ma'lumotlaringizni qoldiring — biz siz bilan bogʻlanamiz!",
+      "price": "NARX SO‘ROV ASOSIDA",
+      "addToCard": "savatga qoʻshish",
+      "technicalDetails": "Texnik xususiyatlar",
+      "faq": "Koʻp soʻraladigan savollar",
+      "detailedView": "Asbobning batafsil koʻrinishi"
+    }
+  },
+  "services": {
+    "title": "Xizmatlar"
+  },
+  "error": {
+    "title": "Voy, nimadadir xato yuz berdi!",
+    "subtitle": "Noqulaylik uchun uzr soʻraymiz. Iltimos, keyinroq urinib koʻring."
+  },
+  "notFound": {
+    "title": "Voy, sahifa topilmadi!",
+    "subtitle": "Afsuski, siz izlayotgan sahifani topa olmadik."
+  },
+  "gallery": {
+    "title": "Har bir surat — bajarilgan buyurtma",
+    "subtitle": "Biz buyurtmachilar ehtiyojiga binoan yetkazilgan uskunalar va amalga oshirilgan loyihalarni namoyish qilamiz. Uskunalar, mutaxassislar va asboblar — qanday boʻlsa, shunday.",
+    "individual": "Sanoat aniqligi kadrlarda",
+    "quote": "Haqiqiy obyektlar, ishlab chiqarish maydonchalari va amalga oshirish bosqichlaridan olingan suratlar. Har bir loyiha uchun individual yechimlar — ishda"
+  },
+  "userAgreement": {
+    "title": "Foydalanuvchi shartnomasi",
+    "revision": "2025-yil 22-apreldagi tahrir",
+    "section1Title": "1. Umumiy qoidalar",
+    "section1-1": "1.1. Saytdan foydalangan holda, Foydalanuvchi ushbu Shartnoma shartlari bilan tanishganini va rozi ekanini tasdiqlaydi.",
+    "section1-2": "1.2. Agar Foydalanuvchi Shartnoma shartlariga rozi bo‘lmasa, u darhol Saytdan foydalanishni to‘xtatishi kerak.",
+    "section1-3": "1.3. Sayt faqat axborot maqsadida ishlaydi va onlayn do‘kon, elektron savdo maydonchasi yoki pullik xizmat emas.",
+    "section2Title": "2. Saytning maqsadi",
+    "section2-1": "2.1. Sayt Antares Investment kompaniyasining tadbirlari, galereyalari, loyihalari va mahsulotlari haqida ma'lumot beradi.",
+    "section2-2": "2.2. Barcha ma'lumotlar (matnlar, tasvirlar, kataloglar, loyiha tavsiflari) erkin ko‘rish uchun mo‘ljallangan va ommaviy oferta hisoblanmaydi.",
+    "section2-3": "2.3. Narxlar va onlayn to‘lovlar Sayt orqali taqdim etilmaydi.",
+    "section3Title": "3. Aloqa shaklidan foydalanish",
+    "section3-1": "3.1. Saytda foydalanuvchilarning xabarlari va so‘rovlarini qabul qilish uchun aloqa shakli mavjud.",
+    "section3-2": "3.2. Xabar yuborish orqali Foydalanuvchi Kompaniyaga ma'lumot uzatishga va maxfiylik siyosatiga muvofiq ularni qayta ishlashga rozi bo‘ladi.",
+    "section4Title": "4. Shaxsiy ma'lumotlar",
+    "section4-1": "4.1. Aloqa shaklidan foydalanish paytida foydalanuvchi o‘zining shaxsiy ma'lumotlarini (masalan, ism, email, telefon raqami) ixtiyoriy ravishda taqdim etadi.",
+    "section4-2": "4.2. Barcha shaxsiy ma'lumotlar O‘zbekiston Respublikasi \"Shaxsiy ma'lumotlar to‘g‘risida\"gi Qonunga muvofiq qayta ishlanadi.",
+    "section4-3": "4.3. Kompaniya ushbu ma'lumotlardan faqat foydalanuvchi bilan bog‘lanish uchun foydalanadi va qonuniy asoslarsiz uchinchi shaxslarga bermaydi.",
+    "section5Title": "5. Intellektual mulk",
+    "section5-1": "5.1. Saytda joylashtirilgan barcha materiallar (matnlar, rasmlar, logotiplar, dizayn elementlari va sayt tuzilmasi) \"Antares Investment\" MChJ intellektual mulki hisoblanadi yoki qonuniy asosda foydalaniladi.",
+    "section5-2": "5.2. Materiallarni nusxalash, tarqatish va tijorat yoki ommaviy maqsadlarda ishlatish huquq egasining yozma roziligisiz taqiqlanadi.",
+    "section6Title": "6. Cheklovlar va javobgarlik",
+    "section6-1": "6.1. Foydalanuvchiga quyidagilar ruxsat etiladi:",
+    "section6-1-list1": "Saytda joylashtirilgan istalgan ma'lumotni ko‘rish;",
+    "section6-1-list2": "Aloqa shakli orqali xabar yuborish.",
+    "section6-2": "6.2. Foydalanuvchiga quyidagilar taqiqlanadi:",
+    "section6-2-list1": "Saytni buzishga, unga zarar yetkazishga yoki faoliyatiga aralashishga harakat qilish;",
+    "section6-2-list2": "Aloqa shakli orqali spam yoki zararli ma'lumot yuborish.",
+    "section6-3": "6.3. Kompaniya saytning vaqtincha ishlamasligi, ma'lumot yo‘qolishi yoki texnik xatoliklar uchun javobgar emas.",
+    "section7Title": "7. Yakuniy qoidalar",
+    "section7-1": "7.1. Ushbu Shartnoma foydalanuvchilarga ogohlantirishsiz o‘zgartirilishi mumkin. Har doim Saytda eng so‘nggi versiya mavjud.",
+    "section7-2": "7.2. Shartnomadagi o‘zgarishlardan so‘ng Saytdan foydalanishni davom ettirish, yangi tahrirni avtomatik ravishda qabul qilishni anglatadi.",
+    "section7-3": "7.3. Barcha kelishmovchiliklar O‘zbekiston Respublikasi qonunchiligiga muvofiq hal qilinadi.",
+    "section7-4": "7.4. Sayt egasi O‘zbekiston Respublikasida ro‘yxatdan o‘tgan \"Antares Investment\" MChJ hisoblanadi."
+  }
+}
