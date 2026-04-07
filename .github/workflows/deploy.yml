@@ -42,23 +42,20 @@ jobs:
         working-directory: antares-front
         run: npm install
 
-      - name: Build
+      - name: Build static export
         working-directory: antares-front
         run: npm run build
+        # next.config.ts da output: "export" bor, build qilganda "out" papka hosil bo'ladi
 
-      - name: Deploy frontend to cPanel via SSH
-        uses: appleboy/ssh-action@v1
+      - name: Deploy to cPanel public_html via SSH
+        uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.CPANEL_HOST }}
           username: ${{ secrets.CPANEL_USER }}
           key: ${{ secrets.CPANEL_SSH_KEY }}
-          script: |
-            cd ~/repos/aninuz
-            git pull origin main
-            cd antares-front
-            npm install
-            npm run build
-            echo "Frontend deployed successfully"
+          source: "antares-front/out/*"
+          target: "public_html/"
+          strip_components: 2
 
   deploy-backend:
     needs: detect-changes
@@ -72,7 +69,7 @@ jobs:
           username: ${{ secrets.CPANEL_USER }}
           key: ${{ secrets.CPANEL_SSH_KEY }}
           script: |
-            cd ~/repos/aninuz
+            cd ~/public_html/api
             git pull origin main
             cd antares-back-main
             composer install --no-dev --optimize-autoloader
