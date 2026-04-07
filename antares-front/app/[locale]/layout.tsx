@@ -3,8 +3,7 @@ import { Onest } from "next/font/google"
 
 import "./globals.css"
 
-import { cookies } from "next/headers"
-import { Locale } from "@/i18n/routing"
+import { routing, Locale } from "@/i18n/routing"
 import { siteConfig } from "@/siteConfig"
 import { NextIntlClientProvider } from "next-intl"
 import { getMessages } from "next-intl/server"
@@ -48,6 +47,10 @@ export const metadata: Metadata = {
   },
 }
 
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }))
+}
+
 const RootLayout = async ({
   children,
   params,
@@ -55,14 +58,7 @@ const RootLayout = async ({
   children: React.ReactNode
   params: Promise<{ locale: Locale }>
 }>) => {
-  const cookieStore = cookies()
-  const cookieLocale = (await cookieStore).get("NEXT_LOCALE")?.value as
-    | Locale
-    | undefined
-
-  const { locale: paramLocale } = await params
-
-  const finalLocale: Locale = cookieLocale || paramLocale
+  const { locale: finalLocale } = await params
 
   const messages = await getMessages({ locale: finalLocale })
   return (
@@ -79,6 +75,7 @@ const RootLayout = async ({
             </div>
             <Footer />
           </NextIntlClientProvider>
+
         </Providers>
         <Toaster
           richColors

@@ -9,6 +9,20 @@ interface Props {
   params: Promise<{ service: string }>
 }
 
+export async function generateStaticParams() {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/services?expand=images`
+    )
+    const data = await res.json()
+    return (data?.data ?? []).map((service: { slug: string }) => ({
+      service: service.slug,
+    }))
+  } catch {
+    return []
+  }
+}
+
 const ServiceId = async ({ params }: Props) => {
   const { service } = await params
   return (

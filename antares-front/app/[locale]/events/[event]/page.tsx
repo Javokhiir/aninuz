@@ -4,6 +4,20 @@ interface Props {
   params: Promise<{ event: string }>
 }
 
+export async function generateStaticParams() {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/events?expand=images`
+    )
+    const data = await res.json()
+    return (data?.data ?? []).map((event: { slug: string }) => ({
+      event: event.slug,
+    }))
+  } catch {
+    return []
+  }
+}
+
 const EventsPage = async ({ params }: Props) => {
   const { event } = await params
   return <EventId event={event} />
