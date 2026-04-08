@@ -1,6 +1,6 @@
 <?php
 
-// deploy test v6
+// deploy test v7
 
 use Illuminate\Support\Facades\Route;
 
