@@ -64,20 +64,27 @@ jobs:
     if: needs.detect-changes.outputs.backend == 'true'
     runs-on: ubuntu-latest
     steps:
-      - name: Deploy backend to cPanel via SSH
-        uses: appleboy/ssh-action@v1
+      - uses: actions/checkout@v4
+
+      - name: Install PHP dependencies
+        working-directory: antares-back-main
+        run: composer install --no-dev --optimize-autoloader
+
+      - name: Deploy to cPanel via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          host: ${{ secrets.CPANEL_HOST }}
-          username: ${{ secrets.CPANEL_USER }}
-          key: ${{ secrets.CPANEL_SSH_KEY }}
-          port: 21098
-          script: |
-            cd ~/public_html/api
-            git pull origin main
-            cd antares-back-main
-            composer install --no-dev --optimize-autoloader
-            php artisan migrate --force
-            php artisan config:cache
-            php artisan route:cache
-            php artisan view:cache
-            echo "Backend deployed successfully"
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USER }}
+          password: ${{ secrets.FTP_PASS }}
+          local-dir: antares-back-main/
+          server-dir: public_html/api/antares-back-main/
+          state-name: .ftp-deploy-sync-state-backend.json
+          log-level: minimal
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            **/.env
+
+      - name: Run migrations via setup.php
+        run: curl -s https://anin.uz/api/setup.php
