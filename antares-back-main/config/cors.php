@@ -19,7 +19,7 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['https://*.anin.uz', 'https://anin.uz', 'http://localhost:3000', 'https://*.vercel.app'],
+    'allowed_origins' => ['https://www.anin.uz', 'https://anin.uz', 'http://localhost:3000', 'https://*.vercel.app'],
 
     'allowed_origins_patterns' => [],
 
