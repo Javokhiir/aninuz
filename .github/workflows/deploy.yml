@@ -66,6 +66,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Setup PHP 8.4
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+
       - name: Install PHP dependencies
         working-directory: antares-back-main
         run: composer install --no-dev --optimize-autoloader
