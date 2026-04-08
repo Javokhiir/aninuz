@@ -70,7 +70,7 @@ jobs:
           host: ${{ secrets.CPANEL_HOST }}
           username: ${{ secrets.CPANEL_USER }}
           key: ${{ secrets.CPANEL_SSH_KEY }}
-          port: 2222
+          port: 21098
           script: |
             cd ~/public_html/api
             git pull origin main
