@@ -1,5 +1,7 @@
 <?php
 
+// deploy test
+
 use Illuminate\Support\Facades\Route;
 
 Route::get('/services', ['as' => 'events', 'uses' => 'PageController@services']);
