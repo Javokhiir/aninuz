@@ -1,6 +1,9 @@
 Options -Indexes
 RewriteEngine On
 
+# Redirect root to /en
+RewriteRule ^$ /en [R=302,L]
+
 # Serve existing files directly
 RewriteCond %{REQUEST_FILENAME} -f
 RewriteRule ^ - [L]
