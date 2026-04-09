@@ -25,6 +25,9 @@ jobs:
               - 'antares-front/**'
             backend:
               - 'antares-back-main/**'
+              - 'api-entry/**'
+              - 'index.php'
+              - 'setup.php'
 
   deploy-frontend:
     needs: detect-changes
@@ -74,6 +77,22 @@ jobs:
       - name: Build backend assets
         working-directory: antares-back-main
         run: npm install && npm run build
+
+      - name: Prepare API entry point
+        run: |
+          cp index.php api-entry/index.php
+          cp setup.php api-entry/setup.php
+
+      - name: Deploy API entry point via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USER }}
+          password: ${{ secrets.FTP_PASS }}
+          local-dir: api-entry/
+          server-dir: public_html/api/
+          state-name: .ftp-deploy-sync-state-api-entry.json
+          log-level: minimal
 
       - name: Deploy to cPanel via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
