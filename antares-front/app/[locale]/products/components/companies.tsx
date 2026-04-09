@@ -7,9 +7,9 @@ import { useTranslations } from "next-intl"
 import { CompaniesResponse, Company } from "@/types/models/company"
 import { getCompanies } from "@/http/requests/companies"
 import { useQueryParams } from "@/hooks/useQueryParams"
-import { Card } from "@/components/ui/card"
 import { Pagination } from "@/components/ui/pagination/index"
 import { Skeleton } from "@/components/ui/skeleton"
+import BorderGlow from "@/components/ui/BorderGlow"
 
 const Companies = () => {
   const { getParam } = useQueryParams()
@@ -25,26 +25,41 @@ const Companies = () => {
   })
 
   return isLoading ? (
-    <div className="grid w-full grid-cols-2 gap-5 md:grid-cols-3 md:gap-10">
-      <Skeleton className="h-[125px] w-full rounded-xl" />
-      <Skeleton className="h-[125px] w-full rounded-xl" />
-      <Skeleton className="h-[125px] w-full rounded-xl" />
+    <div className="grid w-full grid-cols-2 gap-5 md:grid-cols-3 md:gap-8">
+      {[1, 2, 3, 4, 5, 6].map((i) => (
+        <Skeleton key={i} className="h-[160px] w-full rounded-[20px]" />
+      ))}
     </div>
   ) : (
     <div className="mx-auto max-w-[1400px]">
-      <div className="grid w-full grid-cols-2 gap-5 md:grid-cols-3 md:gap-10">
+      <div className="grid w-full grid-cols-2 gap-5 md:grid-cols-3 md:gap-8">
         {companies?.data.map((company: Company) => (
           <Link
             key={company.id}
             className="w-full"
             href={`/products/${company.slug}`}
           >
-            <Card className="flex flex-col items-center justify-center gap-0 overflow-hidden rounded-xl border-[5px] border-[rgba(238,240,246,1)] p-0">
-              <div
-                className="flex h-[80px] w-[100px] items-center justify-center sm:h-[100px] sm:w-[140px] md:h-[120px] md:w-[250px]"
-                dangerouslySetInnerHTML={{ __html: company.svg }}
-              />
-            </Card>
+            <BorderGlow
+              borderRadius={20}
+              backgroundColor="#0a1628"
+              glowColor="210 80 70"
+              colors={['#60a5fa', '#818cf8', '#38bdf8']}
+              glowRadius={35}
+              glowIntensity={1.2}
+              coneSpread={28}
+              fillOpacity={0.4}
+              className="w-full transition-transform duration-300 hover:-translate-y-1"
+            >
+              <div className="flex h-[160px] flex-col items-center justify-center gap-3 px-6 py-5">
+                <div
+                  className="flex h-[90px] w-full items-center justify-center [&_path]:fill-white [&_svg]:max-h-[70px] [&_svg]:w-auto [&_svg]:max-w-[180px]"
+                  dangerouslySetInnerHTML={{ __html: company.svg }}
+                />
+                <p className="text-center text-xs font-semibold uppercase tracking-widest text-white/40">
+                  {company.title}
+                </p>
+              </div>
+            </BorderGlow>
           </Link>
         ))}
 
@@ -69,7 +84,7 @@ const Companies = () => {
           </div>
         )}
       </div>
-      <div className="col-span-3">
+      <div className="col-span-3 mt-8">
         <Pagination limit={10} totalCount={companies?.meta.total || 0} />
       </div>
     </div>

@@ -7,11 +7,10 @@ import { useTranslations } from "next-intl"
 
 import { getAllServices } from "@/http/requests"
 import { useQueryParams } from "@/hooks/useQueryParams"
-import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { Pagination } from "@/components/ui/pagination"
 import { Skeleton } from "@/components/ui/skeleton"
-import { Icons } from "@/components/icons"
 import { MaintenanceModal } from "@/components/ui/maintenance-modal"
+import BorderGlow from "@/components/ui/BorderGlow"
 
 const Services = () => {
   const t = useTranslations("services")
@@ -32,10 +31,10 @@ const Services = () => {
       <h1 className="bg mx-auto w-max bg-gradient-to-r from-black via-blue-700 to-black bg-clip-text font-extrabold text-transparent uppercase md:p-10">
         {t("title")}
       </h1>
-      <div className="grid grid-cols-1 justify-center gap-5 sm:grid-cols-2 md:grid-cols-3 md:justify-between md:gap-10 xl:grid-cols-4">
+      <div className="grid grid-cols-1 justify-center gap-6 sm:grid-cols-2 md:grid-cols-3 md:gap-8 xl:grid-cols-4">
         {isLoading ? (
           [1, 2, 3, 4].map((i) => (
-            <Skeleton key={i} className="h-[300px] w-full rounded-[24px]" />
+            <Skeleton key={i} className="h-[320px] w-full rounded-[24px]" />
           ))
         ) : services?.data && services?.meta.total <= 0 ? (
           <div className="col-span-4 flex w-full flex-col items-center justify-center gap-6 rounded-2xl bg-white py-16 shadow-sm">
@@ -63,25 +62,40 @@ const Services = () => {
               href={`/services/${service.slug}`}
               className="h-full"
             >
-              <Card className="h-full overflow-hidden rounded-[24px] border-none bg-white p-5 shadow-[2px_20px_18px_1px_rgba(187,194,232,0.15)] md:min-w-[300px]">
-                <CardHeader className="p-0">
-                  <Image
-                    src={service.images[0].preview_url_webp}
-                    alt={service.title}
-                    width={500}
-                    height={500}
-                    className="mx-auto h-full w-full rounded-[16px]"
-                  />
-                </CardHeader>
-                <CardContent className="flex min-h-[80px] justify-between gap-5 px-0">
-                  <h4 className="line-clamp-2 w-full text-xl font-semibold uppercase">
-                    {service.title}
-                  </h4>
-                  <span className="mt-auto ml-auto flex h-min items-center gap-2">
-                    <Icons.ArrowRight className="text-primary h-8 w-8 rotate-[45deg]" />
-                  </span>
-                </CardContent>
-              </Card>
+              <BorderGlow
+                borderRadius={24}
+                backgroundColor="#0d0d1a"
+                glowColor="260 75 70"
+                colors={['#c084fc', '#f472b6', '#818cf8']}
+                glowRadius={38}
+                glowIntensity={1.1}
+                coneSpread={26}
+                fillOpacity={0.45}
+                className="h-full w-full transition-transform duration-300 hover:-translate-y-1"
+              >
+                <div className="flex h-full flex-col">
+                  <div className="relative overflow-hidden rounded-t-[22px]">
+                    <Image
+                      src={service.images[0].preview_url_webp}
+                      alt={service.title}
+                      width={500}
+                      height={300}
+                      className="h-[200px] w-full object-cover transition-transform duration-500 hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0d0d1a]/60 to-transparent" />
+                  </div>
+                  <div className="flex flex-1 items-end justify-between gap-3 p-4">
+                    <h4 className="line-clamp-2 text-base font-semibold uppercase text-white/90">
+                      {service.title}
+                    </h4>
+                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/10 text-white/60">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
+                        <path d="M7 17L17 7M17 7H7M17 7V17" />
+                      </svg>
+                    </span>
+                  </div>
+                </div>
+              </BorderGlow>
             </Link>
           ))
         )}
