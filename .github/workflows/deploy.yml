@@ -82,6 +82,7 @@ jobs:
         run: |
           cp index.php api-entry/index.php
           cp setup.php api-entry/setup.php
+          cp -r antares-back-main/public/build api-entry/build
 
       - name: Deploy API entry point via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
