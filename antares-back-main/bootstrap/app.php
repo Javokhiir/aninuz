@@ -39,6 +39,8 @@ return Application::configure(basePath: dirname(__DIR__))
         }
     )
     ->withMiddleware(function (Middleware $middleware) {
+        $middleware->redirectGuestsTo('/auth/login');
+        $middleware->redirectUsersTo('/dashboard');
         $middleware->alias([
             'Excel' => Maatwebsite\Excel\Facades\Excel::class,
             'Cart' => Darryldecode\Cart\Facades\CartFacade::class,
