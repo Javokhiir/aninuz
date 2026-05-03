@@ -24,7 +24,7 @@ class CheckoutController extends Controller
             'products.0.id' => 'required|exists:products,id',
         ]);
         if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator);
+            return response()->json(['errors' => $validator->errors()], 422);
         }
         $order = Order::create([
             'customer_name' => $request->input('customer_name'),
