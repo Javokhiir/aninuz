@@ -28,6 +28,7 @@ jobs:
               - 'api-entry/**'
               - 'index.php'
               - 'setup.php'
+              - '.github/workflows/**'
 
   deploy-frontend:
     needs: detect-changes
@@ -113,4 +114,16 @@ jobs:
             **/.env
 
       - name: Run migrations via setup.php
-        run: curl -s https://anin.uz/api/setup.php
+        run: |
+          echo "Waiting for FTP files to propagate..."
+          sleep 25
+          echo "Calling setup.php..."
+          curl --retry 5 \
+               --retry-delay 10 \
+               --retry-all-errors \
+               --connect-timeout 20 \
+               --max-time 90 \
+               --fail-with-body \
+               https://anin.uz/api/setup.php
+          echo ""
+          echo "Setup completed."

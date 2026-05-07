@@ -4,18 +4,21 @@ namespace App\Http\Controllers\AdminApi;
 
 use App\Http\Controllers\Controller;
 use App\Mail\AdminPasswordCodeMail;
+use App\Models\User;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Laravel\Sanctum\PersonalAccessToken;
 
 class AuthController extends Controller
 {
-    public function login(Request $request)
+    public function login(Request $request): JsonResponse
     {
         $credentials = $request->validate([
-            'email' => 'required|email',
+            'email'    => 'required|email',
             'password' => 'required|string',
         ]);
 
@@ -23,44 +26,55 @@ class AuthController extends Controller
             return response()->json(['message' => 'Invalid credentials'], 401);
         }
 
-        $user = Auth::user();
+        /** @var User $user */
+        $user  = Auth::user();
         $token = $user->createToken('admin-token')->plainTextToken;
 
         return response()->json([
             'token' => $token,
-            'user' => [
-                'id' => $user->id,
-                'name' => $user->name,
+            'user'  => [
+                'id'    => $user->id,
+                'name'  => $user->name,
                 'email' => $user->email,
-                'role' => $user->getRoleNames()->first(),
+                'role'  => $user->getRoleNames()->first(),
             ],
         ]);
     }
 
-    public function logout(Request $request)
+    public function logout(Request $request): JsonResponse
     {
-        $request->user()->currentAccessToken()->delete();
+        /** @var User $user */
+        $user  = $request->user();
+        $token = $user->currentAccessToken();
+
+        if ($token instanceof PersonalAccessToken) {
+            $token->delete();
+        }
+
         return response()->json(['message' => 'Logged out']);
     }
 
-    public function me(Request $request)
+    public function me(Request $request): JsonResponse
     {
+        /** @var User $user */
         $user = $request->user();
+
         return response()->json([
-            'id' => $user->id,
-            'name' => $user->name,
+            'id'    => $user->id,
+            'name'  => $user->name,
             'email' => $user->email,
             'phone' => $user->phone,
             'about' => $user->about,
-            'role' => $user->getRoleNames()->first(),
+            'role'  => $user->getRoleNames()->first(),
         ]);
     }
 
-    public function requestPasswordCode(Request $request)
+    public function requestPasswordCode(Request $request): JsonResponse
     {
-        $cacheKey = 'admin_pwd_code_' . $request->user()->id;
+        /** @var User $user */
+        $user     = $request->user();
+        $cacheKey = 'admin_pwd_code_' . $user->id;
 
-        // Prevent spam: 1 code per 60 seconds
         if (Cache::has($cacheKey . '_lock')) {
             return response()->json([
                 'message' => 'Kod allaqachon yuborilgan. Iltimos, 60 soniya kuting.',
@@ -73,7 +87,7 @@ class AuthController extends Controller
         Cache::put($cacheKey . '_lock', true, now()->addSeconds(60));
 
         Mail::to('ceo@anin.uz')->send(
-            new AdminPasswordCodeMail($code, $request->user()->email)
+            new AdminPasswordCodeMail($code, $user->email)
         );
 
         return response()->json([
@@ -81,7 +95,7 @@ class AuthController extends Controller
         ]);
     }
 
-    public function changePasswordWithCode(Request $request)
+    public function changePasswordWithCode(Request $request): JsonResponse
     {
         $request->validate([
             'code'                  => 'required|string|size:6',
@@ -89,27 +103,28 @@ class AuthController extends Controller
             'password_confirmation' => 'required|string',
         ]);
 
-        $cacheKey = 'admin_pwd_code_' . $request->user()->id;
+        /** @var User $user */
+        $user     = $request->user();
+        $cacheKey = 'admin_pwd_code_' . $user->id;
         $hashed   = Cache::get($cacheKey);
 
         if (!$hashed || !Hash::check($request->input('code'), $hashed)) {
             return response()->json([
-                'message' => 'Tasdiqlash kodi noto\'g\'ri yoki muddati o\'tgan.',
+                'message' => "Tasdiqlash kodi noto'g'ri yoki muddati o'tgan.",
             ], 422);
         }
 
         Cache::forget($cacheKey);
         Cache::forget($cacheKey . '_lock');
 
-        $user = $request->user();
         $user->password = Hash::make($request->input('password'));
         $user->save();
 
-        // Revoke all other active tokens for security
-        $user->tokens()
-            ->where('id', '!=', $request->user()->currentAccessToken()->id)
-            ->delete();
+        $currentToken = $user->currentAccessToken();
+        $currentId    = $currentToken instanceof PersonalAccessToken ? $currentToken->id : 0;
 
-        return response()->json(['message' => 'Parol muvaffaqiyatli o\'zgartirildi.']);
+        $user->tokens()->where('id', '!=', $currentId)->delete();
+
+        return response()->json(['message' => "Parol muvaffaqiyatli o'zgartirildi."]);
     }
 }
