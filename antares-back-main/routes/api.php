@@ -4,11 +4,11 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/services', ['as' => 'events', 'uses' => 'PageController@services']);
-Route::get('/services/{slug}', ['as' => 'services', 'uses' => 'PageController@serviceShow']);
-Route::get('/events', ['as' => 'services', 'uses' => 'PageController@events']);
-Route::get('/events/{slug}', ['as' => 'services', 'uses' => 'PageController@eventShow']);
-Route::get('/brands', ['as' => 'services', 'uses' => 'PageController@brands']);
+Route::get('/services', ['as' => 'services.index', 'uses' => 'PageController@services']);
+Route::get('/services/{slug}', ['as' => 'services.show', 'uses' => 'PageController@serviceShow']);
+Route::get('/events', ['as' => 'events.index', 'uses' => 'PageController@events']);
+Route::get('/events/{slug}', ['as' => 'events.show', 'uses' => 'PageController@eventShow']);
+Route::get('/brands', ['as' => 'brands.index', 'uses' => 'PageController@brands']);
 Route::get('/catalog', ['as' => 'catalog', 'uses' => 'PageController@catalog']);
 Route::get('/orders/{hash}', ['as' => 'orders', 'uses' => 'OrderController@show']);
 
