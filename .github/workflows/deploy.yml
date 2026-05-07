@@ -27,7 +27,6 @@ jobs:
               - 'antares-back-main/**'
               - 'api-entry/**'
               - 'index.php'
-              - 'setup.php'
               - '.github/workflows/**'
 
   deploy-frontend:
@@ -82,7 +81,6 @@ jobs:
       - name: Prepare API entry point
         run: |
           cp index.php api-entry/index.php
-          cp setup.php api-entry/setup.php
           cp -r antares-back-main/public/build api-entry/build
 
       - name: Deploy API entry point via FTP
@@ -112,24 +110,3 @@ jobs:
             **/node_modules/**
             **/vendor/**
             **/.env
-
-      - name: Run migrations via setup.php
-        run: |
-          echo "Waiting for FTP files to propagate..."
-          sleep 25
-          echo "Calling setup.php..."
-          RESPONSE=$(curl --retry 3 \
-               --retry-delay 10 \
-               --retry-all-errors \
-               --connect-timeout 20 \
-               --max-time 90 \
-               --write-out "\nHTTP_STATUS:%{http_code}" \
-               https://anin.uz/api/setup.php)
-          echo "$RESPONSE"
-          HTTP_CODE=$(echo "$RESPONSE" | grep -o "HTTP_STATUS:[0-9]*" | cut -d: -f2)
-          echo "HTTP status: $HTTP_CODE"
-          if [ "$HTTP_CODE" != "200" ]; then
-            echo "::error::setup.php returned HTTP $HTTP_CODE"
-            exit 1
-          fi
-          echo "Setup completed successfully."
