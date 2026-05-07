@@ -36,6 +36,12 @@ return Application::configure(basePath: dirname(__DIR__))
                 ->as('site.')
                 ->namespace($namespace.'\Site')
                 ->group(base_path('routes/web.php'));
+
+            Route::middleware(['api'])
+                ->prefix('api/admin')
+                ->as('admin.')
+                ->namespace($namespace.'\AdminApi')
+                ->group(base_path('routes/admin_api.php'));
         }
     )
     ->withMiddleware(function (Middleware $middleware) {
