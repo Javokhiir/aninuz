@@ -18,7 +18,12 @@ import {
 } from "@/components/ui/accordion"
 import { Icons } from "@/components/icons"
 
-import { LangSwitcher } from "../langSwitcher"
+import dynamic from "next/dynamic"
+
+const LangSwitcher = dynamic(
+  () => import("../langSwitcher").then((m) => m.LangSwitcher),
+  { ssr: false }
+)
 import { Button } from "../ui/button"
 import SearchModal from "./searchModal"
 
