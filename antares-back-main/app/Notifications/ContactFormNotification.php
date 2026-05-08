@@ -3,13 +3,12 @@
 namespace App\Notifications;
 
 use App\Broadcasting\TelegramChannel;
-use App\Broadcasting\TelegramNotifiable;
 use App\Models\Review;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class ContactFormNotification extends Notification implements TelegramNotifiable
+class ContactFormNotification extends Notification
 {
     use Queueable;
 

@@ -8,11 +8,6 @@ use Illuminate\Support\Facades\Log;
 use Telegram\Bot\FileUpload\InputFile;
 use Telegram\Bot\Laravel\Facades\Telegram;
 
-interface TelegramNotifiable
-{
-    public function toTelegram(object $notifiable): array;
-}
-
 class TelegramChannel
 {
     public function send(object $notifiable, Notification $notification): void
