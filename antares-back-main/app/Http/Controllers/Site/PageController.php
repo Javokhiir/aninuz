@@ -79,9 +79,13 @@ class PageController extends Controller
     public function review(ReviewRequest $request)
     {
         $review = Review::create($request->all());
-        Notification::routes([
-            'mail' => ['vip.don4ik@gmail.com' => 'Doniyor Rakhimov'],
-        ])->notify(new ContactFormNotification($review));
+        try {
+            Notification::routes([
+                'mail' => ['vip.don4ik@gmail.com' => 'Doniyor Rakhimov'],
+            ])->notify(new ContactFormNotification($review));
+        } catch (\Throwable $e) {
+            \Log::error('ContactForm notification failed: ' . $e->getMessage());
+        }
         return response()->json([
             'message' => __('site.review_thanks')
         ], 200);
