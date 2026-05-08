@@ -25,7 +25,7 @@ function AccordionItem({
   )
 }
 
-/* need for deploy */
+/* need for deploy 2 */
 
 function AccordionTrigger({
   className,
