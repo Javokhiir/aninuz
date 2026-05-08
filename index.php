@@ -4,6 +4,11 @@ use Illuminate\Http\Request;
 
 define('LARAVEL_START', microtime(true));
 
+// App is deployed in /api/ subdirectory. Prevent Symfony from stripping
+// /api from REQUEST_URI when computing path info for route matching.
+$_SERVER['SCRIPT_NAME'] = '/index.php';
+$_SERVER['PHP_SELF']    = '/index.php';
+
 // Determine if the application is in maintenance mode...
 if (file_exists($maintenance = __DIR__.'/antares-back-main/storage/framework/maintenance.php')) {
     require $maintenance;
