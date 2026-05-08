@@ -25,7 +25,7 @@ return Application::configure(basePath: dirname(__DIR__))
                 ->prefix('auth')
                 ->group(base_path("routes/auth.php"));
 
-            Route::middleware(['web', 'auth', 'restrict.ip'])
+            Route::middleware(['web', 'auth'])
                 ->prefix('dashboard')
                 ->as('dashboard.')
                 ->namespace($namespace.'\Admin')
@@ -37,7 +37,7 @@ return Application::configure(basePath: dirname(__DIR__))
                 ->namespace($namespace.'\Site')
                 ->group(base_path('routes/web.php'));
 
-            Route::middleware(['api', 'restrict.ip'])
+            Route::middleware(['api'])
                 ->prefix('api/admin')
                 ->as('admin.')
                 ->namespace($namespace.'\AdminApi')
