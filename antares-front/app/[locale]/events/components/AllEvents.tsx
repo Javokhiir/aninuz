@@ -14,13 +14,15 @@ const AllEvents = ({ events }: { events: Event[] }) => {
     <div className="bg-white md:p-5">
       {events.map((event) => (
         <div key={event.id} className="flex flex-col gap-5 md:flex-row">
-          <Image
-            src={event.images[0].url}
-            alt="event"
-            width={500}
-            height={500}
-            className="h-[200px] w-full min-w-[300px] rounded-xl object-cover object-center md:max-w-[400px]"
-          />
+          {event.images[0] && (
+            <Image
+              src={event.images[0].url}
+              alt="event"
+              width={500}
+              height={500}
+              className="h-[200px] w-full min-w-[300px] rounded-xl object-cover object-center md:max-w-[400px]"
+            />
+          )}
           <div className="flex w-full flex-col gap-10 rounded-xl bg-white p-5 shadow-[inset_0px_0px_50px_5px_rgba(243,246,255,1)] md:flex-row">
             <div className="w-full">
               <div className="border-primary text-primary flex w-max items-center gap-2 rounded-full border-2 p-2 px-4">

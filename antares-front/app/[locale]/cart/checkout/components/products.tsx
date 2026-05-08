@@ -20,13 +20,15 @@ const CheckoutProducts = () => {
             className={`bg-muted/20 h-[1px] w-full ${index === 0 ? "hidden" : ""}`}
           />
           <div className="flex gap-4 p-5 pb-0">
-            <Image
-              src={product.images[0].url_webp}
-              alt={product.slug}
-              width={500}
-              height={500}
-              className="aspect-square max-h-[150px] w-full max-w-[120px] rounded-xl object-cover md:max-w-[150px]"
-            />
+            {product.images[0] && (
+              <Image
+                src={product.images[0].url_webp}
+                alt={product.slug ?? ""}
+                width={500}
+                height={500}
+                className="aspect-square max-h-[150px] w-full max-w-[120px] rounded-xl object-cover md:max-w-[150px]"
+              />
+            )}
             <div className="flex w-full flex-col gap-4 overflow-x-hidden">
               <div className="flex items-center justify-between">
                 <h3 className="line-clamp-1 text-base font-semibold md:text-lg">

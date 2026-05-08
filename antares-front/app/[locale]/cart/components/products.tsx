@@ -22,13 +22,15 @@ const CartProducts = () => {
               className={`bg-muted/20 h-[1px] w-full ${index === 0 ? "hidden" : ""}`}
             />
             <div className="flex gap-4 pt-5 md:p-5">
-              <Image
-                src={product.images[0].url_webp}
-                alt={product.title}
-                width={500}
-                height={500}
-                className="aspect-square max-h-[100px] w-full max-w-[100px] rounded-xl object-contain md:max-h-[200px] md:max-w-[200px]"
-              />
+              {product.images[0] && (
+                <Image
+                  src={product.images[0].url_webp}
+                  alt={product.title ?? ""}
+                  width={500}
+                  height={500}
+                  className="aspect-square max-h-[100px] w-full max-w-[100px] rounded-xl object-contain md:max-h-[200px] md:max-w-[200px]"
+                />
+              )}
               <div className="flex w-full flex-col gap-4 overflow-x-hidden">
                 <div className="flex items-center justify-between">
                   <h3 className="line-clamp-1 text-base font-semibold md:text-lg">

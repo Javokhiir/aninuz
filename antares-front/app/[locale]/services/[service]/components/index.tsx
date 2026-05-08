@@ -29,7 +29,7 @@ const Service = ({ service }: { service: string }) => {
       <div className="relative">
         <Image
           src={
-            data?.data.images[0].preview_url ||
+            data?.data.images[0]?.preview_url ||
             "https://img.freepik.com/free-vector/503-error-service-unavailable-concept-illustration_114360-1937.jpg"
           }
           alt={data?.data.title || "image"}

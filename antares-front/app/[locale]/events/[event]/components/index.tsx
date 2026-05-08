@@ -33,7 +33,7 @@ const EventId = ({ event }: { event: string }) => {
       </h1>
       <Image
         src={
-          data?.data.images[0].url_webp ||
+          data?.data.images[0]?.url_webp ||
           "https://img.freepik.com/free-vector/503-error-service-unavailable-concept-illustration_114360-1937.jpg"
         }
         alt={data?.data.title || "image"}

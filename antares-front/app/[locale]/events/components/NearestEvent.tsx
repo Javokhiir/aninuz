@@ -14,7 +14,7 @@ const NearestEvent = ({ event }: { event: Event }) => {
       href={`/events/${event.slug}`}
       className="flex h-[500px] w-full flex-col justify-between rounded-[34px] bg-cover bg-no-repeat object-center p-5"
       style={{
-        backgroundImage: `url(${event.images[0].url})`,
+        backgroundImage: event.images[0] ? `url(${event.images[0].url})` : undefined,
       }}
     >
       <p className="bg-primary/50 w-max rounded-full p-2 px-4 font-semibold text-white backdrop-blur-sm">

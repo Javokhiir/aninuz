@@ -57,16 +57,18 @@ const Services = () => {
                 className="h-full w-full transition-transform duration-300 hover:-translate-y-1"
               >
                 <div className="flex h-full flex-col">
-                  <div className="relative overflow-hidden rounded-t-[22px]">
-                    <Image
-                      src={service.images[0].preview_url_webp}
-                      alt={service.title}
-                      width={500}
-                      height={300}
-                      className="h-[200px] w-full object-cover transition-transform duration-500 hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#0d0d1a]/60 to-transparent" />
-                  </div>
+                  {service.images[0] && (
+                    <div className="relative overflow-hidden rounded-t-[22px]">
+                      <Image
+                        src={service.images[0].preview_url_webp}
+                        alt={service.title ?? ""}
+                        width={500}
+                        height={300}
+                        className="h-[200px] w-full object-cover transition-transform duration-500 hover:scale-105"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#0d0d1a]/60 to-transparent" />
+                    </div>
+                  )}
                   <div className="flex flex-1 items-end justify-between gap-3 p-4">
                     <h4 className="line-clamp-2 text-base font-semibold uppercase text-white/90">
                       {service.title}
