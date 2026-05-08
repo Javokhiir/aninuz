@@ -15,11 +15,11 @@ return [
     |
     */
 
-    'paths' => ['api/*', 'sanctum/csrf-cookie'],
+    'paths' => ['api/*', 'auth/*', 'sanctum/csrf-cookie'],
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['https://www.anin.uz', 'https://anin.uz', 'http://localhost:3000'],
+    'allowed_origins' => ['https://www.anin.uz', 'https://anin.uz', 'http://localhost:3000', 'http://localhost:8000', 'http://localhost:5173'],
 
     'allowed_origins_patterns' => ['#^https://.*\.vercel\.app$#'],
 
