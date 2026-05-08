@@ -35,7 +35,23 @@ export default function ProtectedLayout({ children }: { children: React.ReactNod
       return
     }
     const stored = localStorage.getItem("admin_user")
-    if (stored) setUser(JSON.parse(stored))
+    let parsed: { name: string; email: string; role?: string } | null = null
+    if (stored && stored !== "undefined" && stored !== "null") {
+      try { parsed = JSON.parse(stored) } catch { /* invalid json */ }
+    }
+    if (parsed) {
+      setUser(parsed)
+    } else {
+      adminAuth.me().then(res => {
+        const u = res.data
+        setUser(u)
+        localStorage.setItem("admin_user", JSON.stringify(u))
+      }).catch(() => {
+        localStorage.removeItem("admin_token")
+        localStorage.removeItem("admin_user")
+        router.replace("/dashboard/login")
+      })
+    }
   }, [router])
 
   const handleLogout = async () => {

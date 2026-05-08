@@ -1,6 +1,7 @@
 import axios from "axios"
 
-const ADMIN_API_URL = (process.env.NEXT_PUBLIC_API_URL || "").replace(/\/api$/, "") + "/api/admin"
+const ADMIN_API_URL = process.env.NEXT_PUBLIC_ADMIN_API_URL
+  || (process.env.NEXT_PUBLIC_API_URL || "").replace(/\/api$/, "") + "/api/admin"
 
 export const $admin = axios.create({
   baseURL: ADMIN_API_URL,

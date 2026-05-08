@@ -141,9 +141,6 @@
   },
   "products": {
     "title": "Mahsulotlar",
-    "maintenanceTitle": "Texnik ishlar olib borilmoqda",
-    "maintenanceDesc": "Bu bo'lim hozirda yangilanmoqda. Iltimos, keyinroq qaytib keling.",
-    "maintenanceStatus": "Ishlar davom etmoqda",
     "notFound": "Mahsulotlar topilmadi",
     "filter": "Filter",
     "all": "Barchasi",
@@ -166,13 +163,12 @@
       "technicalDetails": "Texnik xususiyatlar",
       "faq": "Koʻp soʻraladigan savollar",
       "detailedView": "Asbobning batafsil koʻrinishi"
-    }
+    },
+    "empty": "Ma'lumot yo'q"
   },
   "services": {
     "title": "Xizmatlar",
-    "maintenanceTitle": "Texnik ishlar olib borilmoqda",
-    "maintenanceDesc": "Bu bo'lim hozirda yangilanmoqda. Iltimos, keyinroq qaytib keling.",
-    "maintenanceStatus": "Ishlar davom etmoqda"
+    "empty": "Ma'lumot yo'q"
   },
   "error": {
     "title": "Voy, nimadadir xato yuz berdi!",

@@ -17,8 +17,10 @@ export default function AdminLoginPage() {
     setError("")
     try {
       const res = await adminAuth.login(email, password)
+      localStorage.removeItem("admin_token")
+      localStorage.removeItem("admin_user")
       localStorage.setItem("admin_token", res.data.token)
-      localStorage.setItem("admin_user", JSON.stringify(res.data.user))
+      localStorage.setItem("admin_user", JSON.stringify(res.data.user ?? null))
       router.push("/dashboard/home")
     } catch (err: unknown) {
       const e = err as { message?: string }

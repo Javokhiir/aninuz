@@ -141,9 +141,6 @@
   },
   "products": {
     "title": "Products",
-    "maintenanceTitle": "Under Maintenance",
-    "maintenanceDesc": "This section is currently being updated. Please check back soon.",
-    "maintenanceStatus": "Work in progress",
     "notFound": "No products found",
     "filter": "Filter",
     "all": "All",
@@ -166,13 +163,12 @@
       "technicalDetails": "Technical specifications",
       "faq": "Frequently Asked Questions",
       "detailedView": "Detailed view of the tool"
-    }
+    },
+    "empty": "No data"
   },
   "services": {
     "title": "Services",
-    "maintenanceTitle": "Under Maintenance",
-    "maintenanceDesc": "This section is currently being updated. Please check back soon.",
-    "maintenanceStatus": "Work in progress"
+    "empty": "No data"
   },
   "error": {
     "title": "Oops, something went wrong!",
