@@ -16,7 +16,7 @@ class TelegramChannel
 {
     public function send(object $notifiable, Notification $notification): void
     {
-        if (!$notification instanceof TelegramNotifiable) {
+        if (!method_exists($notification, 'toTelegram')) {
             return;
         }
 
