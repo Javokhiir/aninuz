@@ -157,7 +157,7 @@ export default function BrandsPage() {
 
           <div>
             <h3 className="text-xs font-semibold uppercase tracking-wider text-gray-400 border-b pb-1 mb-3">SVG Logo</h3>
-            {form.svg && (
+            {!!form.svg && (
               <div className="mb-3 p-3 bg-gray-900 rounded-lg flex items-center justify-center min-h-[60px]">
                 <div
                   className="[&_svg]:max-h-12 [&_svg]:w-auto [&_path]:fill-white [&_svg]:max-w-[180px]"
