@@ -25,7 +25,7 @@ function AccordionItem({
   )
 }
 
-/* ftp deploy */
+/* need for deploy */
 
 function AccordionTrigger({
   className,
