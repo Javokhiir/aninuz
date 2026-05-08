@@ -12,6 +12,10 @@ RewriteRule ^$ /en [R=302,L]
 RewriteCond %{REQUEST_FILENAME} -f
 RewriteRule ^ - [L]
 
+# --- Dashboard routes ---
+RewriteRule ^dashboard/?$ /dashboard.html [L]
+RewriteRule ^dashboard/([^/]+)/?$ /dashboard/$1.html [L]
+
 # --- RSC payload (.txt) rewrites for dynamic routes ---
 
 # /[locale]/products/[brand]/[product].txt → /_/_.txt
