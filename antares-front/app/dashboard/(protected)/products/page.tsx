@@ -47,7 +47,21 @@ export default function ProductsPage() {
 
   const openEdit = async (item: Record<string, unknown>) => {
     setEditItem(item)
-    setForm({ ...item })
+    try {
+      const res = await adminProducts.show(item.id as number)
+      const product = res.data
+      const localeForm: Record<string, unknown> = { ...product }
+      LOCALES.forEach(loc => {
+        const translation = (product.translations as Record<string, unknown>[] | undefined)
+          ?.find((t: Record<string, unknown>) => t.locale === loc)
+        if (translation) {
+          localeForm[loc] = { title: translation.title, content: translation.content }
+        }
+      })
+      setForm(localeForm)
+    } catch {
+      setForm({ ...item })
+    }
     setActiveLocale("ru")
     setModalOpen(true)
   }
@@ -66,10 +80,21 @@ export default function ProductsPage() {
     e.preventDefault()
     setSubmitting(true)
     try {
+      const fd = new FormData()
+      ;["slug", "articul", "status", "brand", "quantity"].forEach(key => {
+        if (form[key] !== undefined && form[key] !== null) fd.append(key, String(form[key]))
+      })
+      fd.append("is_featured", Boolean(form.is_featured) ? "true" : "false")
+      fd.append("is_new", Boolean(form.is_new) ? "true" : "false")
+      LOCALES.forEach(loc => {
+        const locData = (form as Record<string, Record<string, unknown>>)[loc]
+        if (locData?.title) fd.append(`${loc}[title]`, String(locData.title))
+        if (locData?.content) fd.append(`${loc}[content]`, String(locData.content))
+      })
       if (editItem) {
-        await adminProducts.update(editItem.id as number, form as unknown as FormData)
+        await adminProducts.update(editItem.id as number, fd)
       } else {
-        await adminProducts.create(form as unknown as FormData)
+        await adminProducts.create(fd)
       }
       toast.success(editItem ? "Product updated" : "Product created")
       setModalOpen(false)

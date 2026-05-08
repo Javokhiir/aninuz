@@ -8,24 +8,40 @@ RewriteRule ^(.*)$ https://anin.uz/$1 [R=301,L]
 # Redirect root to /en
 RewriteRule ^$ /en [R=302,L]
 
-# Serve existing files directly
+# Serve existing files directly (_next assets, .txt RSC payloads, etc.)
 RewriteCond %{REQUEST_FILENAME} -f
 RewriteRule ^ - [L]
 
-# /en/ /ru/ /uz/ → en.html / ru.html / uz.html
+# --- RSC payload (.txt) rewrites for dynamic routes ---
+
+# /[locale]/products/[brand]/[product].txt → /_/_.txt
+RewriteRule ^(ru|en|uz)/products/([^/]+)/([^/]+)\.txt$ /$1/products/_/_.txt [L]
+
+# /[locale]/products/[brand].txt → /_.txt
+RewriteRule ^(ru|en|uz)/products/([^/]+)\.txt$ /$1/products/_.txt [L]
+
+# /[locale]/events/[slug].txt → /_.txt
+RewriteRule ^(ru|en|uz)/events/([^/]+)\.txt$ /$1/events/_.txt [L]
+
+# /[locale]/services/[slug].txt → /_.txt
+RewriteRule ^(ru|en|uz)/services/([^/]+)\.txt$ /$1/services/_.txt [L]
+
+# --- HTML rewrites ---
+
+# /[locale]/ → [locale].html
 RewriteRule ^(ru|en|uz)/?$ /$1.html [L]
 
 # /[locale]/[page]/ → /[locale]/[page].html
 RewriteRule ^(ru|en|uz)/([^/]+)/?$ /$1/$2.html [L]
 
-# Dynamic product detail: /[locale]/products/[brand]/[product]
-RewriteRule ^(ru|en|uz)/products/([^/]+)/([^/]+)/?$ /$1/products/_/_/index.html [L]
+# /[locale]/products/[brand]/[product]/ → /[locale]/products/_/_.html
+RewriteRule ^(ru|en|uz)/products/([^/]+)/([^/]+)/?$ /$1/products/_/_.html [L]
 
-# Dynamic company: /[locale]/products/[brand]
-RewriteRule ^(ru|en|uz)/products/([^/]+)/?$ /$1/products/_/index.html [L]
+# /[locale]/products/[brand]/ → /[locale]/products/_.html
+RewriteRule ^(ru|en|uz)/products/([^/]+)/?$ /$1/products/_.html [L]
 
-# Dynamic events
-RewriteRule ^(ru|en|uz)/events/([^/]+)/?$ /$1/events/_/index.html [L]
+# /[locale]/events/[slug]/ → /[locale]/events/_.html
+RewriteRule ^(ru|en|uz)/events/([^/]+)/?$ /$1/events/_.html [L]
 
-# Dynamic services
-RewriteRule ^(ru|en|uz)/services/([^/]+)/?$ /$1/services/_/index.html [L]
+# /[locale]/services/[slug]/ → /[locale]/services/_.html
+RewriteRule ^(ru|en|uz)/services/([^/]+)/?$ /$1/services/_.html [L]

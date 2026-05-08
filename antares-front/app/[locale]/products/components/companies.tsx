@@ -51,13 +51,21 @@ const Companies = () => {
               className="w-full transition-transform duration-300 hover:-translate-y-1"
             >
               <div className="flex h-[160px] flex-col items-center justify-center gap-3 px-6 py-5">
-                <div
-                  className="flex h-[90px] w-full items-center justify-center [&_path]:fill-white [&_svg]:max-h-[70px] [&_svg]:w-auto [&_svg]:max-w-[180px]"
-                  dangerouslySetInnerHTML={{ __html: company.svg }}
-                />
-                <p className="text-center text-xs font-semibold uppercase tracking-widest text-white/40">
-                  {company.title}
-                </p>
+                {company.svg ? (
+                  <div
+                    className="flex h-[90px] w-full items-center justify-center [&_path]:fill-white [&_svg]:max-h-[70px] [&_svg]:w-auto [&_svg]:max-w-[180px]"
+                    dangerouslySetInnerHTML={{ __html: company.svg }}
+                  />
+                ) : (
+                  <p className="text-center text-lg font-bold uppercase text-white">
+                    {company.title}
+                  </p>
+                )}
+                {company.svg && (
+                  <p className="text-center text-xs font-semibold uppercase tracking-widest text-white/40">
+                    {company.title}
+                  </p>
+                )}
               </div>
             </BorderGlow>
           </Link>
