@@ -23,7 +23,7 @@ class TelegramChannel
         $message = $notification->toTelegram($notifiable);
         $chat_id = config("telegram.bots.mybot.chat_id");
         if ($message['type'] == 'feedback') {
-            $html = view("telegram-bot::feedback", ['message' => $message])->render();
+            $html = view("telegram.feedback", ['message' => $message])->render();
             Telegram::sendMessage([
                 'chat_id' => $chat_id,
                 'text' => $html,

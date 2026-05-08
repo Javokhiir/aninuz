@@ -4,7 +4,8 @@ import { useState, useEffect, useCallback } from "react"
 import { toast } from "sonner"
 import { ResourceTable } from "@/app/dashboard/components/ResourceTable"
 import { Modal } from "@/app/dashboard/components/Modal"
-import { adminCategories } from "@/http/admin/api"
+import { ImageUpload } from "@/app/dashboard/components/ImageUpload"
+import { adminCategories, adminBrands } from "@/http/admin/api"
 
 const LOCALES = ["ru", "en", "uz"]
 
@@ -17,6 +18,8 @@ export default function CategoriesPage() {
   const [activeLocale, setActiveLocale] = useState("ru")
   const [form, setForm] = useState<Record<string, unknown>>({})
   const [submitting, setSubmitting] = useState(false)
+  const [allCategories, setAllCategories] = useState<Record<string, unknown>[]>([])
+  const [brands, setBrands] = useState<Record<string, unknown>[]>([])
 
   const load = useCallback(async (p = 1) => {
     setLoading(true)
@@ -30,10 +33,35 @@ export default function CategoriesPage() {
     }
   }, [])
 
-  useEffect(() => { load(page) }, [load, page])
+  useEffect(() => {
+    load(page)
+    adminCategories.list({ per_page: 100 }).then(r => setAllCategories(r.data.data || [])).catch(() => {})
+    adminBrands.list({ per_page: 100 }).then(r => setBrands(r.data.data || [])).catch(() => {})
+  }, [load, page])
 
   const openCreate = () => { setEditItem(null); setForm({}); setActiveLocale("ru"); setModalOpen(true) }
-  const openEdit = (item: Record<string, unknown>) => { setEditItem(item); setForm({ ...item }); setActiveLocale("ru"); setModalOpen(true) }
+
+  const openEdit = async (item: Record<string, unknown>) => {
+    setEditItem(item)
+    try {
+      const res = await adminCategories.show(item.id as number)
+      const detail = res.data
+      const localeForm: Record<string, unknown> = { ...detail }
+      LOCALES.forEach(loc => {
+        const t = (detail.translations as Record<string, unknown>[] | undefined)
+          ?.find((tr: Record<string, unknown>) => tr.locale === loc)
+        if (t) {
+          localeForm[`title_${loc}`] = t.title
+          localeForm[`content_${loc}`] = t.content
+        }
+      })
+      setForm(localeForm)
+    } catch {
+      setForm({ ...item })
+    }
+    setActiveLocale("ru")
+    setModalOpen(true)
+  }
 
   const handleDelete = async (item: Record<string, unknown>) => {
     try {
@@ -48,7 +76,16 @@ export default function CategoriesPage() {
     setSubmitting(true)
     try {
       const fd = new FormData()
-      Object.entries(form).forEach(([k, v]) => { if (v !== undefined && v !== null) fd.append(k, String(v)) })
+      if (form.slug) fd.append("slug", String(form.slug))
+      fd.append("is_visible", form.is_visible ? "true" : "false")
+      if (form.parent_id) fd.append("parent_id", String(form.parent_id))
+      if (form.brand_id) fd.append("brand_id", String(form.brand_id))
+      if (form.order !== undefined && form.order !== "") fd.append("order", String(form.order))
+      LOCALES.forEach(loc => {
+        if (form[`title_${loc}`]) fd.append(`${loc}[title]`, String(form[`title_${loc}`]))
+        if (form[`content_${loc}`]) fd.append(`${loc}[content]`, String(form[`content_${loc}`]))
+      })
+      if (form.image instanceof File) fd.append("image", form.image)
       if (editItem) {
         await adminCategories.update(editItem.id as number, fd)
       } else {
@@ -62,9 +99,24 @@ export default function CategoriesPage() {
 
   const setField = (key: string, value: unknown) => setForm(f => ({ ...f, [key]: value }))
 
+  const existingImageUrl = (() => {
+    const imgs = form.images as { preview_url_webp?: string; url?: string }[] | undefined
+    return imgs?.[0]?.preview_url_webp || imgs?.[0]?.url
+  })()
+
   const columns = [
     { key: "id", label: "#ID" },
+    {
+      key: "images",
+      label: "Image",
+      render: (_: unknown, row: Record<string, unknown>) => {
+        const imgs = row.images as { preview_url_webp?: string; url?: string }[] | undefined
+        const url = imgs?.[0]?.preview_url_webp || imgs?.[0]?.url
+        return url ? <img src={url} alt="" className="h-10 w-10 rounded object-cover" /> : <span className="text-gray-300 text-xs">—</span>
+      },
+    },
     { key: "title", label: "Title", render: (v: unknown) => <span className="font-medium">{String(v || "")}</span> },
+    { key: "slug", label: "Slug" },
     {
       key: "is_visible",
       label: "Status",
@@ -83,40 +135,85 @@ export default function CategoriesPage() {
         pagination={data ? { currentPage: data.current_page, lastPage: data.last_page, onPageChange: setPage } : undefined} />
 
       <Modal open={modalOpen} onClose={() => setModalOpen(false)} title={editItem ? "Edit Category" : "Add Category"}>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="flex gap-2 border-b pb-3">
+        <form onSubmit={handleSubmit} className="space-y-5">
+          <div>
+            <h3 className="text-xs font-semibold uppercase tracking-wider text-gray-400 border-b pb-1 mb-3">Translations</h3>
+            <div className="flex gap-2 mb-4">
+              {LOCALES.map(loc => (
+                <button key={loc} type="button" onClick={() => setActiveLocale(loc)}
+                  className={`px-3 py-1 rounded text-sm font-medium transition-colors ${activeLocale === loc ? "bg-blue-600 text-white" : "bg-gray-100 text-gray-600 hover:bg-gray-200"}`}>
+                  {loc.toUpperCase()}
+                </button>
+              ))}
+            </div>
             {LOCALES.map(loc => (
-              <button key={loc} type="button" onClick={() => setActiveLocale(loc)}
-                className={`px-3 py-1 rounded text-sm font-medium transition-colors ${activeLocale === loc ? "bg-blue-600 text-white" : "bg-gray-100 text-gray-600"}`}>
-                {loc.toUpperCase()}
-              </button>
+              <div key={loc} className={loc !== activeLocale ? "hidden" : "space-y-3"}>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Title ({loc})</label>
+                  <input value={String(form[`title_${loc}`] || "")} onChange={e => setField(`title_${loc}`, e.target.value)}
+                    className="w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Content ({loc})</label>
+                  <textarea value={String(form[`content_${loc}`] || "")} onChange={e => setField(`content_${loc}`, e.target.value)}
+                    rows={3} className="w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                </div>
+              </div>
             ))}
           </div>
-          {LOCALES.map(loc => (
-            <div key={loc} className={loc !== activeLocale ? "hidden" : "space-y-3"}>
+
+          <div>
+            <h3 className="text-xs font-semibold uppercase tracking-wider text-gray-400 border-b pb-1 mb-3">General</h3>
+            <div className="grid grid-cols-2 gap-3 mb-3">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Title ({loc})</label>
-                <input value={String(form[`title_${loc}`] || "")} onChange={e => setField(`title_${loc}`, e.target.value)}
+                <label className="block text-sm font-medium text-gray-700 mb-1">Slug</label>
+                <input value={String(form.slug || "")} onChange={e => setField("slug", e.target.value)}
                   className="w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
               </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Order</label>
+                <input type="number" value={String(form.order || "")} onChange={e => setField("order", e.target.value)}
+                  className="w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Parent Category</label>
+                <select value={String(form.parent_id || "")} onChange={e => setField("parent_id", e.target.value || null)}
+                  className="w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                  <option value="">None (top-level)</option>
+                  {allCategories
+                    .filter((c: Record<string, unknown>) => c.id !== editItem?.id)
+                    .map((c: Record<string, unknown>) => (
+                      <option key={String(c.id)} value={String(c.id)}>{String(c.title || c.id)}</option>
+                    ))}
+                </select>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Brand</label>
+                <select value={String(form.brand_id || "")} onChange={e => setField("brand_id", e.target.value || null)}
+                  className="w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                  <option value="">None</option>
+                  {brands.map((b: Record<string, unknown>) => (
+                    <option key={String(b.id)} value={String(b.id)}>{String(b.title || b.id)}</option>
+                  ))}
+                </select>
+              </div>
             </div>
-          ))}
-          <div className="grid grid-cols-2 gap-3">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Slug</label>
-              <input value={String(form.slug || "")} onChange={e => setField("slug", e.target.value)}
-                className="w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
-            </div>
+            <label className="flex items-center gap-2 text-sm mb-4">
+              <input type="checkbox" checked={Boolean(form.is_visible)} onChange={e => setField("is_visible", e.target.checked)} className="rounded" />
+              Visible
+            </label>
+            <ImageUpload
+              label="Category Image"
+              current={form.image instanceof File ? URL.createObjectURL(form.image as File) : existingImageUrl}
+              onChange={file => setField("image", file)}
+            />
           </div>
-          <label className="flex items-center gap-2 text-sm">
-            <input type="checkbox" checked={Boolean(form.is_visible)} onChange={e => setField("is_visible", e.target.checked)} className="rounded" />
-            Visible
-          </label>
+
           <div className="flex justify-end gap-3 pt-2">
             <button type="button" onClick={() => setModalOpen(false)}
               className="px-4 py-2 border rounded-lg text-sm text-gray-600 hover:bg-gray-50">Cancel</button>
             <button type="submit" disabled={submitting}
-              className="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm hover:bg-blue-700 disabled:opacity-50">
+              className="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed">
               {submitting ? "Saving..." : "Save"}
             </button>
           </div>

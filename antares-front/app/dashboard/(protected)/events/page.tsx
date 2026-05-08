@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from "react"
 import { toast } from "sonner"
 import { ResourceTable } from "@/app/dashboard/components/ResourceTable"
 import { Modal } from "@/app/dashboard/components/Modal"
+import { ImageUpload } from "@/app/dashboard/components/ImageUpload"
 import { adminEvents } from "@/http/admin/api"
 
 const LOCALES = ["ru", "en", "uz"]
@@ -26,7 +27,28 @@ export default function EventsPage() {
   useEffect(() => { load(page) }, [load, page])
 
   const openCreate = () => { setEditItem(null); setForm({}); setActiveLocale("ru"); setModalOpen(true) }
-  const openEdit = (item: Record<string, unknown>) => { setEditItem(item); setForm({ ...item }); setActiveLocale("ru"); setModalOpen(true) }
+
+  const openEdit = async (item: Record<string, unknown>) => {
+    setEditItem(item)
+    try {
+      const res = await adminEvents.show(item.id as number)
+      const detail = res.data
+      const localeForm: Record<string, unknown> = { ...detail }
+      LOCALES.forEach(loc => {
+        const t = (detail.translations as Record<string, unknown>[] | undefined)
+          ?.find((tr: Record<string, unknown>) => tr.locale === loc)
+        if (t) {
+          localeForm[`title_${loc}`] = t.title
+          localeForm[`content_${loc}`] = t.content
+        }
+      })
+      setForm(localeForm)
+    } catch {
+      setForm({ ...item })
+    }
+    setActiveLocale("ru")
+    setModalOpen(true)
+  }
 
   const handleDelete = async (item: Record<string, unknown>) => {
     try { await adminEvents.delete(item.id as number); toast.success("Event deleted"); load(page) } catch { toast.error("Failed") }
@@ -36,7 +58,7 @@ export default function EventsPage() {
     e.preventDefault(); setSubmitting(true)
     try {
       const fd = new FormData()
-      const skipKeys = new Set(LOCALES.flatMap(loc => [`title_${loc}`, `content_${loc}`]))
+      const skipKeys = new Set([...LOCALES.flatMap(loc => [`title_${loc}`, `content_${loc}`]), "images", "translations"])
       Object.entries(form).forEach(([k, v]) => {
         if (v !== undefined && v !== null && !(v instanceof File) && !skipKeys.has(k)) fd.append(k, String(v))
       })
@@ -52,8 +74,22 @@ export default function EventsPage() {
 
   const setField = (key: string, value: unknown) => setForm(f => ({ ...f, [key]: value }))
 
+  const existingImageUrl = (() => {
+    const imgs = form.images as { url?: string }[] | undefined
+    return imgs?.[0]?.url
+  })()
+
   const columns = [
     { key: "id", label: "#ID" },
+    {
+      key: "images",
+      label: "Image",
+      render: (_: unknown, row: Record<string, unknown>) => {
+        const imgs = row.images as { url?: string }[] | undefined
+        const url = imgs?.[0]?.url
+        return url ? <img src={url} alt="" className="h-10 w-10 rounded object-cover" /> : <span className="text-gray-300 text-xs">—</span>
+      },
+    },
     { key: "title", label: "Title", render: (v: unknown) => <span className="font-medium">{String(v || "")}</span> },
     { key: "address", label: "Address" },
     { key: "status", label: "Status", render: (v: unknown) => <span className="px-2 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-700">{String(v || "")}</span> },
@@ -67,59 +103,74 @@ export default function EventsPage() {
         pagination={data ? { currentPage: data.current_page, lastPage: data.last_page, onPageChange: setPage } : undefined} />
 
       <Modal open={modalOpen} onClose={() => setModalOpen(false)} title={editItem ? "Edit Event" : "Add Event"}>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="flex gap-2 border-b pb-3">
+        <form onSubmit={handleSubmit} className="space-y-5">
+          <div>
+            <h3 className="text-xs font-semibold uppercase tracking-wider text-gray-400 border-b pb-1 mb-3">Translations</h3>
+            <div className="flex gap-2 mb-4">
+              {LOCALES.map(loc => (
+                <button key={loc} type="button" onClick={() => setActiveLocale(loc)}
+                  className={`px-3 py-1 rounded text-sm font-medium transition-colors ${activeLocale === loc ? "bg-blue-600 text-white" : "bg-gray-100 text-gray-600 hover:bg-gray-200"}`}>
+                  {loc.toUpperCase()}
+                </button>
+              ))}
+            </div>
             {LOCALES.map(loc => (
-              <button key={loc} type="button" onClick={() => setActiveLocale(loc)}
-                className={`px-3 py-1 rounded text-sm font-medium ${activeLocale === loc ? "bg-blue-600 text-white" : "bg-gray-100 text-gray-600"}`}>
-                {loc.toUpperCase()}
-              </button>
+              <div key={loc} className={loc !== activeLocale ? "hidden" : "space-y-3"}>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Title ({loc})</label>
+                  <input value={String(form[`title_${loc}`] || "")} onChange={e => setField(`title_${loc}`, e.target.value)}
+                    className="w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Content ({loc})</label>
+                  <textarea value={String(form[`content_${loc}`] || "")} onChange={e => setField(`content_${loc}`, e.target.value)}
+                    rows={3} className="w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                </div>
+              </div>
             ))}
           </div>
-          {LOCALES.map(loc => (
-            <div key={loc} className={loc !== activeLocale ? "hidden" : "space-y-3"}>
+
+          <div>
+            <h3 className="text-xs font-semibold uppercase tracking-wider text-gray-400 border-b pb-1 mb-3">Event Details</h3>
+            <div className="grid grid-cols-2 gap-3 mb-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Title ({loc})</label>
-                <input value={String(form[`title_${loc}`] || "")} onChange={e => setField(`title_${loc}`, e.target.value)}
+                <label className="block text-sm font-medium text-gray-700 mb-1">Slug</label>
+                <input value={String(form.slug || "")} onChange={e => setField("slug", e.target.value)}
                   className="w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Content ({loc})</label>
-                <textarea value={String(form[`content_${loc}`] || "")} onChange={e => setField(`content_${loc}`, e.target.value)}
-                  rows={3} className="w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                <label className="block text-sm font-medium text-gray-700 mb-1">Status</label>
+                <select value={String(form.status || "")} onChange={e => setField("status", e.target.value)}
+                  className="w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                  <option value="">Select status</option>
+                  <option value="upcoming">Upcoming</option>
+                  <option value="active">Active</option>
+                  <option value="past">Past</option>
+                </select>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Address</label>
+                <input value={String(form.address || "")} onChange={e => setField("address", e.target.value)}
+                  className="w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Date</label>
+                <input type="date" value={String(form.date || "")} onChange={e => setField("date", e.target.value)}
+                  className="w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
               </div>
             </div>
-          ))}
-          <div className="grid grid-cols-2 gap-3">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Slug</label>
-              <input value={String(form.slug || "")} onChange={e => setField("slug", e.target.value)}
-                className="w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Status</label>
-              <select value={String(form.status || "")} onChange={e => setField("status", e.target.value)}
-                className="w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
-                <option value="">Select status</option>
-                <option value="upcoming">Upcoming</option>
-                <option value="active">Active</option>
-                <option value="past">Past</option>
-              </select>
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Address</label>
-              <input value={String(form.address || "")} onChange={e => setField("address", e.target.value)}
-                className="w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Date</label>
-              <input type="date" value={String(form.date || "")} onChange={e => setField("date", e.target.value)}
-                className="w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
-            </div>
+            <ImageUpload
+              label="Event Image"
+              current={form.image instanceof File ? URL.createObjectURL(form.image as File) : existingImageUrl}
+              onChange={file => setField("image", file)}
+            />
           </div>
+
           <div className="flex justify-end gap-3 pt-2">
             <button type="button" onClick={() => setModalOpen(false)} className="px-4 py-2 border rounded-lg text-sm text-gray-600 hover:bg-gray-50">Cancel</button>
-            <button type="submit" disabled={submitting} className="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm hover:bg-blue-700 disabled:opacity-50">{submitting ? "Saving..." : "Save"}</button>
+            <button type="submit" disabled={submitting} className="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed">
+              {submitting ? "Saving..." : "Save"}
+            </button>
           </div>
         </form>
       </Modal>
