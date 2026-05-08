@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 
 define('LARAVEL_START', microtime(true));
 
+error_reporting(E_ALL & ~E_DEPRECATED);
+
 // App is deployed in /api/ subdirectory. Prevent Symfony from stripping
 // /api from REQUEST_URI when computing path info for route matching.
 $_SERVER['SCRIPT_NAME'] = '/index.php';
