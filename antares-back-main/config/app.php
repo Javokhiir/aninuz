@@ -54,6 +54,7 @@ return [
 
     'url' => env('APP_URL', 'http://localhost'),
     'site_url' => env('SITE_URL', 'http://localhost'),
+    'admin_allowed_ips' => env('ADMIN_ALLOWED_IPS', ''),
 
     /*
     |--------------------------------------------------------------------------

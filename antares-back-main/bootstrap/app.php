@@ -25,7 +25,7 @@ return Application::configure(basePath: dirname(__DIR__))
                 ->prefix('auth')
                 ->group(base_path("routes/auth.php"));
 
-            Route::middleware(['web', 'auth'])
+            Route::middleware(['web', 'auth', 'restrict.ip'])
                 ->prefix('dashboard')
                 ->as('dashboard.')
                 ->namespace($namespace.'\Admin')
@@ -37,7 +37,7 @@ return Application::configure(basePath: dirname(__DIR__))
                 ->namespace($namespace.'\Site')
                 ->group(base_path('routes/web.php'));
 
-            Route::middleware(['api'])
+            Route::middleware(['api', 'restrict.ip'])
                 ->prefix('api/admin')
                 ->as('admin.')
                 ->namespace($namespace.'\AdminApi')
@@ -50,6 +50,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'Cart' => Darryldecode\Cart\Facades\CartFacade::class,
             'CartSession' => App\Http\Middleware\CartMiddleware::class,
             'locale' => App\Http\Middleware\LocaleMiddleware::class,
+            'restrict.ip' => App\Http\Middleware\RestrictByIp::class,
         ])
         ->use([
             \Illuminate\Http\Middleware\HandleCors::class,
