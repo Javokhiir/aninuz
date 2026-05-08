@@ -36,7 +36,15 @@ export default function EventsPage() {
     e.preventDefault(); setSubmitting(true)
     try {
       const fd = new FormData()
-      Object.entries(form).forEach(([k, v]) => { if (v !== undefined && v !== null) fd.append(k, String(v)) })
+      const skipKeys = new Set(LOCALES.flatMap(loc => [`title_${loc}`, `content_${loc}`]))
+      Object.entries(form).forEach(([k, v]) => {
+        if (v !== undefined && v !== null && !(v instanceof File) && !skipKeys.has(k)) fd.append(k, String(v))
+      })
+      LOCALES.forEach(loc => {
+        if (form[`title_${loc}`]) fd.append(`${loc}[title]`, String(form[`title_${loc}`]))
+        if (form[`content_${loc}`]) fd.append(`${loc}[content]`, String(form[`content_${loc}`]))
+      })
+      if (form.image instanceof File) fd.append("image", form.image)
       if (editItem) { await adminEvents.update(editItem.id as number, fd) } else { await adminEvents.create(fd) }
       toast.success(editItem ? "Updated" : "Created"); setModalOpen(false); load(page)
     } catch { toast.error("Failed") } finally { setSubmitting(false) }
