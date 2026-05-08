@@ -9,7 +9,6 @@ import { getAllServices } from "@/http/requests"
 import { useQueryParams } from "@/hooks/useQueryParams"
 import { Pagination } from "@/components/ui/pagination"
 import { Skeleton } from "@/components/ui/skeleton"
-import { MaintenanceModal } from "@/components/ui/maintenance-modal"
 import BorderGlow from "@/components/ui/BorderGlow"
 
 const Services = () => {
@@ -27,7 +26,6 @@ const Services = () => {
 
   return (
     <div className="layout-container mx-auto max-w-[1400px] space-y-10 p-5 py-10 md:space-y-10 md:p-0 md:px-5 md:py-0">
-      <MaintenanceModal />
       <h1 className="bg mx-auto w-max bg-gradient-to-r from-black via-blue-700 to-black bg-clip-text font-extrabold text-transparent uppercase md:p-10">
         {t("title")}
       </h1>

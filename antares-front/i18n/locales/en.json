@@ -141,6 +141,9 @@
   },
   "products": {
     "title": "Products",
+    "maintenanceTitle": "Under Maintenance",
+    "maintenanceDesc": "This section is currently being updated. Please check back soon.",
+    "maintenanceStatus": "Work in progress",
     "notFound": "No products found",
     "filter": "Filter",
     "all": "All",
@@ -166,7 +169,10 @@
     }
   },
   "services": {
-    "title": "Services"
+    "title": "Services",
+    "maintenanceTitle": "Under Maintenance",
+    "maintenanceDesc": "This section is currently being updated. Please check back soon.",
+    "maintenanceStatus": "Work in progress"
   },
   "error": {
     "title": "Oops, something went wrong!",
