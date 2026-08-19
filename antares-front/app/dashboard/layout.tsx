@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+
 import "@/app/[locale]/globals.css"
 
 export const metadata: Metadata = {
@@ -13,9 +14,7 @@ export default function DashboardRootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="bg-gray-100 min-h-screen">
-        {children}
-      </body>
+      <body className="min-h-screen bg-gray-100">{children}</body>
     </html>
   )
 }

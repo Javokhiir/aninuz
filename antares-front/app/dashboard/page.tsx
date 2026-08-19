@@ -1,23 +1,25 @@
 "use client"
 
 import { useEffect } from "react"
-import { useRouter } from "next/navigation"
 
-export default function DashboardPage() {
-  const router = useRouter()
+// The admin panel is the Laravel Blade dashboard served by the backend, which
+// lives under the same `/api` prefix as the rest of the Laravel routes.
+// `output: "export"` rules out a server-side redirect, so bounce on the client.
+const ADMIN_URL = `${process.env.NEXT_PUBLIC_API_URL}/dashboard`
 
+export default function DashboardRedirect() {
   useEffect(() => {
-    const token = localStorage.getItem("admin_token")
-    if (token) {
-      router.replace("/dashboard/home")
-    } else {
-      router.replace("/dashboard/login")
-    }
-  }, [router])
+    window.location.replace(ADMIN_URL)
+  }, [])
 
   return (
-    <div className="flex h-screen items-center justify-center">
-      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600" />
-    </div>
+    <main className="flex min-h-screen items-center justify-center p-5">
+      <p className="text-center">
+        Admin panelga o&apos;tilmoqda…{" "}
+        <a className="underline" href={ADMIN_URL}>
+          Agar avtomatik ochilmasa, shu yerni bosing
+        </a>
+      </p>
+    </main>
   )
 }

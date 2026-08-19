@@ -22,11 +22,11 @@ return Application::configure(basePath: dirname(__DIR__))
 
             Route::middleware(['web'])
                 ->namespace($namespace . "\Auth")
-                ->prefix('auth')
+                ->prefix('api/auth')
                 ->group(base_path("routes/auth.php"));
 
             Route::middleware(['web', 'auth'])
-                ->prefix('dashboard')
+                ->prefix('api/dashboard')
                 ->as('dashboard.')
                 ->namespace($namespace.'\Admin')
                 ->group(base_path('routes/dashboard.php'));
