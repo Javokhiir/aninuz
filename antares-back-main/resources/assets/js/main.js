@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initDataTable();
   }
   chartInit();
+  dashboardCharts();
   customSelect();
   handleImport();
   DnDCatalog();
@@ -221,6 +222,84 @@ function chartInit() {
 
   if (pieChart) {
     new Chart(pieChart, chartPieOptions);
+  }
+}
+
+// Dashboard charts read their series off the canvas, so the numbers stay in
+// the controller instead of being duplicated here.
+function dashboardCharts() {
+  const readSeries = (canvas) => ({
+    labels: JSON.parse(canvas.dataset.labels || "[]"),
+    values: JSON.parse(canvas.dataset.values || "[]"),
+  });
+
+  const orders = document.getElementById("ordersChart");
+  if (orders) {
+    const { labels, values } = readSeries(orders);
+    new Chart(orders, {
+      type: "line",
+      data: {
+        labels,
+        datasets: [
+          {
+            label: "Orders",
+            data: values,
+            borderColor: "#4318FF",
+            backgroundColor: "rgba(67, 24, 255, 0.08)",
+            fill: true,
+            tension: 0.4,
+            pointRadius: 4,
+            pointBackgroundColor: "#ffffff",
+            pointBorderWidth: 2,
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          x: { grid: { display: false } },
+          y: { beginAtZero: true, ticks: { precision: 0 } },
+        },
+        plugins: { legend: { display: false } },
+      },
+    });
+  }
+
+  const status = document.getElementById("orderStatusChart");
+  if (status) {
+    const { labels, values } = readSeries(status);
+    new Chart(status, {
+      type: "doughnut",
+      data: {
+        labels,
+        datasets: [
+          {
+            data: values,
+            backgroundColor: [
+              "#4318FF",
+              "#6AD2FF",
+              "#7551FF",
+              "#05CD99",
+              "#FFB547",
+              "#EE5D50",
+              "#E6EDF9",
+            ],
+            hoverOffset: 4,
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            position: "bottom",
+            labels: { boxWidth: 8, boxHeight: 8, usePointStyle: true },
+          },
+        },
+      },
+    });
   }
 }
 

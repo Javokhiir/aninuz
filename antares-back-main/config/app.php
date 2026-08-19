@@ -53,6 +53,21 @@ return [
     */
 
     'url' => env('APP_URL', 'http://localhost'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Asset URL
+    |--------------------------------------------------------------------------
+    |
+    | In production the app is served from the /api subdirectory, but the front
+    | controller rewrites SCRIPT_NAME to '/index.php' so route matching keeps
+    | seeing the /api prefix. That leaves asset() believing it sits at the
+    | domain root, so it needs the prefix spelled out. The entry point in
+    | index.php sets this; locally it stays empty and asset() works as usual.
+    |
+    */
+
+    'asset_url' => env('ASSET_URL'),
     'site_url' => env('SITE_URL', 'http://localhost'),
     'admin_allowed_ips' => env('ADMIN_ALLOWED_IPS', ''),
 
