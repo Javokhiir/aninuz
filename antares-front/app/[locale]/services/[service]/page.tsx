@@ -4,6 +4,8 @@ import { Link } from "@/i18n/routing"
 import { Icons } from "@/components/icons"
 import { setRequestLocale } from "next-intl/server"
 
+import { fetchBuildJson } from "@/http/buildFetch"
+
 import Service from "./components"
 
 interface Props {
@@ -11,18 +13,12 @@ interface Props {
 }
 
 export async function generateStaticParams() {
-  try {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/services?expand=images`
-    )
-    const data = await res.json()
-    const slugs = (data?.data ?? []).map((service: { slug: string }) => ({
-      service: service.slug,
-    }))
-    return slugs.length > 0 ? slugs : [{ service: "_" }]
-  } catch {
-    return [{ service: "_" }]
-  }
+  const data = await fetchBuildJson<{ data: { slug: string }[] }>(
+    "/services?expand=images"
+  )
+  const slugs = (data?.data ?? []).map((service) => ({ service: service.slug }))
+
+  return slugs.length > 0 ? slugs : [{ service: "_" }]
 }
 
 const ServiceId = async ({ params }: Props) => {

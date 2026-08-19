@@ -1,28 +1,27 @@
 import React from "react"
 
+import { fetchBuildJson } from "@/http/buildFetch"
+
 import ProductId from "./components"
 
 export async function generateStaticParams() {
-  try {
-    const brandsRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/brands`)
-    const brandsData = await brandsRes.json()
-    const brands: { slug: string }[] = brandsData?.data ?? []
+  const brandsData =
+    await fetchBuildJson<{ data: { slug: string }[] }>("/brands")
+  const brands = brandsData?.data ?? []
 
-    const params: { companyId: string; product: string }[] = []
-    for (const brand of brands) {
-      const productsRes = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/products/${brand.slug}`
-      )
-      const productsData = await productsRes.json()
-      const products: { slug: string }[] = productsData?.data ?? []
-      products.forEach((p) =>
-        params.push({ companyId: brand.slug, product: p.slug })
-      )
+  const params: { companyId: string; product: string }[] = []
+  for (const brand of brands) {
+    // The endpoint paginates at 12 by default; without a large page size the
+    // export silently omits every product past the first page.
+    const productsData = await fetchBuildJson<{ data: { slug: string }[] }>(
+      `/products/${brand.slug}?per_page=1000`
+    )
+    for (const product of productsData?.data ?? []) {
+      params.push({ companyId: brand.slug, product: product.slug })
     }
-    return params.length > 0 ? params : [{ companyId: "_", product: "_" }]
-  } catch {
-    return [{ companyId: "_", product: "_" }]
   }
+
+  return params.length > 0 ? params : [{ companyId: "_", product: "_" }]
 }
 
 const ProductIdPage = () => {

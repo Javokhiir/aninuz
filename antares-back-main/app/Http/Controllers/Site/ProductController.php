@@ -25,10 +25,13 @@ class ProductController extends Controller
         if ($request->has('expand')) {
             $products = $products->with(explode(', ', $request->input('expand')));
         }
+        // An unknown slug is a valid request (a stale link, or a static export
+        // built before the brand existed) — answer with an empty list rather than
+        // dereferencing a missing brand and returning a 500.
         return (ProductResource::collection($products->paginate($request->input('per_page') ?? 12)))
         ->additional(['meta' => [
-            'color' => $brand->color,
-            'svg' => $brand->svg
+            'color' => $brand?->color,
+            'svg' => $brand?->svg
         ]]);
     }
 

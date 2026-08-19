@@ -1,5 +1,7 @@
 import { setRequestLocale } from "next-intl/server"
 
+import { fetchBuildJson } from "@/http/buildFetch"
+
 import EventId from "./components"
 
 interface Props {
@@ -7,18 +9,12 @@ interface Props {
 }
 
 export async function generateStaticParams() {
-  try {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/events?expand=images`
-    )
-    const data = await res.json()
-    const slugs = (data?.data ?? []).map((event: { slug: string }) => ({
-      event: event.slug,
-    }))
-    return slugs.length > 0 ? slugs : [{ event: "_" }]
-  } catch {
-    return [{ event: "_" }]
-  }
+  const data = await fetchBuildJson<{ data: { slug: string }[] }>(
+    "/events?expand=images"
+  )
+  const slugs = (data?.data ?? []).map((event) => ({ event: event.slug }))
+
+  return slugs.length > 0 ? slugs : [{ event: "_" }]
 }
 
 const EventsPage = async ({ params }: Props) => {
