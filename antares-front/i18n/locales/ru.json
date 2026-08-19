@@ -147,7 +147,8 @@
     "filterSuccess": "Фильтр успешно применен!",
     "productCard": {
       "price": "Цена по запросу",
-      "more": "Подробнее"
+      "more": "Подробнее",
+      "addToCart": "В корзину"
     },
     "productId": {
       "findOutPrice": "Уточнить цену",
@@ -165,7 +166,8 @@
       "detailedView": "Детальный вид инструмента"
     },
     "empty": "Данных нет",
-    "subcategories": "{count} подкатегорий"
+    "subcategories": "{count} подкатегорий",
+    "categoriesEyebrow": "Категории продукции"
   },
   "services": {
     "title": "Услуги",

@@ -2,12 +2,11 @@
 
 import React, { useEffect } from "react"
 import { Link } from "@/i18n/routing"
-import { useCompanyColorStore } from "@/states/store"
 import { useMutation, useQuery } from "@tanstack/react-query"
-import { CircleAlertIcon } from "lucide-react"
+import { ArrowLeft, CircleAlertIcon } from "lucide-react"
 import { useTranslations } from "next-intl"
 
-import { CategoriesResponse } from "@/types/models/categories"
+import { CategoriesResponse, Category } from "@/types/models/categories"
 import { ProductsResponse } from "@/types/models/product"
 import { getCategories } from "@/http/requests/categories"
 import {
@@ -16,12 +15,17 @@ import {
 } from "@/http/requests/products"
 import { useQueryParams } from "@/hooks/useQueryParams"
 import { Pagination } from "@/components/ui/pagination"
-import { Skeleton } from "@/components/ui/skeleton"
-import { Icons } from "@/components/icons"
 import { SearchInput } from "@/components/Search"
 
+import { productsThemeVars } from "../../theme"
 import Filters from "./filters"
-import ProductsSection from "./products"
+import ProductsSection, { ProductsGridSkeleton } from "./products"
+
+const categoryTitle = (category?: Category) =>
+  category &&
+  (category.title ||
+    category.translations?.find((translation) => translation.title)?.title ||
+    category.slug)
 
 const CompanyProducts = ({ companyId }: { companyId: string }) => {
   const { getParam, setParam } = useQueryParams()
@@ -39,13 +43,7 @@ const CompanyProducts = ({ companyId }: { companyId: string }) => {
       getAllProductsByCompanyId({
         brand: companyId,
         config: {
-          params: {
-            page,
-            per_page: 12,
-
-            expand: images,
-            category: filter,
-          },
+          params: { page, per_page: 12, expand: images, category: filter },
         },
       }),
     enabled: !search,
@@ -54,9 +52,7 @@ const CompanyProducts = ({ companyId }: { companyId: string }) => {
 
   const searchMutation = useMutation({
     mutationFn: searchProductsByBrands,
-    onSuccess: (data: ProductsResponse) => {
-      setProductsData(data)
-    },
+    onSuccess: (data: ProductsResponse) => setProductsData(data),
   })
 
   useEffect(() => {
@@ -68,97 +64,86 @@ const CompanyProducts = ({ companyId }: { companyId: string }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [search, companyId])
 
-  const handleFilters = (filter: string) => {
-    setParam("category", filter)
-  }
+  const handleFilters = (filter: string) => setParam("category", filter)
 
-  const { isLoading: isFiltersLoading, data: filters } =
-    useQuery<CategoriesResponse>({
-      queryKey: ["filters", page, companyId],
-      queryFn: () =>
-        getCategories({
-          config: {
-            params: {
-              page: 1,
-              per_page: 12,
-              brand: companyId,
-              expand: "parent, children.children.children.children",
-            },
+  const { data: filters } = useQuery<CategoriesResponse>({
+    queryKey: ["filters", companyId],
+    queryFn: () =>
+      getCategories({
+        config: {
+          params: {
+            per_page: 100,
+            // Site\CategoryController splits `expand` on ", ", so the space matters.
+            expand: "children.children.children",
           },
-        }),
-    })
-
-  const { color, setColor } = useCompanyColorStore()
-
-  useEffect(() => {
-    setColor(allProducts?.meta.color || "muted")
-  }, [allProducts?.meta.color, setColor])
+        },
+      }),
+  })
 
   const dataShow = search?.trim() ? productsData : allProducts
+  const pending = isLoading || searchMutation.isPending
+
+  // Name the page after the selected category so the header is not empty when a
+  // brand has no logo to show.
+  const activeCategory = filters?.data.find((c) => c.slug === filter)
 
   return (
-    <div className="mx-auto max-w-[1400px] space-y-10 px-4 py-10">
-      <div className="flex items-center justify-center md:justify-start md:gap-10">
-        <Link href="/products" className="mr-auto md:m-0">
-          <Icons.ArrowLeft className="text-muted-foreground hover:text-primary h-full transition-all duration-150" />
+    <section className="bg-[var(--section-bg)] py-16" style={productsThemeVars}>
+      <div className="mx-auto max-w-[1400px] px-6 lg:px-12">
+        <Link
+          href="/products"
+          className="mb-6 inline-flex items-center gap-2 text-sm text-gray-400 transition-colors hover:text-[var(--accent)]"
+        >
+          <ArrowLeft className="h-4 w-4" />
+          {t("title")}
         </Link>
-        {isLoading ? (
-          <Skeleton className="mr-auto h-[70px] w-[200px] md:w-[250px]" />
-        ) : (
-          <div
-            className="mr-auto flex w-[200px] justify-center md:w-[250px]"
-            dangerouslySetInnerHTML={{
-              __html: allProducts?.meta.svg || "<svg></svg>",
-            }}
-          />
-        )}
-      </div>
-      <div className="flex items-center justify-between gap-2">
-        <SearchInput
-          style={{ borderColor: color }}
-          className={`border-2 bg-white md:max-w-[500px]`}
-        />
-        <div className="block md:hidden">
-          <Filters
-            handleFilters={handleFilters}
-            categories={filters?.data || []}
-          />
+
+        <div className="mb-10">
+          <div className="mb-4 flex items-center space-x-3">
+            <div className="h-[2px] w-12 bg-[var(--accent)]" />
+            <span className="text-sm tracking-widest text-gray-400 uppercase">
+              {companyId}
+            </span>
+          </div>
+          <h1 className="text-4xl tracking-tight text-white lg:text-5xl">
+            {categoryTitle(activeCategory) || t("all")}
+          </h1>
         </div>
-      </div>
-      <div className="flex gap-10">
-        <div className="hidden md:block">
-          {isFiltersLoading ? (
-            <Skeleton className="h-[500px] w-[300px] max-w-[300px] rounded-[20px] border-2 bg-white" />
-          ) : (
+
+        <div className="mb-8 flex items-center justify-between gap-3">
+          <SearchInput className="border border-[var(--card-border)] bg-[var(--card-bg)] text-white md:max-w-[420px]" />
+          <div className="block md:hidden">
             <Filters
               handleFilters={handleFilters}
               categories={filters?.data || []}
             />
+          </div>
+        </div>
+
+        <div className="flex gap-8">
+          <div className="hidden md:block">
+            <Filters
+              handleFilters={handleFilters}
+              categories={filters?.data || []}
+            />
+          </div>
+
+          {pending ? (
+            <ProductsGridSkeleton />
+          ) : dataShow?.data?.length ? (
+            <ProductsSection companyName={companyId} products={dataShow.data} />
+          ) : (
+            <p className="flex h-min flex-1 items-center gap-3 rounded-lg border border-[var(--card-border)] bg-[var(--card-bg)] p-6 text-gray-400">
+              <CircleAlertIcon className="h-5 w-5" /> {t("notFound")}
+            </p>
           )}
         </div>
-        {isLoading || searchMutation.isPending ? (
-          <div className="grid flex-1 grid-cols-2 gap-5 md:grid-cols-2 md:gap-10 lg:grid-cols-3">
-            {Array.from({ length: 6 }).map((_, idx) => (
-              <Skeleton key={idx} className="h-[300px] w-full rounded-xl" />
-            ))}
-          </div>
-        ) : (
-          dataShow?.data &&
-          dataShow?.data.length > 0 && (
-            <ProductsSection
-              companyName={companyId}
-              products={dataShow?.data}
-            />
-          )
-        )}
-        {dataShow?.data.length === 0 && (
-          <p className="text-muted-foreground ronuded-xl flex h-full w-full items-center gap-5 rounded-xl bg-white p-5">
-            <CircleAlertIcon /> {t("notFound")}
-          </p>
-        )}
+
+        <div className="mt-12">
+          <Pagination limit={12} totalCount={allProducts?.meta.total || 0} />
+        </div>
       </div>
-      <Pagination limit={10} totalCount={allProducts?.meta.total || 0} />
-    </div>
+    </section>
   )
 }
 

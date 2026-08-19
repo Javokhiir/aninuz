@@ -147,7 +147,8 @@
     "filterSuccess": "Filter successfully applied!",
     "productCard": {
       "price": "Price upon request",
-      "more": "More details"
+      "more": "More details",
+      "addToCart": "Add to cart"
     },
     "productId": {
       "functionalities": "Functions",
@@ -165,7 +166,8 @@
       "detailedView": "Detailed view of the tool"
     },
     "empty": "No data",
-    "subcategories": "{count} Subcategories"
+    "subcategories": "{count} Subcategories",
+    "categoriesEyebrow": "Product categories"
   },
   "services": {
     "title": "Services",

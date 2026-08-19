@@ -3,14 +3,11 @@
 import React from "react"
 import Image from "next/image"
 import { Link } from "@/i18n/routing"
-import { useCartStore, useCompanyColorStore } from "@/states/store"
+import { useCartStore } from "@/states/store"
+import { ArrowRight, ShoppingBasket } from "lucide-react"
 import { useTranslations } from "next-intl"
 
 import { Product } from "@/types/models/product"
-
-import { Icons } from "../icons"
-import { Button } from "../ui/button"
-import { Card, CardContent, CardFooter, CardHeader } from "../ui/card"
 
 const ProductCard = ({
   product,
@@ -21,56 +18,53 @@ const ProductCard = ({
 }) => {
   const t = useTranslations("products.productCard")
   const { addToCart } = useCartStore()
-  const { color } = useCompanyColorStore()
+
+  const href = `/products/${companyName}/${product.slug}`
+  const image = product.images?.[0]
 
   return (
-    <div
-      className="h-full max-w-[300px]"
-      style={{ ["--hover-color" as string]: color }}
-    >
-      <div className="group h-full w-full transition-all duration-150">
-        <Card
-          className="border-primary/10 h-full max-w-[300px] gap-2 rounded-[30px] border-0 border-b-[5px] p-1 pb-2 transition-transform duration-300 group-hover:translate-y-[-10px] md:gap-5"
-          style={{ willChange: "transform" }}
-        >
-          <CardHeader className="relative flex h-[60%] items-center justify-center overflow-hidden rounded-[30px] border-2 border-gray-100">
-            <Link href={`/products/${companyName}/${product.slug}`}>
+    <div className="group relative">
+      <div className="flex h-full flex-col overflow-hidden rounded-lg border border-[var(--card-border)] bg-[var(--card-bg)] transition-all duration-300 hover:border-[var(--accent)]">
+        <div className="relative h-56 overflow-hidden">
+          <Link href={href} className="block h-full w-full">
+            {image ? (
               <Image
-                src={product.images[0]?.url_webp || "/logos/logo-with-text.png"}
-                alt="product"
+                src={image.url_webp || image.url}
+                alt={product.title}
                 width={500}
                 height={500}
-                className="relative z-0 min-h-[150px] max-w-[150px] object-contain md:max-w-[200px]"
+                className="h-full w-full object-contain p-6 transition-transform duration-700 group-hover:scale-110"
               />
-            </Link>
-
-            <Button
-              variant="ghost"
-              onClick={() => addToCart(product)}
-              className="text-muted absolute top-2 right-2 z-10 h-10 w-10 cursor-pointer rounded-full border-1 p-0 group-hover:text-[var(--hover-color)] md:top-3 md:right-3 md:h-12 md:w-12 md:border-2 [&_svg:not([class*='size-'])]:size-4 md:[&_svg:not([class*='size-'])]:size-6"
-            >
-              <Icons.ProductCart className="w-full" />
-            </Button>
-          </CardHeader>
-
-          <Link
-            href={`/products/${companyName}/${product.slug}`}
-            className="flex h-[40%] w-full flex-col justify-between space-y-2 md:space-y-4"
-          >
-            <CardContent className="space-y-2 p-2 px-2 pb-0 md:px-5">
-              <h4 className="line-clamp-2 w-full text-sm font-semibold md:line-clamp-1 md:text-base">
-                {product.title}
-              </h4>
-              <p className="text-sm md:text-base">{t("price")}</p>
-            </CardContent>
-            <CardFooter className="text-muted mt-auto ml-auto flex flex-col items-end pt-0 group-hover:text-[var(--hover-color)]">
-              <p className="mt-auto text-end text-xs md:text-base">
-                {t("more")}
-              </p>
-              <Icons.LongArrowRight className="ml-auto" />
-            </CardFooter>
+            ) : (
+              <div className="flex h-full w-full items-center justify-center bg-white/[0.03]">
+                <span className="text-6xl font-bold text-white/10 uppercase">
+                  {product.title?.charAt(0)}
+                </span>
+              </div>
+            )}
           </Link>
-        </Card>
+
+          <button
+            type="button"
+            onClick={() => addToCart(product)}
+            aria-label={t("addToCart")}
+            className="absolute top-3 right-3 z-10 flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border border-[var(--card-border)] bg-[var(--section-bg)]/80 text-gray-400 backdrop-blur transition-colors hover:border-[var(--accent)] hover:text-[var(--accent)]"
+          >
+            <ShoppingBasket className="h-5 w-5" />
+          </button>
+        </div>
+
+        <Link href={href} className="flex flex-1 flex-col p-6">
+          <h3 className="mb-2 line-clamp-2 text-lg tracking-tight text-white transition-colors group-hover:text-[var(--accent)]">
+            {product.title}
+          </h3>
+          <p className="mb-4 text-sm text-gray-400">{t("price")}</p>
+
+          <span className="mt-auto flex items-center gap-2 text-sm font-medium text-[var(--accent)]">
+            {t("more")}
+            <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+          </span>
+        </Link>
       </div>
     </div>
   )

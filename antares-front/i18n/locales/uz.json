@@ -147,7 +147,8 @@
     "filterSuccess": "Filter muvaffaqiyatli yoqildi!",
     "productCard": {
       "price": "Narx soʻrov asosida",
-      "more": "Batafsil"
+      "more": "Batafsil",
+      "addToCart": "Savatga qo'shish"
     },
     "productId": {
       "functionalities": "Funktsiyalar",
@@ -165,7 +166,8 @@
       "detailedView": "Asbobning batafsil koʻrinishi"
     },
     "empty": "Ma'lumot yo'q",
-    "subcategories": "{count} ta subkategoriya"
+    "subcategories": "{count} ta subkategoriya",
+    "categoriesEyebrow": "Mahsulot toifalari"
   },
   "services": {
     "title": "Xizmatlar",
