@@ -3,7 +3,7 @@
 import React from "react"
 import { useTranslations } from "next-intl"
 
-import Companies from "./components/companies"
+import Categories from "./components/categories"
 const ProductsPage = () => {
   const t = useTranslations("products")
   return (
@@ -11,7 +11,7 @@ const ProductsPage = () => {
       <h1 className="mx-auto w-max bg-gradient-to-r from-black via-blue-700 to-black bg-clip-text font-extrabold text-transparent uppercase md:p-10">
         {t("title")}
       </h1>
-      <Companies />
+      <Categories />
     </div>
   )
 }

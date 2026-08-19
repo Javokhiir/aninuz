@@ -34,6 +34,15 @@
                 </label>
             </form>
             @endif
+            @if (isset($import_json) && $import_json)
+            <form action="{{ $import_json['link'] }}" class="import-json-form ms-1" method="post" enctype="multipart/form-data">
+                @csrf
+                <input type="file" name="json" id="json" accept="application/json,.json">
+                <label for="json" class="btn btn-lg btn-import ms-auto">
+                    Import JSON
+                </label>
+            </form>
+            @endif
         </div>
     </div>
 </div>

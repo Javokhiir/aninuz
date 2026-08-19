@@ -68,7 +68,7 @@ const Filters = ({ categories, handleFilters }: FiltersProps) => {
               </span>
             </AccordionTrigger>
             <AccordionContent className="pt-4">
-              {category.children.map((child) =>
+              {category.children?.map((child) =>
                 renderCategory(child, depth + 1)
               )}
             </AccordionContent>

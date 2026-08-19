@@ -12,6 +12,13 @@
 </div>
 @endif
 
+@if (Session::has('error'))
+<div class="alert alert-danger alert-dismissible fade show mt-4" role="alert">
+    {{ Session::get('error') }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+@endif
+
 @if (count($errors) > 0)
 @foreach ($errors->all() as $error)
 <div class="alert alert-danger alert-dismissible fade show mt-4" role="alert">

@@ -28,5 +28,6 @@ Route::group(["prefix" => "orders", 'as' => 'orders.'], function () {
 Route::group(["prefix" => "products", 'as' => 'products.'], function () {
     Route::get('components/faq', 'ProductController@getFAQComponent')->name('faq_component');
     Route::post('import', 'ProductController@import')->name('import');
+    Route::post('import-json', 'ProductController@importJson')->name('import_json');
     Route::post('deleteimage', 'ProductController@deleteImage')->name('delete_image');
 });

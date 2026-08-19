@@ -20,6 +20,9 @@
                 @include('admin.partials.table.header', [
                   'per_page' => true,
                   'search' => true,
+                  'import_json' => [
+                    'link' => dashboard_route('dashboard.products.import_json')
+                  ],
                   'import' => [
                     'link' => dashboard_route('dashboard.products.import')
                   ],

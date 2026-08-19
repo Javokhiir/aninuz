@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Product\StoreRequest;
 use App\Http\Requests\Admin\Product\UpdateRequest;
 use App\Imports\ProductImport;
+use App\Imports\ProductJsonImport;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
@@ -16,6 +17,7 @@ use App\Services\ImageUploadService;
 use App\View\Components\FaqComponent;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Maatwebsite\Excel\Excel as ExcelFormat;
 use Maatwebsite\Excel\Facades\Excel;
 
 class ProductController extends Controller
@@ -79,6 +81,47 @@ class ProductController extends Controller
             }
         }
         session()->flash("success", "Product was added");
+        return redirect(dashboard_route('dashboard.products.index'));
+    }
+
+    public function importJson(Request $request, ProductJsonImport $import)
+    {
+        $request->validate([
+            'json' => 'required|file',
+        ]);
+
+        // Checked by extension on purpose: the mimes/mimetypes rules go through
+        // Symfony's guesser, which needs ext-fileinfo and is often off on shared
+        // hosting.
+        if (strtolower($request->file('json')->getClientOriginalExtension()) !== 'json') {
+            return redirect(dashboard_route('dashboard.products.index'))
+                ->with('error', 'Please upload a .json file. Use the Import button for CSV/Excel.');
+        }
+
+        // A large catalogue still takes a while to write, and shared hosting caps
+        // the request; re-running the import updates rows in place, so a timed-out
+        // run can simply be repeated.
+        @set_time_limit(0);
+        @ini_set('memory_limit', '512M');
+
+        $entries = json_decode(file_get_contents($request->file('json')->getRealPath()), true);
+        if (!is_array($entries)) {
+            return redirect(dashboard_route('dashboard.products.index'))
+                ->with('error', 'The uploaded file is not a valid JSON array.');
+        }
+
+        // A products key keeps the door open for a wrapped payload.
+        $entries = array_is_list($entries) ? $entries : ($entries['products'] ?? []);
+
+        $import->import($entries);
+
+        session()->flash('success', sprintf(
+            'JSON import finished: %d added, %d updated, %d skipped.',
+            $import->created,
+            $import->updated,
+            $import->skipped
+        ));
+
         return redirect(dashboard_route('dashboard.products.index'));
     }
 
@@ -205,9 +248,49 @@ class ProductController extends Controller
 
     public function import(Request $request)
     {
-        Excel::import(new ProductImport, $request->file('excel'));
-        return response()->json([
-            "message" => "Import was completed",
-        ], 200);
+        $request->validate([
+            'excel' => 'required|file',
+        ]);
+
+        $extension = strtolower($request->file('excel')->getClientOriginalExtension());
+        if (!in_array($extension, ['csv', 'txt', 'xlsx', 'xls'], true)) {
+            return redirect(dashboard_route('dashboard.products.index'))->with(
+                'error',
+                $extension === 'json'
+                    ? 'That is a JSON file — use the Import JSON button instead.'
+                    : 'Please upload a CSV or Excel file.'
+            );
+        }
+
+        // Naming the reader keeps PhpSpreadsheet off its auto-detect path, which
+        // calls mime_content_type() and fatals where ext-fileinfo is missing.
+        $readerType = match ($extension) {
+            'xlsx' => ExcelFormat::XLSX,
+            'xls' => ExcelFormat::XLS,
+            default => ExcelFormat::CSV,
+        };
+
+        $import = new ProductImport;
+
+        try {
+            Excel::import($import, $request->file('excel'), null, $readerType);
+        } catch (\Throwable $e) {
+            report($e);
+
+            $message = str_contains($e->getMessage(), 'mime_content_type')
+                ? 'Spreadsheet import needs the PHP fileinfo extension, which is disabled on this server. Enable it, or use Import JSON.'
+                : 'Import failed: ' . $e->getMessage();
+
+            return redirect(dashboard_route('dashboard.products.index'))->with('error', $message);
+        }
+
+        session()->flash('success', sprintf(
+            'Import was completed: %d added, %d updated, %d skipped.',
+            $import->created,
+            $import->updated,
+            $import->skipped
+        ));
+
+        return redirect(dashboard_route('dashboard.products.index'));
     }
 }

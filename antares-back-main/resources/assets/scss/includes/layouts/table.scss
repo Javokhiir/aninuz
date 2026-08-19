@@ -64,7 +64,8 @@
             }
         }
 
-        .import-form {
+        .import-form,
+        .import-json-form {
             input[type="file"] {
                 display: none;
             }

@@ -164,7 +164,8 @@
       "faq": "Koʻp soʻraladigan savollar",
       "detailedView": "Asbobning batafsil koʻrinishi"
     },
-    "empty": "Ma'lumot yo'q"
+    "empty": "Ma'lumot yo'q",
+    "subcategories": "{count} ta subkategoriya"
   },
   "services": {
     "title": "Xizmatlar",

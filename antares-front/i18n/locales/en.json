@@ -164,7 +164,8 @@
       "faq": "Frequently Asked Questions",
       "detailedView": "Detailed view of the tool"
     },
-    "empty": "No data"
+    "empty": "No data",
+    "subcategories": "{count} Subcategories"
   },
   "services": {
     "title": "Services",

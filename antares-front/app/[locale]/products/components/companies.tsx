@@ -11,6 +11,14 @@ import { Pagination } from "@/components/ui/pagination/index"
 import { Skeleton } from "@/components/ui/skeleton"
 import BorderGlow from "@/components/ui/BorderGlow"
 
+// The API only returns `title` for the active locale, so a brand that has not
+// been translated yet comes back with title: null. Fall back to any translation
+// we do have, then to the slug, so the card never renders empty.
+const companyTitle = (company: Company) =>
+  company.title ||
+  company.translations?.find((translation) => translation.title)?.title ||
+  company.slug
+
 const Companies = () => {
   const { getParam } = useQueryParams()
   const page = getParam("page", "1")
@@ -58,12 +66,12 @@ const Companies = () => {
                   />
                 ) : (
                   <p className="text-center text-lg font-bold uppercase text-white">
-                    {company.title}
+                    {companyTitle(company)}
                   </p>
                 )}
                 {company.svg && (
                   <p className="text-center text-xs font-semibold uppercase tracking-widest text-white/40">
-                    {company.title}
+                    {companyTitle(company)}
                   </p>
                 )}
               </div>

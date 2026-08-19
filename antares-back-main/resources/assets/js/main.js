@@ -314,18 +314,24 @@ function customSelect() {
 }
 
 function handleImport() {
-  const btn = document.querySelector('#excel');
-  const form = document.querySelector('form.import-form');
-  if (btn) {
-    btn.addEventListener('change', (e) => {
-      form.submit();
-    })
-  }
+  // Each import form is a hidden file input behind a styled label; picking a
+  // file submits it straight away.
+  [
+    ['#excel', 'form.import-form'],
+    ['#json', 'form.import-json-form'],
+  ].forEach(([inputSelector, formSelector]) => {
+    const input = document.querySelector(inputSelector);
+    const form = document.querySelector(formSelector);
+    if (input && form) {
+      input.addEventListener('change', () => form.submit());
+    }
+  });
 }
 
 function handleFaq(){
   const btn = document.querySelector('#addFaq');
   const container = $("#accordionFAQ");
+  if (!btn) return;
   btn.addEventListener('click', (e) => {
     e.preventDefault();
     const idx = btn.dataset.row*1+1;
