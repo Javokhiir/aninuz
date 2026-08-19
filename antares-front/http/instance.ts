@@ -1,15 +1,25 @@
 import axios from "axios"
-import Cookies from "js-cookie"
+import { routing } from "@/i18n/routing"
 
 export const $api = axios.create({
   withCredentials: true,
   baseURL: process.env.NEXT_PUBLIC_API_URL,
 })
 
+// Derive the locale from the URL segment rather than the NEXT_LOCALE cookie:
+// `output: "export"` disables middleware, so that cookie is never kept in sync
+// with the locale the user is actually browsing.
+const getLocale = () => {
+  if (typeof window === "undefined") return routing.defaultLocale
+
+  const segment = window.location.pathname.split("/")[1]
+  return routing.locales.includes(segment as (typeof routing.locales)[number])
+    ? segment
+    : routing.defaultLocale
+}
+
 $api.interceptors.request.use((config) => {
-  // Set language header from cookie
-  const locale = Cookies.get("NEXT_LOCALE") || "ru"
-  config.headers["Accept-Language"] = locale.toLowerCase()
+  config.headers["Accept-Language"] = getLocale()
 
   return config
 })

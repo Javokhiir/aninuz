@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { motion, useScroll, useTransform } from "framer-motion"
-import Cookies from "js-cookie"
+import { useLocale } from "next-intl"
 
 export const LineScrollAnimation = () => {
   const { scrollYProgress } = useScroll()
@@ -15,11 +15,7 @@ export const LineScrollAnimation = () => {
     return () => window.removeEventListener("resize", handleResize)
   }, [])
 
-  const [lang, setLang] = useState("ru")
-
-  useEffect(() => {
-    setLang(Cookies.get("NEXT_LOCALE") || "ru")
-  }, [])
+  const lang = useLocale()
 
   const strokeDashoffset = useTransform(
     scrollYProgress,
