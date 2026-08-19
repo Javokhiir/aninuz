@@ -14,6 +14,7 @@ return [
         'profile' => 'Profile',
         'catalog' => 'Catalog',
         'reviews' => 'Reviews',
+        'datasheet_leads' => 'Datasheet leads',
     ],
     'en' => 'ENG',
     'ru' => 'RUS',

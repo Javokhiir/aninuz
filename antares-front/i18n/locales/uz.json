@@ -167,7 +167,16 @@
     },
     "empty": "Ma'lumot yo'q",
     "subcategories": "{count} ta subkategoriya",
-    "categoriesEyebrow": "Mahsulot toifalari"
+    "categoriesEyebrow": "Mahsulot toifalari",
+    "datasheet": {
+      "download": "Texnik pasportni yuklab olish",
+      "title": "Texnik pasportni yuklab olish",
+      "description": "Email qoldiring va «{product}» fayli darhol yuklab olinadi.",
+      "emailPlaceholder": "you@company.com",
+      "submit": "Faylni olish",
+      "sending": "Yuborilmoqda…",
+      "started": "Yuklab olish boshlandi"
+    }
   },
   "services": {
     "title": "Xizmatlar",

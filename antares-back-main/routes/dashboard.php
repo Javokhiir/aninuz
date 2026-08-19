@@ -19,6 +19,7 @@ Route::resource('reviews', 'ReviewController');
 Route::resource('orders', 'OrderController');
 Route::resource('users', 'UserController');
 Route::resource('catalog', 'CatalogController');
+Route::resource('datasheet-leads', 'DatasheetLeadController')->only(['index', 'destroy']);
 
 Route::group(["prefix" => "orders", 'as' => 'orders.'], function () {
     Route::post('complete', 'OrderController@complete')->name('complete');

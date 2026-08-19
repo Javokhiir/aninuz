@@ -167,7 +167,16 @@
     },
     "empty": "Данных нет",
     "subcategories": "{count} подкатегорий",
-    "categoriesEyebrow": "Категории продукции"
+    "categoriesEyebrow": "Категории продукции",
+    "datasheet": {
+      "download": "Скачать техпаспорт",
+      "title": "Скачать техпаспорт",
+      "description": "Укажите email, и загрузка «{product}» начнётся сразу.",
+      "emailPlaceholder": "you@company.com",
+      "submit": "Получить файл",
+      "sending": "Отправка…",
+      "started": "Загрузка началась"
+    }
   },
   "services": {
     "title": "Услуги",

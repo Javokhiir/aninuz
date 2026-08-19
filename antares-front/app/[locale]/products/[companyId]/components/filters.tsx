@@ -23,6 +23,8 @@ import {
 } from "@/components/ui/dialog"
 import { ScrollArea } from "@/components/ui/scroll-area"
 
+import { productsThemeVars } from "../../theme"
+
 type FiltersProps = {
   categories: Categories
   handleFilters: (filter: string) => void
@@ -145,7 +147,10 @@ const Filters = ({ categories, handleFilters }: FiltersProps) => {
               <SlidersHorizontal className="size-5" />
             </Button>
           </DialogTrigger>
-          <DialogContent className="border-[var(--card-border)] bg-[var(--section-bg)]">
+          <DialogContent
+            style={productsThemeVars}
+            className="border-[var(--card-border)] bg-[var(--section-bg)]"
+          >
             <ScrollArea className="max-h-[70vh] px-2">
               <DialogHeader className="space-y-4">
                 <DialogTitle className="text-white">{t("filter")}</DialogTitle>

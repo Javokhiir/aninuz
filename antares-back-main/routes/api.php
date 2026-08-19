@@ -13,6 +13,7 @@ Route::get('/catalog', ['as' => 'catalog', 'uses' => 'PageController@catalog']);
 Route::get('/orders/{hash}', ['as' => 'orders', 'uses' => 'OrderController@show']);
 
 Route::post('/review', ['as' => 'review', 'uses' => 'PageController@review']);
+Route::post('/datasheet-lead', ['as' => 'datasheet_lead', 'uses' => 'DatasheetLeadController@store']);
 Route::post('/checkout', ['as' => 'checkout', 'uses' => 'CheckoutController@checkout']);
 
 Route::group(["prefix" => "categories", 'as' => "categories."], function () {

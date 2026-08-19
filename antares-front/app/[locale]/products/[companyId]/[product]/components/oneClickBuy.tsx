@@ -9,7 +9,6 @@ import { toast } from "sonner"
 import { z } from "zod"
 
 import { OneClickBuyRequest } from "@/types/models/product"
-import { hexToRgba } from "@/lib/utils"
 import { oneClickBuy } from "@/http/requests"
 import { Button } from "@/components/ui/button"
 import {
@@ -29,7 +28,6 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { PhoneInput } from "@/components/ui/phone-input"
-import SpecialButton from "@/components/ui/special-button"
 
 const oneClickBuySchema = z.object({
   name: z.string().min(2, {
@@ -75,15 +73,12 @@ const OneClickBuy = ({ productId }: { productId: number }) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <SpecialButton
-          style={{
-            backgroundColor: color,
-            boxShadow: `0px 10px 10px -4px ${hexToRgba(color, 0.4)}`,
-          }}
-          className="h-11 w-full capitalize"
+        <button
+          type="button"
+          className="h-12 w-full cursor-pointer rounded-lg border border-[var(--accent)] px-6 text-sm font-medium text-[var(--accent)] capitalize transition-colors hover:bg-[var(--accent)]/10"
         >
           {t("findOutPrice")}
-        </SpecialButton>
+        </button>
       </DialogTrigger>
       <DialogContent className="w-full">
         <DialogHeader className="w-full space-y-4">

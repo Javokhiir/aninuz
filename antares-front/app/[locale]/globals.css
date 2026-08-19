@@ -173,3 +173,69 @@
   initial-value: 0deg;
   inherits: false;
 }
+
+/* --------------------------------------------------------------------------
+   Rich text coming from the admin editor (product content, spec tables,
+   feature lists). It arrives as raw HTML via dangerouslySetInnerHTML, so it
+   carries no classes of its own and has to be styled by element here.
+   Scoped to .rich-dark so it only applies inside the dark products section.
+   -------------------------------------------------------------------------- */
+.rich-dark {
+  color: rgb(156 163 175); /* gray-400 */
+  font-size: 0.875rem;
+  line-height: 1.75;
+}
+
+.rich-dark p {
+  margin-bottom: 0.75rem;
+}
+
+.rich-dark h4 {
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 1.5rem 0 0.75rem;
+}
+
+.rich-dark ul {
+  list-style: disc;
+  padding-left: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.rich-dark li {
+  margin-bottom: 0.375rem;
+}
+
+.rich-dark figure.table {
+  margin: 0;
+  overflow-x: auto;
+}
+
+.rich-dark table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.rich-dark td,
+.rich-dark th {
+  border-bottom: 1px solid var(--card-border, #1e293b);
+  padding: 0.75rem 1rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+/* First column reads as the label, second as the value. */
+.rich-dark td:first-child {
+  color: rgb(148 163 184); /* slate-400 */
+  width: 45%;
+}
+
+.rich-dark td:last-child {
+  color: #fff;
+}
+
+.rich-dark tr:last-child td {
+  border-bottom: 0;
+}

@@ -60,6 +60,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'api/products/getinfo',
             'api/review',
             'api/checkout',
+            'api/datasheet-lead',
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

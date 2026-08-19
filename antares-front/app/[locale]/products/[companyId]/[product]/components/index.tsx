@@ -3,121 +3,115 @@
 import React from "react"
 import { useParams } from "next/navigation"
 import { Link, usePathname } from "@/i18n/routing"
-// import { useCartStore, useCompanyColorStore } from "@/states/store"
 import { useQuery } from "@tanstack/react-query"
+import { ArrowLeft } from "lucide-react"
 import { useTranslations } from "next-intl"
 
 import { ProductResponse } from "@/types/models/product"
 import { getProductById } from "@/http/requests/products"
 import { useQueryParams } from "@/hooks/useQueryParams"
-import { Card } from "@/components/ui/card"
-import { Skeleton } from "@/components/ui/skeleton"
-// import { Counter } from "@/components/ui/counter"
-// import SpecialButton from "@/components/ui/special-button"
-// import {
-//   Table,
-//   TableBody,
-//   TableCell,
-//   TableHead,
-//   TableHeader,
-//   TableRow,
-// } from "@/components/ui/table"
-import { Icons } from "@/components/icons"
 
+import { productsThemeVars } from "../../../theme"
 import ProductAccordion from "./accordion"
 import ProductImageCarousel from "./carousel"
 import ProductContent from "./productContent"
 
-// import ProductToolsView from "./tools"
+const DetailSkeleton = () => (
+  <div className="space-y-16">
+    <div className="grid gap-12 lg:grid-cols-2">
+      <div className="aspect-square w-full animate-pulse rounded-lg bg-white/[0.04]" />
+      <div className="space-y-4">
+        <div className="h-12 w-2/3 animate-pulse rounded bg-white/[0.06]" />
+        <div className="h-[2px] w-12 bg-white/[0.06]" />
+        {Array.from({ length: 4 }).map((_, i) => (
+          <div
+            key={i}
+            className="h-4 w-full animate-pulse rounded bg-white/[0.04]"
+          />
+        ))}
+        <div className="h-12 w-full animate-pulse rounded-lg bg-white/[0.06]" />
+      </div>
+    </div>
+    <div className="h-64 w-full animate-pulse rounded-lg bg-white/[0.04]" />
+  </div>
+)
 
 const ProductId = () => {
   const pathname = usePathname()
-
   const t = useTranslations("products.productId")
-
   const { getParam } = useQueryParams()
-  const images = getParam("expand", "images, faqs")
+  const expand = getParam("expand", "images, faqs")
   const product_slug = pathname.split("/")[3]
-
-  const { isLoading, data: product } = useQuery<ProductResponse>({
-    queryKey: ["product", product_slug, images],
-    queryFn: () =>
-      getProductById({
-        product_slug,
-        config: {
-          params: { expand: images },
-        },
-      }),
-  })
-
   const { companyId } = useParams()
 
-  // const t = useTranslations("products.productId")
-  return isLoading ? (
-    <div className="layout-container">
-      <div className="flex flex-col justify-center gap-5 py-10 md:flex-row md:gap-10">
-        <div className="w-full md:order-2">
-          <Skeleton className="h-[400px] w-full rounded-xl" />
-        </div>
-        <div className="w-full space-y-5 md:order-1">
-          {[1, 2, 3, 4, 5, 6].map((i) => (
-            <Skeleton key={i} className="h-[50px] w-full rounded-xl" />
-          ))}
-        </div>
-      </div>
-      <Skeleton className="h-[500px] w-full rounded-xl" />
-    </div>
-  ) : (
-    <div className="layout-container space-y-10 py-10 md:space-y-20">
-      <Link href={`/products/${companyId}`}>
-        <button className="mr-auto cursor-pointer md:m-0">
-          <Icons.ArrowLeft className="text-muted-foreground hover: h-full transition-all duration-150" />
-        </button>
-      </Link>
+  const { isLoading, data: product } = useQuery<ProductResponse>({
+    queryKey: ["product", product_slug, expand],
+    queryFn: () =>
+      getProductById({ product_slug, config: { params: { expand } } }),
+  })
 
-      <div className="flex flex-col gap-10 py-5 md:flex-row">
-        {product?.data && <ProductContent product={product.data} />}
-        {product?.data && product.data.images.length > 0 && (
-          <ProductImageCarousel images={product.data.images} />
-        )}
-      </div>
+  const data = product?.data
+  const faqs = data?.faqs ?? []
 
-      <div className="w-full space-y-10">
-        {product?.data && product?.data.table_content && (
-          <div className="flex w-full flex-col gap-10 overflow-x-scroll md:flex-row">
-            <div className="w-full space-y-5">
-              <p className="text-lg font-bold">{t("technicalDetails")}</p>
-              <div
-                className="w-full"
-                dangerouslySetInnerHTML={{ __html: product.data.table_content }}
-              />
+  return (
+    <section className="bg-[var(--section-bg)] py-16" style={productsThemeVars}>
+      <div className="mx-auto max-w-[1400px] px-6 lg:px-12">
+        <Link
+          href={`/products/${companyId}`}
+          className="mb-10 inline-flex items-center gap-2 text-sm text-gray-400 transition-colors hover:text-[var(--accent)]"
+        >
+          <ArrowLeft className="h-4 w-4" />
+          {companyId}
+        </Link>
+
+        {isLoading || !data ? (
+          <DetailSkeleton />
+        ) : (
+          <div className="space-y-16">
+            <div className="grid gap-12 lg:grid-cols-2">
+              <ProductImageCarousel images={data.images} title={data.title} />
+              <ProductContent product={data} />
             </div>
+
+            {data.table_content && (
+              <div className="space-y-5">
+                <div className="flex items-center space-x-3">
+                  <div className="h-[2px] w-12 bg-[var(--accent)]" />
+                  <span className="text-sm tracking-widest text-gray-400 uppercase">
+                    {t("technicalDetails")}
+                  </span>
+                </div>
+                <div
+                  className="rich-dark overflow-x-auto rounded-lg border border-[var(--card-border)] bg-[var(--card-bg)] p-2"
+                  dangerouslySetInnerHTML={{ __html: data.table_content }}
+                />
+              </div>
+            )}
+
+            {data.table_content_second && (
+              <div
+                className="rich-dark"
+                dangerouslySetInnerHTML={{ __html: data.table_content_second }}
+              />
+            )}
+
+            {faqs.length > 0 && (
+              <div className="space-y-5">
+                <div className="flex items-center space-x-3">
+                  <div className="h-[2px] w-12 bg-[var(--accent)]" />
+                  <span className="text-sm tracking-widest text-gray-400 uppercase">
+                    {t("faq")}
+                  </span>
+                </div>
+                <div className="rounded-lg border border-[var(--card-border)] bg-[var(--card-bg)] px-6">
+                  <ProductAccordion faqs={faqs} />
+                </div>
+              </div>
+            )}
           </div>
         )}
-        {product?.data && (
-          <div className="flex w-full flex-col gap-10 overflow-x-scroll md:flex-row">
-            <div className="w-full space-y-5">
-              <div
-                className="w-full"
-                dangerouslySetInnerHTML={{
-                  __html: product.data.table_content_second,
-                }}
-              />
-            </div>
-          </div>
-        )}
       </div>
-      {product?.data && product.data.faqs!.length > 0 ? (
-        <div className="space-y-10">
-          <h3 className="text-center text-3xl font-semibold">{t("faq")}</h3>
-          <Card className="border-0 px-5">
-            <ProductAccordion faqs={product.data.faqs || []} />
-          </Card>
-        </div>
-      ) : null}
-
-      {/* <ProductToolsView /> */}
-    </div>
+    </section>
   )
 }
 

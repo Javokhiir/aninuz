@@ -10,14 +10,16 @@ export const Counter = ({
   quantity,
   id,
   setQuantity,
+  className = "",
 }: {
   quantity: number
   id?: number
   setQuantity?: React.Dispatch<React.SetStateAction<number>>
+  className?: string
 }) => {
   const { changeQuantity } = useCartStore()
   return (
-    <div className="flex w-max items-center rounded-md border-2 p-1">
+    <div className={`flex w-max items-center rounded-md border-2 p-1 ${className}`}>
       <Button
         variant="ghost"
         className="h-6 w-6 md:h-8 md:w-8"

@@ -14,6 +14,11 @@ return [
             'route'  => 'dashboard.',
         ],
         [
+            'text' => 'datasheet_leads',
+            'icon' => 'bi bi-envelope-paper-fill',
+            'route'  => 'dashboard.datasheet-leads.index',
+        ],
+        [
             'header' => 'ecommerce',
         ],
         [

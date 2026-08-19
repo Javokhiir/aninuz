@@ -1,10 +1,8 @@
 "use client"
 
 import Image from "next/image"
-import { useCompanyColorStore } from "@/states/store"
 
 import { Product } from "@/types/models/product"
-// import { hexToRgba } from "@/lib/utils"
 import {
   Carousel,
   CarouselContent,
@@ -12,57 +10,50 @@ import {
   CarouselItem,
 } from "@/components/ui/product-carousel"
 
-// import SpecialButton from "@/components/ui/special-button"
+const ProductImageCarousel = ({
+  images,
+  title,
+}: {
+  images: Product["images"]
+  title: string
+}) => {
+  // Products imported without media still need to fill the column, otherwise the
+  // two-column layout collapses to a lone text block.
+  if (!images || images.length === 0) {
+    return (
+      <div className="flex aspect-square max-h-[420px] w-full items-center justify-center rounded-lg border border-[var(--card-border)] bg-[var(--card-bg)]">
+        <span className="text-8xl font-bold text-white/10 uppercase">
+          {title?.charAt(0)}
+        </span>
+      </div>
+    )
+  }
 
-const ProductImageCarousel = ({ images }: { images: Product["images"] }) => {
-  const { color } = useCompanyColorStore()
-  if (!images || images.length === 0) return null
   return (
-    <div className="relative order-first mx-auto w-full max-w-[500px] space-y-5 md:order-last md:mx-0">
+    <div className="relative w-full overflow-hidden rounded-lg border border-[var(--card-border)] bg-[var(--card-bg)]">
       <Carousel
         key={images.map((img) => img.id).join("-")}
         className="flex flex-row gap-0"
       >
-        <CarouselContent className="">
+        <CarouselContent>
           {images.map((image) => (
             <CarouselItem key={image.id}>
               <Image
-                src={image.url_webp}
+                src={image.url_webp || image.url}
                 draggable={false}
-                width={500}
-                height={500}
-                alt="product"
-                className="h-full w-full rounded-xl object-cover"
+                width={800}
+                height={800}
+                alt={title}
+                className="aspect-square max-h-[420px] w-full object-contain p-8"
               />
             </CarouselItem>
           ))}
         </CarouselContent>
-
         <CarouselIndicator
           className="right-0"
-          style={{ backgroundColor: color }}
+          style={{ backgroundColor: "var(--accent)" }}
         />
       </Carousel>
-      {/* <div className="flex items-center justify-center gap-4 md:justify-end">
-        <SpecialButton
-          style={{
-            backgroundColor: color,
-            boxShadow: `0px 10px 10px -4px ${hexToRgba(color, 0.4)}`,
-          }}
-          className="border-primary px-4 font-semibold capitalize md:h-12 md:px-10 md:text-lg"
-        >
-          скачать описание
-        </SpecialButton>
-        <SpecialButton
-          style={{
-            backgroundColor: color,
-            boxShadow: `0px 10px 10px -4px ${hexToRgba(color, 0.4)}`,
-          }}
-          className="border-primary px-4 font-semibold capitalize md:h-12 md:px-10 md:text-lg"
-        >
-          инструкция
-        </SpecialButton>
-      </div> */}
     </div>
   )
 }

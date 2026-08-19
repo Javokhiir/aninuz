@@ -167,7 +167,16 @@
     },
     "empty": "No data",
     "subcategories": "{count} Subcategories",
-    "categoriesEyebrow": "Product categories"
+    "categoriesEyebrow": "Product categories",
+    "datasheet": {
+      "download": "Download datasheet",
+      "title": "Download datasheet",
+      "description": "Leave your email and the “{product}” datasheet download starts right away.",
+      "emailPlaceholder": "you@company.com",
+      "submit": "Get the file",
+      "sending": "Sending…",
+      "started": "Download started"
+    }
   },
   "services": {
     "title": "Services",
