@@ -50,6 +50,17 @@ export default function ServiceWrap() {
               <div className="home-service-empty-block first-screen" />
               <div className="home-service-stick first-screen">
                 <div className="home-service-scene">
+                  {/* The crane sits in the lower half of this pinned screen and
+                      the top half was empty, so the promise the scene is acting
+                      out is stated there rather than left to the animation.
+                      Absolute inside the scene, which is the element that
+                      actually fills the viewport while the screen is pinned. */}
+                  <div className="home-service-lead">
+                    <h2 className="heading h2">
+                      {t("road.leadLine1")}
+                      <span className="cl-note">{t("road.leadLine2")}</span>
+                    </h2>
+                  </div>
                   <div className="home-service-crane">
                     <div className="home-service-crane-static o-car">
                       <img

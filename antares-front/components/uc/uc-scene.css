@@ -1123,6 +1123,17 @@
   height: 100vh;
   position: relative;
 }
+/* Sits in the empty top half of the pinned first screen, above the crane. */
+.uc-scene .home-service-lead {
+  z-index: 2;
+  pointer-events: none;
+  position: absolute;
+  top: min(calc(14 * var(--uc-rem)), 13vmin);
+  left: 0;
+  right: 0;
+  padding-inline: 5vw;
+  text-align: center;
+}
 .uc-scene .home-service-crane-static {
   z-index: 1;
   aspect-ratio: 16/9;

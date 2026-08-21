@@ -7,6 +7,8 @@ import { AnimatePresence, motion } from "framer-motion"
 import { useTranslations } from "next-intl"
 
 import { cn } from "@/lib/utils"
+import { useSurfaceTone } from "@/hooks/useSurfaceTone"
+import { LangSwitcher } from "@/components/langSwitcher"
 
 /**
  * The landing page's persistent chrome.
@@ -32,10 +34,22 @@ export function FloatingHeader() {
   const t = useTranslations("nav")
   const pathname = usePathname()
 
+  // 17px of padding plus half the 52px pill: the point the bar actually covers.
+  const tone = useSurfaceTone(43)
+  const onDark = tone === "dark"
+
   return (
-    <header className="pointer-events-none fixed inset-x-0 top-0 z-[80] py-[17px]">
-      <div className="flex justify-center px-5">
-        <nav className="rglass pointer-events-auto flex h-[52px] items-center p-[6px]">
+    <header
+      data-chrome-ignore
+      className="pointer-events-none fixed inset-x-0 top-0 z-[80] py-[17px]"
+    >
+      <div className="flex justify-center gap-[10px] px-5">
+        <nav
+          className={cn(
+            "rglass pointer-events-auto flex h-[52px] items-center p-[6px] transition-[background-color,box-shadow] duration-500 [transition-timing-function:var(--e-expo-out)]",
+            !onDark && "rglass-on-light"
+          )}
+        >
           <Link
             href="/"
             aria-label="Antares Investments"
@@ -47,7 +61,10 @@ export function FloatingHeader() {
               width={340}
               height={34}
               priority
-              className="h-[30px] w-auto brightness-0 invert"
+              className={cn(
+                "h-[30px] w-auto brightness-0 transition-[filter] duration-500",
+                onDark && "invert"
+              )}
             />
           </Link>
 
@@ -66,8 +83,15 @@ export function FloatingHeader() {
                   <Link
                     href={href}
                     className={cn(
-                      "relative flex h-10 items-center px-4 text-[15px] leading-10 whitespace-nowrap text-white transition-opacity duration-300 lg:px-7",
-                      active ? "opacity-100" : "opacity-60 hover:opacity-100"
+                      "relative flex h-10 items-center px-4 text-[15px] leading-10 whitespace-nowrap transition-[opacity,color] duration-300 lg:px-7",
+                      // The active tab keeps its ink pill on either surface, so
+                      // its label stays white while the rest follows the tone.
+                      active
+                        ? "text-white opacity-100"
+                        : cn(
+                            "opacity-60 hover:opacity-100",
+                            onDark ? "text-white" : "text-ink"
+                          )
                     )}
                   >
                     {t(key)}
@@ -77,6 +101,18 @@ export function FloatingHeader() {
             })}
           </ul>
         </nav>
+
+        {/* Its own pill rather than a slot in the nav: the tabs are the page's
+            navigation and the language is a setting, and keeping them apart
+            reads that way at a glance. */}
+        <div
+          className={cn(
+            "rglass pointer-events-auto flex h-[52px] shrink-0 items-center p-[6px] transition-[background-color,box-shadow] duration-500 [transition-timing-function:var(--e-expo-out)]",
+            !onDark && "rglass-on-light"
+          )}
+        >
+          <LangSwitcher variant="glass" align="end" tone={tone} />
+        </div>
       </div>
     </header>
   )
@@ -98,6 +134,7 @@ export type FloatingAction = {
  */
 export function FloatingCta({ actions }: { actions: FloatingAction[] }) {
   const [index, setIndex] = useState(0)
+  const tone = useSurfaceTone(() => window.innerHeight - 64)
 
   useEffect(() => {
     if (!actions.length) return
@@ -135,10 +172,16 @@ export function FloatingCta({ actions }: { actions: FloatingAction[] }) {
   if (!action) return null
 
   return (
-    <div className="pointer-events-none fixed inset-x-0 bottom-10 z-[80] flex justify-center px-5">
+    <div
+      data-chrome-ignore
+      className="pointer-events-none fixed inset-x-0 bottom-10 z-[80] flex justify-center px-5"
+    >
       <Link
         href={action.href}
-        className="rglass text-ink pointer-events-auto flex h-12 items-center gap-3 p-1 pr-6 transition-colors duration-500 [transition-timing-function:var(--e-expo-out)] hover:bg-white/30"
+        className={cn(
+          "rglass text-ink pointer-events-auto flex h-12 items-center gap-3 p-1 pr-6 transition-colors duration-500 [transition-timing-function:var(--e-expo-out)] hover:bg-white/40",
+          tone === "light" && "rglass-on-light"
+        )}
       >
         <span className="relative size-10 shrink-0 overflow-hidden rounded-[16px]">
           <AnimatePresence mode="popLayout" initial={false}>

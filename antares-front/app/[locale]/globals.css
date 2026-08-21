@@ -417,3 +417,13 @@ body[data-preloading="true"] {
   -webkit-backdrop-filter: blur(20px);
   border-radius: 20px;
 }
+
+/* Over a light section the 20% white pill disappears into the sand and its
+   contents have to go black, so the glass is pulled up to a real sheet with a
+   hairline and a lift to keep the pill's edge readable. */
+.rglass.rglass-on-light {
+  background: rgba(255, 255, 255, 0.6);
+  box-shadow:
+    inset 0 0 0 1px rgba(28, 28, 28, 0.06),
+    0 18px 40px -24px rgba(28, 28, 28, 0.45);
+}

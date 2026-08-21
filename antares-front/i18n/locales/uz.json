@@ -24,7 +24,9 @@
   },
   "home": {
     "hero": {
+      "eyebrow": "O‘zbekistonda Inmarco FZC rasmiy distribyutori",
       "title": "Ertangi kun uchun sanoat yechimlari",
+      "intro": "Inmarco FZC — sanoat germetizatsiya tizimlari sohasida muhandislik yechimlarini ishlab chiqaruvchi va yetkazib beruvchi kompaniya: salnik to‘qimalari va prokladkalardan tortib nasoslar, zadvijkalar va boshqa kritik texnologik uskunalar uchun individual loyihalangan zichlash materiallarigacha. Antares ushbu mahsulotlarning to‘liq spektrini O‘zbekistonda yetkazib beradi.",
       "titleLine1": "Ertangi kun uchun",
       "titleLine2": "sanoat yechimlari",
       "scrollHint": "Pastga suring",
@@ -182,6 +184,8 @@
     },
     "road": {
       "watermark": "XIZMATLAR",
+      "leadLine1": "Yetkazib beramiz",
+      "leadLine2": " obyektingizgacha",
       "headingLine1": "Yukingiz uchun kerak boʻlgan",
       "headingLine2": "hamma narsa. Bitta jamoada.",
       "intro": "Zavod darvozasidan obyekt maydonchasigacha — bojxona, ombor va transport bitta shartnoma ostida.",

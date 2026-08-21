@@ -24,7 +24,9 @@
   },
   "home": {
     "hero": {
+      "eyebrow": "Official Inmarco FZC distributor in Uzbekistan",
       "title": "Industrial solutions for tomorrow",
+      "intro": "Inmarco FZC is an engineering-led manufacturer and solution provider specializing in industrial fluid sealing systems — from compression packings and gaskets to custom-engineered sealing materials for pumps, valves and other critical process equipment. Antares supplies the full range in Uzbekistan.",
       "titleLine1": "Industrial solutions",
       "titleLine2": "for tomorrow",
       "scrollHint": "Scroll down",
@@ -182,6 +184,8 @@
     },
     "road": {
       "watermark": "SERVICES",
+      "leadLine1": "We deliver",
+      "leadLine2": " right to your site",
       "headingLine1": "Everything your freight needs.",
       "headingLine2": "Under one team.",
       "intro": "From the factory gate to the site yard — customs, warehousing and transport under one contract.",

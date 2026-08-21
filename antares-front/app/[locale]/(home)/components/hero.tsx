@@ -36,6 +36,9 @@ const HeroSection = () => {
     <section
       id="hero"
       ref={ref}
+      // Painted by the reel and its scrim, not by a background colour, so the
+      // chrome can't read the tone off the DOM here.
+      data-chrome="dark"
       className="relative -mt-[60px] flex h-svh min-h-[560px] w-full items-center justify-center overflow-hidden md:-mt-[90px]"
     >
       <motion.div
@@ -69,6 +72,15 @@ const HeroSection = () => {
         style={{ opacity: contentOpacity, y: contentY }}
         className="rcontainer relative z-10 text-center"
       >
+        <motion.p
+          className="mx-auto mb-6 flex w-fit items-center rounded-full border border-white/25 bg-white/10 px-4 py-2 text-[11px] font-medium tracking-[0.18em] text-white/85 uppercase backdrop-blur-md md:mb-8 md:text-[12px]"
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        >
+          {t("eyebrow")}
+        </motion.p>
+
         <SplitTitle
           as="h1"
           text={t("title")}
@@ -76,6 +88,18 @@ const HeroSection = () => {
           trigger="mount"
           delay={0.2}
         />
+
+        {/* What Antares actually is, said once, where a first-time visitor is
+            already looking — the rest of the page assumes it. Held to a single
+            paragraph so the hero stays a statement rather than a block of copy. */}
+        <motion.p
+          className="mx-auto mt-6 max-w-[68ch] text-[15px] leading-relaxed text-white/75 md:mt-8 md:text-[17px]"
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.9, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+        >
+          {t("intro")}
+        </motion.p>
       </motion.div>
 
       <ScrollHint label={t("scrollHint")} />
