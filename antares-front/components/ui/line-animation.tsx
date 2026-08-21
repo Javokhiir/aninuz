@@ -1,30 +1,32 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useRef } from "react"
 import { motion, useScroll, useTransform } from "framer-motion"
 import { useLocale } from "next-intl"
 
 export const LineScrollAnimation = () => {
-  const { scrollYProgress } = useScroll()
-  const [width, setWidth] = useState(0)
-
-  useEffect(() => {
-    const handleResize = () => setWidth(window.innerWidth)
-    handleResize()
-    window.addEventListener("resize", handleResize)
-    return () => window.removeEventListener("resize", handleResize)
-  }, [])
-
+  // The draw is scrubbed by this block's own passage through the viewport, not
+  // by page scroll. Reading document progress meant the landing's tall sticky
+  // sections had already spent most of it before the stepper appeared, so the
+  // path arrived fully drawn.
+  const ref = useRef<HTMLDivElement>(null)
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    // Starts once the block is properly on screen (its top past the 60% mark)
+    // and runs until its bottom is near the top of the viewport — so the draw
+    // happens while the reader is looking at it, not before it arrives.
+    offset: ["start 0.6", "end 0.15"],
+  })
   const lang = useLocale()
 
-  const strokeDashoffset = useTransform(
-    scrollYProgress,
-    [1, 0],
-    [0, width > 768 ? 20000 : 15000]
-  )
+  // pathLength is normalised to 1, so the offset is simply "how much of the
+  // path is still hidden": 1 at the top of the window, 0 once the last node is
+  // reached. useTransform clamps outside [0, 1], so it holds there instead of
+  // continuing past the end.
+  const strokeDashoffset = useTransform(scrollYProgress, [0, 1], [1, 0])
 
   return (
-    <div>
+    <div ref={ref}>
       <svg
         className={`w-full md:hidden` + (lang !== "ru" ? " hidden" : "")}
         width="323"
@@ -42,8 +44,9 @@ export const LineScrollAnimation = () => {
           strokeWidth="3"
           vectorEffect="non-scaling-stroke"
           strokeLinecap="round"
+          pathLength={1}
           style={{
-            strokeDasharray: "5000px",
+            strokeDasharray: 1,
             transform: `translate3d(0, 0, 0)`,
             strokeDashoffset,
             willChange: "stroke, transform",
@@ -215,8 +218,9 @@ export const LineScrollAnimation = () => {
           strokeWidth="3"
           vectorEffect="non-scaling-stroke"
           strokeLinecap="round"
+          pathLength={1}
           style={{
-            strokeDasharray: "5000px",
+            strokeDasharray: 1,
             transform: `translate3d(0, 0, 0)`,
             strokeDashoffset,
             willChange: "stroke, transform",
@@ -283,8 +287,9 @@ export const LineScrollAnimation = () => {
           strokeWidth="3"
           vectorEffect="non-scaling-stroke"
           strokeLinecap="round"
+          pathLength={1}
           style={{
-            strokeDasharray: "5000px",
+            strokeDasharray: 1,
             transform: `translate3d(0, 0, 0)`,
             strokeDashoffset,
             willChange: "stroke, transform",
@@ -362,8 +367,9 @@ export const LineScrollAnimation = () => {
           strokeWidth="4.08554"
           vectorEffect="non-scaling-stroke"
           strokeLinecap="round"
+          pathLength={1}
           style={{
-            strokeDasharray: "5000px",
+            strokeDasharray: 1,
             transform: `translate3d(0, 0, 0)`,
             strokeDashoffset,
             willChange: "stroke, transform",
@@ -471,8 +477,9 @@ export const LineScrollAnimation = () => {
           stroke="#1C3CAD"
           strokeWidth="5.08554"
           strokeLinecap="round"
+          pathLength={1}
           style={{
-            strokeDasharray: "5000px",
+            strokeDasharray: 1,
             transform: `translate3d(0, 0, 0)`,
             strokeDashoffset,
             willChange: "stroke, transform",
@@ -582,8 +589,9 @@ export const LineScrollAnimation = () => {
           strokeWidth="4.08554"
           vectorEffect="non-scaling-stroke"
           strokeLinecap="round"
+          pathLength={1}
           style={{
-            strokeDasharray: "5000px",
+            strokeDasharray: 1,
             transform: `translate3d(0, 0, 0)`,
             strokeDashoffset,
             willChange: "stroke, transform",

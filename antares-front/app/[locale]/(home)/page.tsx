@@ -84,10 +84,14 @@ export default async function Home({
       <UcScene />
       <SustainabilitySection />
 
-      <div className="rcontainer space-y-16 py-20 md:space-y-24 md:py-28">
-        <Partners />
-        <MapSection />
-        <LineSection />
+      {/* Tail of the page. The three flat document sections share one sand
+          plate so the run reads as a single closing chapter, not white slabs. */}
+      <div className="bg-sand w-full">
+        <div className="rcontainer space-y-16 py-20 md:space-y-24 md:py-28">
+          <Partners />
+          <MapSection />
+          <LineSection />
+        </div>
       </div>
 
       <FloatingCta actions={actions} />
