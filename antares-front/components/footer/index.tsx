@@ -11,7 +11,7 @@ import SpecialButton from "../ui/special-button"
 const Footer = () => {
   const t = useTranslations("footer")
   return (
-    <footer className="bg-sand relative mx-auto max-w-[1900px] border-t pt-15 md:pt-25">
+    <footer className="relative mx-auto mt-10 max-w-[1900px] border-t pt-5 md:mt-20">
       <div className="relative flex w-full items-start justify-between gap-4">
         <Icons.FooterLeftMobileDecor className="absolute left-0 z-0 mt-1 h-min w-full max-w-[50px] sm:max-w-[80px] md:hidden" />
         <Icons.FooterLeftDecor className="absolute left-0 z-0 hidden h-min md:block md:max-w-[200px] lg:max-w-[280px] xl:max-w-[420px] 2xl:max-w-[600px]" />

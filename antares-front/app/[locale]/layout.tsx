@@ -12,7 +12,7 @@ import { Suspense } from "react"
 
 import { Toaster } from "@/components/ui/sonner"
 import Footer from "@/components/footer"
-import { NavBar } from "@/components/navbar"
+import { FloatingHeader } from "@/components/relats/site-chrome"
 import { Providers } from "@/components/Providers"
 
 const onest = Onest({
@@ -72,8 +72,10 @@ const RootLayout = async ({
       >
         <Providers>
           <NextIntlClientProvider messages={messages} locale={finalLocale}>
+            {/* One piece of chrome for the whole site: the landing's floating
+                glass pills, now the bar on every page. */}
             <Suspense>
-              <NavBar />
+              <FloatingHeader />
             </Suspense>
             <div className="min-h-svh pt-[60px] md:mt-[90px] md:pt-0">
               {children}

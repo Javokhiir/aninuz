@@ -20,8 +20,13 @@ import { Skeleton } from "../ui/skeleton"
 
 const SearchModal = ({
   setIsMobileOpen,
+  triggerClassName,
+  iconClassName,
 }: {
   setIsMobileOpen?: React.Dispatch<React.SetStateAction<boolean>>
+  /** The chrome supplies its own trigger skin; the default is the site bar's. */
+  triggerClassName?: string
+  iconClassName?: string
 }) => {
   const { getParam } = useQueryParams()
   const search = getParam("search")
@@ -51,8 +56,17 @@ const SearchModal = ({
     <div>
       <DropdownMenu open={searchModalOpen} onOpenChange={setSearchModalOpen}>
         <DropdownMenuTrigger>
-          <div className="text-pimary border-primary group hover:bg-primary flex rounded-sm border-[2px] p-2">
-            <Icons.Search className="text-primary h-6 w-6 group-hover:text-white" />
+          <div
+            className={
+              triggerClassName ??
+              "text-pimary border-primary group hover:bg-primary flex rounded-sm border-[2px] p-2"
+            }
+          >
+            <Icons.Search
+              className={
+                iconClassName ?? "text-primary h-6 w-6 group-hover:text-white"
+              }
+            />
           </div>
         </DropdownMenuTrigger>
         <DropdownMenuContent

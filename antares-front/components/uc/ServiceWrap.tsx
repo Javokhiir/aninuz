@@ -22,25 +22,6 @@ export default function ServiceWrap() {
   return (
     <div className="home-service-wrap">
       <section className="home-service">
-        <div className="home-service-speed">
-          <div className="home-service-speed-inner">
-            <div className="home-service-speed-number">
-              <div
-                data-speed=""
-                data-wf--text--text-styles="mono"
-                className="txt w-variant-3648de38-311e-0b18-0c7d-747bd60ae1a8 fs-12"
-              >
-                00
-              </div>
-            </div>
-            <div
-              data-wf--text--text-styles="mono"
-              className="txt w-variant-3648de38-311e-0b18-0c7d-747bd60ae1a8 fs-12"
-            >
-              {t("road.speedUnit")}
-            </div>
-          </div>
-        </div>
         <div className="w-layout-blockcontainer w-container container grid">
           <div
             id="w-node-_9dad9c8d-1458-1f43-e7c6-e9e22e96bc05-c403df38"
