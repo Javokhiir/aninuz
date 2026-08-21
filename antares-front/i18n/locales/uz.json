@@ -24,15 +24,26 @@
   },
   "home": {
     "hero": {
-      "title": "Jarayonlarga yordam beruvchi innovatsiyalar va yechimlar",
+      "title": "Ertangi kun uchun sanoat yechimlari",
+      "titleLine1": "Ertangi kun uchun",
+      "titleLine2": "sanoat yechimlari",
+      "scrollHint": "Pastga suring",
       "p": "Biz taklif qilayotgan mahsulotlar va yechimlar sizning jarayonlaringizni yaxshilaydi va biznesingizni zamonaviylashtiradi",
-      "goToCatalogBtn": "Mahsulotlarga oʻtish",
+      "goToCatalogBtn": "Yechimlarni ko‘rish",
       "spinningText": "Kelajak uskunalari •",
       "100Subtitle": "Investitsion vositalar",
       "richYourGoal": "Innovatsion platformamiz bilan maqsadlaringizga erishing",
       "carousel1": "Uskuna va butlovchi qismlarni ishonchli yetkazib berish",
       "carousel2": "24/7 texnik yordam xizmati",
-      "carousel3": "Biznesingiz uchun moslashtirilgan yechimlar"
+      "carousel3": "Biznesingiz uchun moslashtirilgan yechimlar",
+      "subtitle": "Yuqori bosim, harorat va agressiv muhitlar uchun zichlagichlar, prokladkalar va salnik to‘qimalari. Sertifikatlangan ishlab chiqaruvchilardan to‘g‘ridan-to‘g‘ri yetkazib berish.",
+      "talkToEngineer": "Muhandis bilan bog‘lanish",
+      "stat1Value": "100+",
+      "stat1Label": "Katalog pozitsiyalari",
+      "stat2Value": "4",
+      "stat2Label": "Asosiy tarmoqlar",
+      "stat3Value": "5",
+      "stat3Label": "Hamkor zavodlar"
     },
     "partners": {
       "title": "Biz yetakchi hamkorlar bilan ishlaymiz"
@@ -55,7 +66,9 @@
       "field3": "Neft va gaz",
       "field3Desc": "Ogʻir sharoitlar uchun ishonchli yechimlar",
       "field4": "Metallurgiya",
-      "field4Desc": "Ehtiyot qismlar, agregatlar va uzellar"
+      "field4Desc": "Ehtiyot qismlar, agregatlar va uzellar",
+      "stageLine1": "Biz ishlab chiqarishni xavfsizroq qilamiz",
+      "stageLine2": "barcha tarmoqlarda"
     },
     "map": {
       "title": "Xizmat koʻrsatish hududi",
@@ -63,6 +76,129 @@
     },
     "line": {
       "title": "ISHLASH TARTIBIMIZ"
+    },
+    "capabilities": {
+      "eyebrow": "ANTARES INVESTMENTS",
+      "titleLine1": "Muhim tugunlar uchun",
+      "titleLine2": "muhandislik yechimlari",
+      "subtitle": "Klapanlar, nasoslar, aralashtirgichlar va flanets birikmalari uchun zichlash tizimlarini obyektingizdagi muhit, bosim va haroratni hisobga olib tanlaymiz va yetkazamiz.",
+      "badgeValue": "O‘zbekiston",
+      "badgeLabel": "Yetkazish hududi",
+      "listTitle": "ASOSIY KOMPETENSIYALAR",
+      "cap1Title": "Past emissiya texnologiyasi",
+      "cap1Desc": "API 622 bo‘yicha grafit to‘qimalar, uchuvchi chiqindilar 20 ppm dan past.",
+      "cap2Title": "Amaliy muhandislik",
+      "cap2Desc": "Klapan, nasos va aralashtirgichlar uchun dinamik va statik zichlagichlarni tanlashda texnik yordam.",
+      "cap3Title": "Yangi tarmoqlar",
+      "cap3Desc": "Qayta tiklanuvchi energetika, vodorod qurilmalari va uglerodni ushlash uchun yechimlar.",
+      "cap4Title": "Ekstremal sharoitlar",
+      "cap4Desc": "Dinamik zichlagichlar 650 °C va 350 bargacha; statik — 1360 °C gacha.",
+      "cap5Title": "Sertifikatlangan ishlab chiqarish",
+      "cap5Desc": "Hamkor zavodlar mahsuloti, partiyalar to‘liq kuzatiluvchan va sifat pasporti bilan."
+    },
+    "mosaic": {
+      "statement1Line1": "Zichlash yechimlarining",
+      "statement1Line2": "to‘liq spektri",
+      "statement2Line1": "To‘qimadan",
+      "statement2Line2": "flanets prokladkasigacha"
+    },
+    "sustainability": {
+      "eyebrow": "BARQAROR RIVOJLANISH",
+      "titleLine1": "Sizishni nazorat qilish —",
+      "titleLine2": "bu mas’uliyat",
+      "subtitle": "Chiqindilarni kamaytirish, energiya tejash va barqaror rivojlanish maqsadlarini bosim ostida ishonchli ushlab turadigan zichlagichlar orqali qo‘llab-quvvatlash — chunki har bir zichlagich odamlarni, jarayonlarni va atrof-muhitni himoya qiladi.",
+      "c1Title": "Chiqindilarni kamaytirish",
+      "c1Desc": "Har bir birikmada uchuvchi sizishlar kamayadi",
+      "c2Title": "Energiya tejash",
+      "c2Desc": "Bosim yo‘qotishlari va nasos sarfi pasayadi",
+      "c3Title": "Samaradorlik",
+      "c3Desc": "Zichlagich almashtirish uchun to‘xtashlar kamayadi",
+      "c4Title": "Sertifikatlangan normalar",
+      "c4Desc": "API va ISO",
+      "note": "Zichlagichlar resursini prognozlash va ishlab chiqarishning barqaror ishlashini qo‘llab-quvvatlash uchun raqamli tanlov va kuzatuv vositalarini rivojlantiryapmiz."
+    },
+    "cta": {
+      "catalog": "Katalogni ko‘rish",
+      "engineer": "Muhandis bilan bog‘lanish",
+      "products": "Barcha mahsulotlar",
+      "services": "Xizmatlarimiz",
+      "about": "Kompaniya haqida"
+    },
+    "industries": {
+      "stage": "Biz barcha tarmoqlarda ishlab chiqarishni xavfsizroq qilamiz",
+      "tabs": {
+        "oilgas": "Neft va gaz",
+        "power": "Energetika",
+        "chemical": "Kimyo va neft-kimyo",
+        "metallurgy": "Metallurgiya",
+        "machinery": "Mashinasozlik"
+      },
+      "specs": {
+        "certification": "SERTIFIKATSIYA",
+        "emission": "UCHUVCHI CHIQINDILAR",
+        "form": "YETKAZISH SHAKLI",
+        "material": "MATERIAL",
+        "service": "QO‘LLANILISHI",
+        "resistance": "CHIDAMLILIK",
+        "chemicalRange": "KIMYOVIY DIAPAZON",
+        "friction": "ISHQALANISH",
+        "reinforcement": "ARMATURA",
+        "conductivity": "ISSIQLIK O‘TKAZUVCHANLIGI",
+        "construction": "KONSTRUKSIYA",
+        "core": "O‘ZAK"
+      },
+      "appliedIn": "QAYERDA QO‘LLANILADI",
+      "applications": {
+        "valves": "Klapanlar",
+        "pumps": "Nasoslar",
+        "compressors": "Kompressorlar",
+        "turbines": "Bug‘ turbinalari",
+        "boilerFeed": "Qozon ta’minot tizimlari",
+        "reactors": "Reaktorlar",
+        "agitators": "Aralashtirgichlar",
+        "furnaces": "Domna pechlari",
+        "moltenMetal": "Suyuq metall quyish",
+        "flanges": "Flanets birikmalari",
+        "reciprocating": "Qaytma-ilgarilanma uskunalar"
+      }
+    },
+    "delivery": {
+      "eyebrow": "LOGISTIKA",
+      "titleLine1": "Obyektingizgacha",
+      "titleLine2": "yetkazib berish",
+      "listEyebrow": "BIZ ZIMMAMIZGA OLADIGAN ISHLAR",
+      "s1Title": "To‘g‘ridan-to‘g‘ri yetkazish",
+      "s1Desc": "Vositachilarsiz, ishlab chiqaruvchi zavodlardan xarid.",
+      "s2Title": "Bojxona rasmiylashtiruvi",
+      "s2Desc": "Hujjatlar, tasniflash va sertifikatlash — kalit topshirish.",
+      "s3Title": "Omborxona",
+      "s3Desc": "Jo‘natishgacha saqlash va partiyalarni to‘plash.",
+      "s4Title": "O‘zbekiston bo‘ylab yetkazish",
+      "s4Desc": "Mamlakatning istalgan hududidagi maydonchagacha transport.",
+      "s5Title": "Gabaritdan tashqari yuklar",
+      "s5Desc": "Yirik uskunalar, marshrut oldindan ishlab chiqiladi.",
+      "s6Title": "Kuzatib borish",
+      "s6Desc": "Har bosqichda muddat va yuk holati nazorati."
+    },
+    "road": {
+      "watermark": "XIZMATLAR",
+      "headingLine1": "Yukingiz uchun kerak boʻlgan",
+      "headingLine2": "hamma narsa. Bitta jamoada.",
+      "intro": "Zavod darvozasidan obyekt maydonchasigacha — bojxona, ombor va transport bitta shartnoma ostida.",
+      "intro2": "Bitta aloqa nuqtasi, boshidan oxirigacha toʻliq koʻrinish.",
+      "cta": "Xizmatlar",
+      "speedUnit": "km/soat"
+    },
+    "milestone": {
+      "titleAccent": "ISHONCHLILIK",
+      "title": "har bir bosqichda",
+      "desc": "Har bir xizmat bitta tom ostida va bitta javobgar jamoada boʻlgani uchun, yetkazib berish zanjiri biznesingiz talab qilgandek harakatlanadi: bashorat qilinadigan, shaffof va bahonasiz.",
+      "f1Title": "Real vaqtda kuzatuv",
+      "f1Desc": "Yukingiz qayerdaligini har bosqichda aniq bilasiz. Jonli koʻrinish — tezroq qaror, taxminsiz.",
+      "f2Title": "Xalqaro marshrutlar",
+      "f2Desc": "Xitoy va Yevropa yoʻnalishlaridan mintaqaviy koridorlargacha — biznesingiz tayanadigan har bir yoʻnalish.",
+      "f3Title": "24/7 qoʻllab-quvvatlash",
+      "f3Desc": "Doim aloqadagi jonli odamlar. Oddiy yangilanishmi yoki shoshilinch masalami — telefonni koʻtaramiz va natijaga javob beramiz."
     }
   },
   "about": {

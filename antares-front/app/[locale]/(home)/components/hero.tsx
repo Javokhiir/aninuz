@@ -1,138 +1,109 @@
 "use client"
 
-import { useEffect, useState } from "react"
-import { Link } from "@/i18n/routing"
+import { useRef } from "react"
+import { motion, useScroll, useTransform } from "framer-motion"
 import { useTranslations } from "next-intl"
 
-import { BackgroundPaths } from "@/components/ui/background-path"
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-} from "@/components/ui/carousel"
-import SpecialButton from "@/components/ui/special-button"
-import { SpinningText } from "@/components/ui/spinning-text"
-import { Icons } from "@/components/icons"
+import { SplitTitle } from "@/components/motion/split-title"
 
+/**
+ * Full-bleed opening statement.
+ *
+ * Deliberately bare: one headline over one macro reel, and a scroll cue. The
+ * reference hero carries no subheading, no stat row and no inline button — the
+ * action lives in the floating pill that follows the whole page — and adding
+ * any of them is what makes a page like this read as a template instead.
+ *
+ * The reel is a single file (`public/videos/hero/hero-reel.mp4`): four framings
+ * of the sealing braid cross-dissolved into one continuous move, cut so the
+ * last framing lands back on the first, which makes the loop invisible.
+ */
 const HeroSection = () => {
   const t = useTranslations("home.hero")
-  const [currentIndex, setCurrentIndex] = useState(0)
+  const ref = useRef<HTMLElement>(null)
 
-  const carouselItems = [t("carousel1"), t("carousel2"), t("carousel3")]
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end start"],
+  })
 
-  const [width, setWidth] = useState(0)
+  const videoY = useTransform(scrollYProgress, [0, 1], ["0%", "22%"])
+  const plateScale = useTransform(scrollYProgress, [0, 1], [1, 1.12])
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.55], [1, 0])
+  const contentY = useTransform(scrollYProgress, [0, 1], ["0%", "40%"])
 
-  useEffect(() => {
-    const handleResize = () => setWidth(window.innerWidth)
-    handleResize()
-    window.addEventListener("resize", handleResize)
-    return () => window.removeEventListener("resize", handleResize)
-  }, [])
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % 3)
-    }, 3000)
-
-    return () => clearInterval(interval)
-  }, [])
-  const renderCarouselItem = (carouselIndex: string) => (
-    <CarouselItem
-      key={carouselIndex}
-      className="flex h-[60px] items-center gap-2"
-    >
-      <p className="max-w-[300px] rounded-xl p-5 text-left">{carouselIndex}</p>
-    </CarouselItem>
-  )
   return (
-    <main className="relative flex flex-col items-center justify-center py-20 md:min-h-screen md:py-0">
-      <div className="relative z-[5] mx-auto h-full w-full space-y-5 px-5 md:space-y-10 md:px-0 lg:max-w-[1400px]">
-        <div className="relative z-[2] mx-auto space-y-24 md:w-max md:space-y-10">
-          <h1 className="mx-auto w-full max-w-[1000px] bg-gradient-to-r from-black via-blue-700 to-black bg-clip-text text-center font-extrabold text-transparent uppercase md:leading-[80px]">
-            {t("title")}
-          </h1>
+    <section
+      id="hero"
+      ref={ref}
+      className="relative -mt-[60px] flex h-svh min-h-[560px] w-full items-center justify-center overflow-hidden md:-mt-[90px]"
+    >
+      <motion.div
+        style={{ y: videoY, scale: plateScale }}
+        className="absolute inset-0 will-change-transform"
+      >
+        <video
+          className="h-full w-full object-cover"
+          src="/videos/hero/hero-reel.mp4"
+          poster="/images/posters/hero-reel.jpg"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+        />
+        {/* The braid is near-white, so white type needs a real scrim to sit on.
+            A vertical gradient anchors the chrome top and bottom; a centred
+            pool darkens only where the headline lands. */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/25 to-black/55" />
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(ellipse 65% 50% at 50% 50%, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.2) 60%, rgba(0,0,0,0) 100%)",
+          }}
+        />
+      </motion.div>
 
-          <p className="mx-auto mt-10 max-w-[700px] text-center text-sm md:mt-0 md:text-lg">
-            {t("p")}
-          </p>
-          <div
-            className="absolute top-36 left-0 flex h-[70px] w-[70px] items-center justify-center overflow-clip bg-contain bg-no-repeat sm:top-20 md:h-[100px] md:w-[100px] lg:h-[120px] lg:w-[120px] lg:-translate-x-full"
-            style={{ backgroundImage: "url('/images/badge.svg') " }}
-          >
-            <Icons.ArrowRight className="absolute max-w-[20px] -rotate-[30deg] text-white md:max-w-[18px] lg:max-w-[25px]" />
-            <SpinningText
-              radius={width < 768 ? 4 : width < 1024 ? 4.25 : 4.5}
-              fontSize={width < 768 ? 0.5 : width < 1024 ? 0.7 : 0.8}
-              className="text-xs leading-none font-medium text-white"
-            >
-              {t("spinningText")}
-            </SpinningText>
-          </div>
-          <div className="mx-auto w-min">
-            <Link href="/products" className="relative z-[2] cursor-pointer">
-              <SpecialButton className="mx-auto hidden md:flex">
-                {t("goToCatalogBtn")}
-              </SpecialButton>
-            </Link>
-          </div>
-        </div>
+      <motion.div
+        style={{ opacity: contentOpacity, y: contentY }}
+        className="rcontainer relative z-10 text-center"
+      >
+        <SplitTitle
+          as="h1"
+          text={t("title")}
+          className="rtitle rtitle-xlarge mx-auto max-w-[22ch] text-white"
+          trigger="mount"
+          delay={0.2}
+        />
+      </motion.div>
 
-        <div className="flex w-full flex-col justify-between md:flex-row">
-          <div className="order-2 w-max space-y-2 self-end md:order-1 md:space-y-5 md:self-start">
-            {/* <div>
-              <h1 className="mb-2 ml-auto w-max bg-gradient-to-r from-black via-blue-700 to-black bg-clip-text text-end font-extrabold text-transparent uppercase md:ml-0 md:text-start md:leading-[80px]">
-                100+
-              </h1>
-              <p className="text-primary w-min text-end text-xs md:text-start md:text-sm">
-                {t("100Subtitle")}
-              </p>
-            </div>
-            <p className="max-w-[200px] text-end text-sm md:max-w-[300px] md:text-start md:text-base">
-              {t("richYourGoal")}
-            </p> */}
-          </div>
+      <ScrollHint label={t("scrollHint")} />
+    </section>
+  )
+}
 
-          <Carousel
-            className="relative order-1 flex h-max w-max items-center rounded-xl border text-xs backdrop-blur-sm md:order-2"
-            orientation="vertical"
-          >
-            <div className="absolute left-0 flex -translate-x-[200%] flex-col items-center gap-1">
-              {[0, 1, 2].map((index) => (
-                <div
-                  key={index}
-                  style={{
-                    height: index === currentIndex ? 25 : 15,
-                    width: index === currentIndex ? 4 : 3,
-                  }}
-                  className={`rounded-full transition-all duration-300 ${
-                    index === currentIndex ? "bg-primary" : "bg-primary/50"
-                  }`}
-                />
-              ))}
-            </div>
-            <CarouselContent
-              className="h-[90px] text-xs md:h-[120px] md:text-base"
-              style={{
-                transform: `translateY(-${currentIndex * 100}%)`,
-                transition: "transform 0.5s ease-in-out",
-              }}
-            >
-              {carouselItems.map((carousel) => renderCarouselItem(carousel))}
-            </CarouselContent>
-          </Carousel>
-        </div>
-
-        <div className="z-[10] mx-auto w-min">
-          <Link href="/products" className="relative">
-            <SpecialButton className="mx-auto flex md:hidden">
-              {t("goToCatalogBtn")}
-            </SpecialButton>
-          </Link>
-        </div>
-      </div>
-      <BackgroundPaths />
-      <div className="absolute bottom-10 z-[2] h-[10px] w-[100vw] rounded-xl bg-white shadow-[-1px_2px_59px_50px_rgba(255,255,255)]" />
-    </main>
+/**
+ * Bottom-right scroll affordance. A dot falls inside a capsule and resets, so
+ * it reads as a hint rather than an arrow the user might try to click.
+ */
+function ScrollHint({ label }: { label: string }) {
+  return (
+    <motion.div
+      className="absolute right-10 bottom-[52px] z-[80] flex items-center gap-3 text-white/85"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ delay: 1.6, duration: 0.8 }}
+    >
+      <span className="flex h-6 w-4 items-start justify-center rounded-full border border-white/50 pt-1">
+        <motion.span
+          className="block size-1 rounded-full bg-white"
+          animate={{ y: [0, 8, 0], opacity: [1, 0, 1] }}
+          transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+        />
+      </span>
+      <span className="text-[15px]">{label}</span>
+    </motion.div>
   )
 }
 

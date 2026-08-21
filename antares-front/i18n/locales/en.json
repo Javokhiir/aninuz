@@ -24,15 +24,26 @@
   },
   "home": {
     "hero": {
-      "title": "Innovations and solutions that help",
+      "title": "Industrial solutions for tomorrow",
+      "titleLine1": "Industrial solutions",
+      "titleLine2": "for tomorrow",
+      "scrollHint": "Scroll down",
       "p": "The products and solutions we offer are guaranteed to improve your processes and make your business more modern",
-      "goToCatalogBtn": "Go to products",
+      "goToCatalogBtn": "Explore solutions",
       "spinningText": "Equipment • of the future •",
       "100Subtitle": "Investment tools",
       "richYourGoal": "Achieve your goals with our innovative platform",
       "carousel1": "Reliable supply of equipment and components",
       "carousel2": "Professional 24/7 technical support",
-      "carousel3": "Customized solutions for your business"
+      "carousel3": "Customized solutions for your business",
+      "subtitle": "Seals, gaskets and compression packings for extreme pressure, temperature and aggressive media. Supplied direct from certified manufacturers.",
+      "talkToEngineer": "Talk to an engineer",
+      "stat1Value": "100+",
+      "stat1Label": "Catalogue lines",
+      "stat2Value": "4",
+      "stat2Label": "Core industries",
+      "stat3Value": "5",
+      "stat3Label": "Partner manufacturers"
     },
     "partners": {
       "title": "We work with leading partners"
@@ -55,7 +66,9 @@
       "field3": "Oil & Gas",
       "field3Desc": "Reliable solutions for tough conditions",
       "field4": "Metallurgy",
-      "field4Desc": "Parts, units, and assemblies"
+      "field4Desc": "Parts, units, and assemblies",
+      "stageLine1": "We make production safer",
+      "stageLine2": "across all industries"
     },
     "map": {
       "title": "Service Area",
@@ -63,6 +76,129 @@
     },
     "line": {
       "title": "HOW WE WORK"
+    },
+    "capabilities": {
+      "eyebrow": "ANTARES INVESTMENTS",
+      "titleLine1": "Engineered solutions",
+      "titleLine2": "for critical duty",
+      "subtitle": "We specify and supply sealing systems for valves, pumps, agitators and flange joints — matched to the media, pressure and temperature on your site.",
+      "badgeValue": "Uzbekistan",
+      "badgeLabel": "Supply region",
+      "listTitle": "CORE TECHNICAL CAPABILITIES",
+      "cap1Title": "Low emission technology",
+      "cap1Desc": "API 622 compliant graphite packings achieving under 20 ppm fugitive emissions.",
+      "cap2Title": "Application engineering",
+      "cap2Desc": "Technical support for valve, pump, agitator and other dynamic and static seal selection.",
+      "cap3Title": "Emerging sectors",
+      "cap3Desc": "Support for renewable energy, hydrogen and carbon capture applications.",
+      "cap4Title": "Extreme conditions",
+      "cap4Desc": "Dynamic sealing rated to 650 °C and 350 bar; static sealing up to 1360 °C.",
+      "cap5Title": "Certified manufacturing",
+      "cap5Desc": "Partner-plant production with full batch traceability and quality documentation."
+    },
+    "mosaic": {
+      "statement1Line1": "The full range of",
+      "statement1Line2": "sealing solutions",
+      "statement2Line1": "From compression packing",
+      "statement2Line2": "to flange gasket"
+    },
+    "sustainability": {
+      "eyebrow": "SUSTAINABILITY & RESPONSIBILITY",
+      "titleLine1": "Leakage control is",
+      "titleLine2": "a responsibility",
+      "subtitle": "Reducing emissions, conserving energy and supporting sustainability goals through sealing that performs reliably under pressure — because every seal protects people, processes and the environment.",
+      "c1Title": "Emission reduction",
+      "c1Desc": "Fewer fugitive losses at every joint",
+      "c2Title": "Energy conservation",
+      "c2Desc": "Lower pressure loss and pumping demand",
+      "c3Title": "Operational efficiency",
+      "c3Desc": "Fewer shutdowns to replace seals",
+      "c4Title": "Certified standards",
+      "c4Desc": "API and ISO",
+      "note": "We are building digital selection and monitoring tools to forecast seal life and support sustainable plant operation."
+    },
+    "cta": {
+      "catalog": "View catalogue",
+      "engineer": "Talk to an engineer",
+      "products": "All products",
+      "services": "Our services",
+      "about": "About the company"
+    },
+    "industries": {
+      "stage": "We make production safer across all industries",
+      "tabs": {
+        "oilgas": "Oil & gas",
+        "power": "Power generation",
+        "chemical": "Chemical & petrochemical",
+        "metallurgy": "Metallurgy",
+        "machinery": "Machinery & OEM"
+      },
+      "specs": {
+        "certification": "CERTIFICATION",
+        "emission": "FUGITIVE EMISSION",
+        "form": "SUPPLIED AS",
+        "material": "MATERIAL",
+        "service": "SERVICE",
+        "resistance": "RESISTANCE",
+        "chemicalRange": "CHEMICAL RANGE",
+        "friction": "FRICTION",
+        "reinforcement": "REINFORCEMENT",
+        "conductivity": "CONDUCTIVITY",
+        "construction": "CONSTRUCTION",
+        "core": "CORE"
+      },
+      "appliedIn": "APPLIED IN",
+      "applications": {
+        "valves": "Valves",
+        "pumps": "Pumps",
+        "compressors": "Compressors",
+        "turbines": "Steam turbines",
+        "boilerFeed": "Boiler feed systems",
+        "reactors": "Reactors",
+        "agitators": "Agitators",
+        "furnaces": "Blast furnaces",
+        "moltenMetal": "Molten metal handling",
+        "flanges": "Flange joints",
+        "reciprocating": "Reciprocating equipment"
+      }
+    },
+    "delivery": {
+      "eyebrow": "LOGISTICS",
+      "titleLine1": "Delivered to",
+      "titleLine2": "your site",
+      "listEyebrow": "WHAT WE TAKE ON",
+      "s1Title": "Direct supply",
+      "s1Desc": "Bought straight from the manufacturing plants, no intermediaries.",
+      "s2Title": "Customs clearance",
+      "s2Desc": "Documentation, classification and certification, handled end to end.",
+      "s3Title": "Warehousing",
+      "s3Desc": "Storage and consolidation of consignments before dispatch.",
+      "s4Title": "Delivery across Uzbekistan",
+      "s4Desc": "Transport to the site in any region of the country.",
+      "s5Title": "Oversized cargo",
+      "s5Desc": "Large equipment, with the route worked out in advance.",
+      "s6Title": "Tracking",
+      "s6Desc": "Schedule and consignment status followed at every stage."
+    },
+    "road": {
+      "watermark": "SERVICES",
+      "headingLine1": "Everything your freight needs.",
+      "headingLine2": "Under one team.",
+      "intro": "From the factory gate to the site yard — customs, warehousing and transport under one contract.",
+      "intro2": "One point of contact, and full visibility from origin to destination.",
+      "cta": "Our services",
+      "speedUnit": "km/h"
+    },
+    "milestone": {
+      "titleAccent": "RELIABILITY",
+      "title": "at every milestone",
+      "desc": "With every service under one roof and one accountable team, your supply chain moves the way your business demands: predictably, transparently, and without excuses.",
+      "f1Title": "Real-time tracking",
+      "f1Desc": "Know exactly where your cargo is at every milestone. Live visibility means faster decisions and zero guesswork.",
+      "f2Title": "International lanes",
+      "f2Desc": "From Chinese and European routes to regional corridors — every lane your business relies on.",
+      "f3Title": "24/7 support",
+      "f3Desc": "Real people, always available. Routine update or urgent issue, we pick up the phone and own the outcome."
     }
   },
   "about": {

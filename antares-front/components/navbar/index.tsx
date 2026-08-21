@@ -65,6 +65,10 @@ export function NavBar({ className }: NavBarProps) {
     },
   ]
 
+  // The landing runs the floating pill chrome instead of the site bar, so the
+  // bar takes itself out rather than the layout having to know about routes.
+  const isLanding = pathname === "/"
+
   useEffect(() => {
     let activeTab = null
 
@@ -89,6 +93,8 @@ export function NavBar({ className }: NavBarProps) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname])
+
+  if (isLanding) return null
 
   return (
     <nav

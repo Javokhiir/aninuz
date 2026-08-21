@@ -239,3 +239,181 @@
 .rich-dark tr:last-child td {
   border-bottom: 0;
 }
+
+/* --------------------------------------------------------------------------
+   Landing motion system
+   --------------------------------------------------------------------------
+   Spatial + motion language for the landing page: fluid radii that track the
+   viewport, a shared easing set used by both CSS transitions and framer-motion,
+   and the sand / near-black surface pair the full-bleed sections sit on.
+   Accent stays on the Antares blue (--primary) rather than a second hue.
+   -------------------------------------------------------------------------- */
+:root {
+  /* Surfaces the full-bleed sections alternate between */
+  --sand: #eae4df;
+  --sand-alt: #d3cac3;
+  --sand-soft: #faf9f8;
+  --ink: #1c1c1c;
+  --ink-alt: #252525;
+  --ink-alt2: #333;
+  --hint: #9c9b99;
+
+  --border-light: hsla(0, 0%, 100%, 0.2);
+  --border-light-2: hsla(0, 0%, 100%, 0.1);
+  --border-dark-2: rgba(0, 0, 0, 0.1);
+
+  /* Fluid radius: locks to a vw ratio between a floor and a ceiling so cards
+     keep the same optical corner at every breakpoint. */
+  --radius-fluid: max(8px, min(0.75vw, 16px));
+  --radius-panel: max(12px, min(1.15vw, 24px));
+
+  /* Easing set. --e-expo-in-out drives the scrub-adjacent transitions,
+     --e-expo-out the enter animations, --e-p2-in-out the small UI moves. */
+  --e-expo-in-out: cubic-bezier(0.87, 0, 0.13, 1);
+  --e-expo-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --e-expo-in: cubic-bezier(0.7, 0, 0.84, 0);
+  --e-p2-in-out: cubic-bezier(0.45, 0, 0.55, 1);
+  --e-p2-out: cubic-bezier(0.5, 1, 0.89, 1);
+}
+
+@theme inline {
+  --color-sand: var(--sand);
+  --color-sand-alt: var(--sand-alt);
+  --color-sand-soft: var(--sand-soft);
+  --color-ink: var(--ink);
+  --color-ink-alt: var(--ink-alt);
+  --color-ink-alt2: var(--ink-alt2);
+  --color-hint: var(--hint);
+}
+
+/* Display type for the full-bleed statements. Scales continuously so the
+   headline always fills the same fraction of the viewport width. */
+.text-display {
+  font-size: clamp(2.5rem, 7.2vw, 7.5rem);
+  line-height: 0.98;
+  letter-spacing: -0.03em;
+  font-weight: 500;
+}
+
+.text-display-sm {
+  font-size: clamp(1.75rem, 4.2vw, 4rem);
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+  font-weight: 500;
+}
+
+/* Mono eyebrow used above sections and on spec labels. */
+.label-mono {
+  font-family: ui-monospace, "SFMono-Regular", "Menlo", monospace;
+  font-size: clamp(0.625rem, 0.72vw, 0.75rem);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* Lenis needs the html element to opt out of native smooth scrolling. */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* While the preloader is up the page must not scroll or paint through. */
+body[data-preloading="true"] {
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .text-display,
+  .text-display-sm {
+    letter-spacing: normal;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Relats type scale
+   --------------------------------------------------------------------------
+   Lifted from the reference site's own scale so the landing sets type at the
+   same optical size at every width. Each step is `max(floor, min(vw, ceiling))`
+   — it tracks the viewport between two hard limits rather than snapping at
+   breakpoints, which is what keeps the huge headlines filling the same
+   fraction of the screen on a laptop and a large display.
+
+   Weight 500 and a -0.05em track are the two settings that carry most of the
+   character; the display sizes look wrong without them.
+   -------------------------------------------------------------------------- */
+.rtitle {
+  font-size: max(29.92px, min(2.361vw, 45.22px));
+  font-weight: 500;
+  letter-spacing: -0.05em;
+  line-height: 1.2;
+}
+
+.rtitle-xxsmall {
+  font-size: max(12.32px, min(0.972vw, 18.62px));
+  letter-spacing: 0;
+}
+.rtitle-xsmall {
+  font-size: max(15.84px, min(1.25vw, 23.94px));
+  letter-spacing: 0;
+}
+.rtitle-small {
+  font-size: max(21.12px, min(1.667vw, 31.92px));
+}
+.rtitle-large {
+  font-size: max(44px, min(3.472vw, 66.5px));
+}
+.rtitle-xlarge {
+  font-size: max(70.4px, min(5.556vw, 106.4px));
+  line-height: 1;
+}
+.rtitle-jumbo {
+  font-size: max(149.6px, min(11.806vw, 226.1px));
+  line-height: 1;
+}
+
+/* Below this width the scale switches to a viewport-proportional ramp with
+   much lower ceilings — the desktop steps would overflow a phone. */
+@media (max-width: 1100px) {
+  .rtitle {
+    font-size: min(7.179vw, 32.2px);
+  }
+  .rtitle-small {
+    font-size: min(5.128vw, 23px);
+  }
+  .rtitle-large {
+    font-size: min(7.692vw, 34.5px);
+  }
+  .rtitle-xlarge {
+    font-size: max(44px, min(3.472vw, 66.5px));
+  }
+  .rtitle-jumbo {
+    font-size: max(70.4px, min(5.556vw, 106.4px));
+  }
+}
+
+/* The reference container is simply the viewport less a 40px gutter each side —
+   no max width, so full-bleed sections and text columns share one edge. */
+.rcontainer {
+  width: 100%;
+  max-width: calc(100% - 80px);
+  margin-inline: auto;
+}
+@media (max-width: 1100px) {
+  .rcontainer {
+    max-width: calc(100% - 40px);
+  }
+}
+
+/* The two pieces of persistent chrome — header pill and floating action pill —
+   share one glass recipe. */
+.rglass {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 20px;
+}
