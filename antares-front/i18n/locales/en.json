@@ -9,7 +9,12 @@
     "catalog": "Catalogs",
     "about": "About Us",
     "contact": "Contact",
-    "gallery": "Gallery"
+    "gallery": "Gallery",
+    "search": "Search",
+    "close": "Close",
+    "searchPlaceholder": "Search products…",
+    "searchEmpty": "Nothing found",
+    "searchAll": "See all {count} results"
   },
   "footer": {
     "title": "Get in touch with us",

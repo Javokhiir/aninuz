@@ -9,7 +9,12 @@
     "catalog": "Каталоги",
     "about": "О нас",
     "contact": "Контакты",
-    "gallery": "Галерея"
+    "gallery": "Галерея",
+    "search": "Поиск",
+    "close": "Закрыть",
+    "searchPlaceholder": "Поиск по продукции…",
+    "searchEmpty": "Ничего не найдено",
+    "searchAll": "Все результаты ({count})"
   },
   "footer": {
     "title": "Свяжитесь с нами",

@@ -6,7 +6,15 @@ import { Link, usePathname } from "@/i18n/routing"
 import { useCartDrawer } from "@/states/cart-drawer"
 import { useCartStore } from "@/states/store"
 import { AnimatePresence, motion } from "framer-motion"
-import { ChevronDown } from "lucide-react"
+import {
+  ChevronDown,
+  House,
+  Info,
+  Mail,
+  MoreHorizontal,
+  Package,
+  Wrench,
+} from "lucide-react"
 import { useTranslations } from "next-intl"
 
 import { cn } from "@/lib/utils"
@@ -15,6 +23,10 @@ import { useSurfaceTone } from "@/hooks/useSurfaceTone"
 import { Icons } from "@/components/icons"
 import { LangSwitcher } from "@/components/langSwitcher"
 import SearchModal from "@/components/navbar/searchModal"
+import {
+  HeaderSearchField,
+  HeaderSearchResults,
+} from "@/components/relats/header-search"
 
 /**
  * The landing page's persistent chrome.
@@ -30,12 +42,24 @@ import SearchModal from "@/components/navbar/searchModal"
 /** Kept short so the pill stays near the reference's proportions; everything
  *  else hangs off the "more" panel and the mobile sheet. */
 const TOP_LINKS = [
-  { key: "home", href: "/" },
-  { key: "products", href: "/products" },
-  { key: "childServices", href: "/services" },
-  { key: "about", href: "/about" },
-  { key: "contact", href: "/contacts" },
+  { key: "home", href: "/", Icon: House },
+  { key: "products", href: "/products", Icon: Package },
+  { key: "childServices", href: "/services", Icon: Wrench },
+  { key: "about", href: "/about", Icon: Info },
+  { key: "contact", href: "/contacts", Icon: Mail },
 ] as const
+
+/**
+ * Layout spring shared by both pills. They resize against each other when
+ * search opens, so they have to settle on the same curve or the row looks like
+ * two independent animations happening near one another.
+ */
+const PILL_SPRING = {
+  type: "spring",
+  stiffness: 320,
+  damping: 34,
+  mass: 0.9,
+} as const
 
 const MORE_LINKS = [
   { key: "catalog", href: "/catalog" },
@@ -53,6 +77,17 @@ export function FloatingHeader() {
 
   const [moreOpen, setMoreOpen] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
+
+  // Search collapses the nav pill to icons and takes the space that frees up,
+  // so its open state drives the whole bar's layout — it lives here rather than
+  // inside the field.
+  const [searchOpen, setSearchOpen] = useState(false)
+  const [term, setTerm] = useState("")
+
+  const closeSearch = () => {
+    setSearchOpen(false)
+    setTerm("")
+  }
 
   // 17px of padding plus half the 52px pill: the point the bar actually covers.
   const tone = useSurfaceTone(43)
@@ -72,6 +107,8 @@ export function FloatingHeader() {
   useEffect(() => {
     setMobileOpen(false)
     setMoreOpen(false)
+    setSearchOpen(false)
+    setTerm("")
   }, [pathname])
 
   const isActive = (href: string) =>
@@ -82,8 +119,11 @@ export function FloatingHeader() {
       data-chrome-ignore
       className="pointer-events-none fixed inset-x-0 top-0 z-[80] py-[17px]"
     >
-      <div className="flex justify-center gap-[10px] px-5">
-        <nav
+      <div className="flex flex-col items-center px-5">
+        <div className="flex justify-center gap-[10px]">
+        <motion.nav
+          layout
+          transition={PILL_SPRING}
           className={cn(
             "rglass pointer-events-auto flex h-[52px] min-w-0 items-center p-[6px] transition-[background-color,box-shadow] duration-500 [transition-timing-function:var(--e-expo-out)]",
             !onDark && "rglass-on-light"
@@ -113,7 +153,7 @@ export function FloatingHeader() {
           </Link>
 
           <ul className="hidden items-center lg:flex">
-            {TOP_LINKS.map(({ key, href }) => {
+            {TOP_LINKS.map(({ key, href, Icon }) => {
               const active = isActive(href)
               return (
                 <li key={key} className="relative">
@@ -126,8 +166,14 @@ export function FloatingHeader() {
                   )}
                   <Link
                     href={href}
+                    aria-label={searchOpen ? t(key) : undefined}
+                    title={searchOpen ? t(key) : undefined}
                     className={cn(
-                      "relative flex h-10 items-center px-4 text-[15px] leading-10 whitespace-nowrap transition-[opacity,color] duration-300 xl:px-6",
+                      "relative flex h-10 items-center text-[15px] leading-10 whitespace-nowrap transition-[opacity,color] duration-300",
+                      // Icons-only is narrower, so the padding comes in with it
+                      // — otherwise the pill keeps most of its width and the
+                      // collapse reads as the labels merely vanishing.
+                      searchOpen ? "px-2.5" : "px-4 xl:px-6",
                       // The active tab keeps its ink pill on either surface, so
                       // its label stays white while the rest follows the tone.
                       active
@@ -138,7 +184,7 @@ export function FloatingHeader() {
                           )
                     )}
                   >
-                    {t(key)}
+                    {searchOpen ? <Icon className="size-[18px]" /> : t(key)}
                   </Link>
                 </li>
               )
@@ -156,19 +202,27 @@ export function FloatingHeader() {
                 type="button"
                 onClick={() => setMoreOpen((v) => !v)}
                 aria-expanded={moreOpen}
+                aria-label={searchOpen ? t("services") : undefined}
                 className={cn(
-                  "relative flex h-10 cursor-pointer items-center gap-1.5 px-4 text-[15px] whitespace-nowrap transition-[opacity,color] duration-300 xl:px-6",
+                  "relative flex h-10 cursor-pointer items-center gap-1.5 text-[15px] whitespace-nowrap transition-[opacity,color] duration-300",
+                  searchOpen ? "px-2.5" : "px-4 xl:px-6",
                   moreActive || moreOpen ? "opacity-100" : "opacity-60 hover:opacity-100",
                   onDark ? "text-white" : "text-ink"
                 )}
               >
-                {t("services")}
-                <ChevronDown
-                  className={cn(
-                    "size-4 transition-transform duration-300",
-                    moreOpen && "rotate-180"
-                  )}
-                />
+                {searchOpen ? (
+                  <MoreHorizontal className="size-[18px]" />
+                ) : (
+                  <>
+                    {t("services")}
+                    <ChevronDown
+                      className={cn(
+                        "size-4 transition-transform duration-300",
+                        moreOpen && "rotate-180"
+                      )}
+                    />
+                  </>
+                )}
               </button>
 
               <AnimatePresence>
@@ -224,27 +278,27 @@ export function FloatingHeader() {
               )}
             />
           </button>
-        </nav>
+        </motion.nav>
 
         {/* Its own pill rather than a slot in the nav: the tabs are the page's
             navigation and search, cart and language are tools, and keeping them
             apart reads that way at a glance. */}
-        <div
+        <motion.div
+          layout
+          transition={PILL_SPRING}
           className={cn(
             "rglass pointer-events-auto flex h-[52px] shrink-0 items-center gap-1 p-[6px] transition-[background-color,box-shadow] duration-500 [transition-timing-function:var(--e-expo-out)]",
             !onDark && "rglass-on-light"
           )}
         >
           <div className="hidden sm:block">
-            <SearchModal
-              triggerClassName={cn(
-                "flex size-10 cursor-pointer items-center justify-center rounded-[15px] transition-colors duration-300",
-                onDark ? "hover:bg-white/15" : "hover:bg-ink/5"
-              )}
-              iconClassName={cn(
-                "size-[18px] transition-colors duration-300",
-                onDark ? "text-white" : "text-ink"
-              )}
+            <HeaderSearchField
+              open={searchOpen}
+              onOpen={() => setSearchOpen(true)}
+              onClose={closeSearch}
+              value={term}
+              onChange={setTerm}
+              onDark={onDark}
             />
           </div>
 
@@ -274,7 +328,15 @@ export function FloatingHeader() {
           </button>
 
           <LangSwitcher variant="glass" align="end" tone={tone} />
+        </motion.div>
         </div>
+
+        {/* Grows out from under the bar rather than floating beside it. */}
+        <AnimatePresence>
+          {searchOpen && (
+            <HeaderSearchResults term={term} onNavigate={closeSearch} />
+          )}
+        </AnimatePresence>
       </div>
 
       {/* Mobile sheet. One glass plate under the pills carrying every route the

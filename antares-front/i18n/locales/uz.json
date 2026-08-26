@@ -9,7 +9,12 @@
     "catalog": "Kataloglar",
     "about": "Biz haqimizda",
     "contact": "Bogʻlanish",
-    "gallery": "Galereya"
+    "gallery": "Galereya",
+    "search": "Qidiruv",
+    "close": "Yopish",
+    "searchPlaceholder": "Mahsulotlar bo‘yicha qidiruv…",
+    "searchEmpty": "Hech narsa topilmadi",
+    "searchAll": "Barcha natijalar ({count})"
   },
   "footer": {
     "title": "Biz bilan bogʻlaning",
