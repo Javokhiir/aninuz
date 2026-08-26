@@ -1,22 +1,22 @@
 "use client"
 
-import React, { useState } from "react"
+import React, { useRef } from "react"
 import { Link } from "@/i18n/routing"
 import { useQuery } from "@tanstack/react-query"
-import { ChevronDown } from "lucide-react"
+import { ArrowRight } from "lucide-react"
 import { useTranslations } from "next-intl"
 
 import { CategoriesResponse, Category } from "@/types/models/categories"
 import { CompaniesResponse } from "@/types/models/company"
 import { getCategories } from "@/http/requests/categories"
 import { getCompanies } from "@/http/requests/companies"
-import { Skeleton } from "@/components/ui/skeleton"
 
 import { productsThemeVars } from "../theme"
 
-// Categories shipping a background render. Keyed by slug; anything not listed
-// falls back to its uploaded image, then to a letter mark.
-const CATEGORY_VIDEOS = new Set([
+// Categories shipping their own footage and poster frame in `public/`. Keyed by
+// slug; anything not listed falls back to its uploaded image, then to the flat
+// brand ground.
+const CATEGORY_MEDIA = new Set([
   "compression-packings",
   "flange-isolation-gaskets",
   "flange-joint-gaskets",
@@ -37,15 +37,15 @@ const localised = (category: Category, field: "title" | "content") =>
 const categoryTitle = (category: Category) =>
   localised(category, "title") || category.slug
 
-// `content` is rich text from the admin editor; the card only has room for a
-// few lines, so reduce the markup to plain text.
-const plainText = (html: string | null) =>
-  html
-    ?.replace(/<[^>]*>/g, " ")
-    .replace(/&nbsp;/g, " ")
-    .replace(/\s+/g, " ")
-    .trim() || null
-
+/**
+ * One category, as a discrete product-catalogue card.
+ *
+ * The media is the card's top half: the poster frame at rest under a brand-red
+ * duotone, which is what carries the Inmarco colour across the whole grid, and
+ * the category's own clip playing once the card is hovered. Only the hovered
+ * clip plays — seven autoplaying videos would run seven decoders for footage
+ * nobody is looking at.
+ */
 const CategoryCard = ({
   category,
   href,
@@ -53,115 +53,144 @@ const CategoryCard = ({
   category: Category
   href: string
 }) => {
-  const [open, setOpen] = useState(false)
+  const videoRef = useRef<HTMLVideoElement>(null)
   const t = useTranslations("products")
 
-  const image = category.images?.[0]
-  const video = CATEGORY_VIDEOS.has(category.slug)
-    ? `/videos/categories/${category.slug}.webm`
-    : null
   const title = categoryTitle(category)
-  const description = plainText(localised(category, "content"))
   const children = category.children ?? []
+  const media = CATEGORY_MEDIA.has(category.slug)
+  const uploaded = category.images?.[0]?.preview_url || category.images?.[0]?.url
+  const poster = media ? `/images/posters/${category.slug}.jpg` : uploaded
+
+  const play = () => {
+    const video = videoRef.current
+    if (!video) return
+    video.muted = true
+    void video.play().catch(() => {})
+  }
+
+  const stop = () => {
+    const video = videoRef.current
+    if (!video) return
+    video.pause()
+    video.currentTime = 0
+  }
 
   return (
-    <div className="group relative">
-      <div className="flex h-full flex-col overflow-hidden rounded-lg border border-[var(--card-border)] bg-[var(--card-bg)] transition-all duration-300 hover:border-[var(--accent)]">
-        <Link href={href} className="block">
-          <div className="relative h-64 overflow-hidden">
-            {video ? (
-              <video
-                // React sets `muted` as a property, not an attribute, so Chrome
-                // still treats the element as unmuted and blocks autoplay. Muting
-                // via ref before asking it to play is what actually starts it.
-                ref={(el) => {
-                  if (!el) return
-                  el.muted = true
-                  void el.play().catch(() => {})
-                }}
-                src={video}
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="metadata"
-                aria-hidden
-                className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
-              />
-            ) : image ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
-                src={image.preview_url || image.url}
-                alt={title}
-                loading="lazy"
-                className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
-              />
-            ) : (
-              <div className="flex h-full w-full items-center justify-center bg-white/[0.03]">
-                <span className="text-7xl font-bold text-white/10 uppercase">
-                  {title.charAt(0)}
-                </span>
-              </div>
-            )}
-            <div className="absolute inset-0 bg-gradient-to-t from-[var(--card-bg)] via-[var(--card-bg)]/60 to-transparent" />
-            <div className="absolute right-0 bottom-0 left-0 p-6">
-              <h3 className="mb-2 text-2xl tracking-tight text-white transition-colors group-hover:text-[var(--accent)]">
-                {title}
-              </h3>
-            </div>
-          </div>
-        </Link>
+    <Link
+      href={href}
+      onMouseEnter={play}
+      onMouseLeave={stop}
+      className="group flex flex-col overflow-hidden border border-[var(--card-border)] bg-[var(--card-bg)] transition-[transform,border-color,box-shadow] duration-500 hover:-translate-y-1.5 hover:border-[var(--brand)] hover:shadow-[0_30px_60px_-30px_rgba(209,20,16,0.55)]"
+      style={{
+        borderRadius: "var(--radius-panel)",
+        transitionTimingFunction: "var(--e-expo-out)",
+      }}
+    >
+      <div className="relative aspect-[4/3] overflow-hidden">
+        {/* Ground. Brand red shows wherever the media has not painted, so a
+            category with no footage still belongs to the palette. */}
+        <div className="absolute inset-0 bg-[var(--brand)]" />
 
-        <div className="flex flex-1 flex-col p-6">
-          {description && (
-            <p className="mb-4 text-sm leading-relaxed text-gray-400">
-              {description}
-            </p>
-          )}
+        {poster && (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={poster}
+            alt=""
+            loading="lazy"
+            className="absolute inset-0 h-full w-full object-cover transition-transform duration-1000 group-hover:scale-108"
+            style={{ transitionTimingFunction: "var(--e-expo-out)" }}
+          />
+        )}
 
-          {children.length > 0 && (
-            <div className="mt-auto">
-              <button
-                type="button"
-                onClick={() => setOpen((v) => !v)}
-                aria-expanded={open}
-                className="flex w-full items-center justify-between text-sm font-medium text-[var(--accent)]"
-              >
-                {t("subcategories", { count: children.length })}
-                <ChevronDown
-                  className={`h-4 w-4 transition-transform duration-300 ${
-                    open ? "rotate-180" : ""
-                  }`}
-                />
-              </button>
+        {media && (
+          <video
+            ref={videoRef}
+            src={`/videos/categories/${category.slug}.webm`}
+            muted
+            loop
+            playsInline
+            preload="none"
+            aria-hidden
+            className="absolute inset-0 h-full w-full object-cover opacity-0 transition-[opacity,transform] duration-1000 group-hover:scale-108 group-hover:opacity-100"
+            style={{ transitionTimingFunction: "var(--e-expo-out)" }}
+          />
+        )}
 
-              <div
-                className={`grid transition-all duration-300 ${
-                  open
-                    ? "mt-4 grid-rows-[1fr] opacity-100"
-                    : "grid-rows-[0fr] opacity-0"
-                }`}
-              >
-                <ul className="space-y-2 overflow-hidden">
-                  {children.map((child) => (
-                    <li key={child.id}>
-                      <Link
-                        href={`${href.split("?")[0]}?category=${child.slug}`}
-                        className="block text-sm text-gray-400 transition-colors hover:text-white"
-                      >
-                        {categoryTitle(child)}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          )}
+        {/* Duotone. Multiply keeps the footage's own contrast while forcing its
+            hue toward the brand red. Deliberately light: these posters are shot
+            on white, and multiply turns every white pixel the full strength of
+            whatever sits over it — at the old 20/75 the grid read as pink
+            plates rather than photographs. A tenth at rest is a tint, and the
+            hover lands on Inmarco's own lighter red rather than the deep one.
+            The card still answers the pointer by going to the partner's colour;
+            it just no longer drowns the product doing it. */}
+        <div className="absolute inset-0 bg-[var(--brand-soft)] opacity-10 mix-blend-multiply transition-opacity duration-700 group-hover:opacity-45" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[var(--card-bg)] via-transparent to-transparent" />
+
+        {children.length > 0 && (
+          <span className="label-mono absolute top-4 left-4 rounded-full bg-[var(--brand)] px-3 py-1.5 text-[var(--on-brand)]">
+            {t("subcategories", { count: children.length })}
+          </span>
+        )}
+      </div>
+
+      <div className="flex flex-1 flex-col p-6">
+        <h2 className="rtitle-xsmall mb-3 text-white transition-colors duration-300 group-hover:text-[var(--accent)]">
+          {title}
+        </h2>
+
+        {children.length > 0 && (
+          <p className="mb-6 line-clamp-2 text-sm leading-relaxed text-white/45">
+            {children
+              .slice(0, 4)
+              .map((child) => categoryTitle(child))
+              .join(" · ")}
+            {children.length > 4 && ` · +${children.length - 4}`}
+          </p>
+        )}
+
+        {/* Footer bar. Empty ground at rest, solid brand red once the card is
+            hovered — the card's main piece of colour. */}
+        <div className="relative mt-auto -mx-6 -mb-6 overflow-hidden border-t border-[var(--card-border)] px-6 py-4">
+          <div
+            className="absolute inset-0 origin-left scale-x-0 bg-[var(--brand)] transition-transform duration-700 group-hover:scale-x-100"
+            style={{ transitionTimingFunction: "var(--e-expo-out)" }}
+            aria-hidden
+          />
+          <span className="label-mono relative flex items-center justify-between text-[var(--accent)] transition-colors duration-300 group-hover:text-[var(--on-brand)]">
+            {t("browse")}
+            <ArrowRight className="h-4 w-4 transition-transform duration-500 group-hover:translate-x-1" />
+          </span>
         </div>
       </div>
-    </div>
+    </Link>
   )
 }
+
+/**
+ * Loading state. Cards of the real shape sweeping in brand red, so the grid
+ * holds its layout and its colour before any data lands.
+ */
+const GridSkeleton = ({ count = 6 }: { count?: number }) => (
+  <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    {Array.from({ length: count }).map((_, i) => (
+      <div
+        key={i}
+        className="overflow-hidden border border-[var(--card-border)] bg-[var(--card-bg)]"
+        style={{ borderRadius: "var(--radius-panel)" }}
+      >
+        <div className="relative aspect-[4/3] overflow-hidden bg-[var(--wash)]">
+          <div className="animate-shimmer absolute inset-0 bg-[length:200%_100%] bg-[linear-gradient(90deg,transparent,var(--brand),transparent)] opacity-50" />
+        </div>
+        <div className="space-y-3 p-6">
+          <div className="h-6 w-3/5 animate-pulse rounded-full bg-[var(--brand)]/45" />
+          <div className="h-4 w-4/5 animate-pulse rounded-full bg-[var(--brand)]/20" />
+        </div>
+      </div>
+    ))}
+  </div>
+)
 
 const Categories = () => {
   const t = useTranslations("products")
@@ -190,51 +219,77 @@ const Categories = () => {
   const brandSlug = companies?.data[0]?.slug
 
   return (
-    <section
-      className="bg-[var(--section-bg)] py-24"
-      style={productsThemeVars}
-    >
-      <div className="mx-auto max-w-[1400px] px-6 lg:px-12">
-        <div className="mb-16">
-          <div className="mb-4 flex items-center space-x-3">
-            <div className="h-[2px] w-12 bg-[var(--accent)]" />
-            <span className="text-sm tracking-widest text-gray-400 uppercase">
+    <div className="min-h-svh bg-[var(--section-bg)]" style={productsThemeVars}>
+      {/* Banner. A real image band rather than a slab of flat colour: the
+          hero still under a brand-red duotone, with the copy on the ramped
+          left side. */}
+      <header className="relative h-[clamp(340px,40vw,460px)] overflow-hidden">
+        <div className="absolute inset-0 bg-[var(--brand)]" />
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/images/posters/hero-reel.jpg"
+          alt=""
+          className="absolute inset-0 h-full w-full object-cover"
+        />
+        {/* Red and black rather than a field of red: a light multiply for the
+            hue, then a black scrim that carries most of the density. The banner
+            stays in the partner's colour without shouting it. */}
+        <div className="absolute inset-0 bg-[var(--brand)] opacity-40 mix-blend-multiply" />
+        <div className="absolute inset-0 bg-black/45" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/45 to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[var(--section-bg)] to-transparent" />
+
+        <div className="rcontainer relative flex h-full flex-col justify-end pt-28 pb-10">
+          <div className="mb-5 flex items-center gap-4">
+            <div className="h-[2px] w-12 bg-[var(--brand)]" />
+            <span className="label-mono text-white/70">
               {t("categoriesEyebrow")}
             </span>
           </div>
-          <h1 className="text-4xl tracking-tight text-white lg:text-5xl">
-            {t("title")}
-          </h1>
-        </div>
 
-        {isLoading ? (
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {Array.from({ length: 6 }).map((_, i) => (
-              <Skeleton
-                key={i}
-                className="h-[420px] w-full rounded-lg bg-white/5"
-              />
-            ))}
+          <h1 className="rtitle rtitle-large mb-4 text-white">{t("title")}</h1>
+
+          <p className="max-w-[54ch] text-sm leading-relaxed text-white/70 md:text-base">
+            {t("lead")}
+          </p>
+        </div>
+      </header>
+
+      <section className="pt-14 pb-24">
+        <div className="rcontainer">
+          {/* Catalogue bar: what the grid is, and how much of it there is. */}
+          <div className="label-mono mb-8 flex items-center justify-between border-b border-[var(--card-border)] pb-4">
+            <span className="flex items-center gap-3 text-white/60">
+              <span className="h-2 w-2 rounded-full bg-[var(--brand)]" />
+              {t("partner")}
+            </span>
+            <span className="text-[var(--accent)]">
+              {t("count", { count: categories?.data.length ?? 0 })}
+            </span>
           </div>
-        ) : categories?.data.length ? (
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {categories.data.map((category) => (
-              <CategoryCard
-                key={category.id}
-                category={category}
-                href={
-                  brandSlug
-                    ? `/products/${brandSlug}?category=${category.slug}`
-                    : "/products"
-                }
-              />
-            ))}
-          </div>
-        ) : (
-          <p className="py-16 text-center text-gray-400">{t("empty")}</p>
-        )}
-      </div>
-    </section>
+
+          {isLoading ? (
+            <GridSkeleton />
+          ) : categories?.data.length ? (
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {categories.data.map((category) => (
+                <CategoryCard
+                  key={category.id}
+                  category={category}
+                  href={
+                    brandSlug
+                      ? `/products/${brandSlug}?category=${category.slug}`
+                      : "/products"
+                  }
+                />
+              ))}
+            </div>
+          ) : (
+            <p className="py-24 text-center text-white/50">{t("empty")}</p>
+          )}
+        </div>
+      </section>
+    </div>
   )
 }
 

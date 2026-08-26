@@ -87,31 +87,52 @@ const CompanyProducts = ({ companyId }: { companyId: string }) => {
   // brand has no logo to show.
   const activeCategory = filters?.data.find((c) => c.slug === filter)
 
-  return (
-    <section className="bg-[var(--section-bg)] py-16" style={productsThemeVars}>
-      <div className="mx-auto max-w-[1400px] px-6 lg:px-12">
-        <Link
-          href="/products"
-          className="mb-6 inline-flex items-center gap-2 text-sm text-gray-400 transition-colors hover:text-[var(--accent)]"
-        >
-          <ArrowLeft className="h-4 w-4" />
-          {t("title")}
-        </Link>
+  // The banner reuses the selected category's poster so the page keeps the
+  // subject it was opened for; the reel still stands in for "all products".
+  const bannerPoster = filter
+    ? `/images/posters/${filter}.jpg`
+    : "/images/posters/hero-reel.jpg"
 
-        <div className="mb-10">
-          <div className="mb-4 flex items-center space-x-3">
-            <div className="h-[2px] w-12 bg-[var(--accent)]" />
-            <span className="text-sm tracking-widest text-gray-400 uppercase">
-              {companyId}
-            </span>
-          </div>
-          <h1 className="text-4xl tracking-tight text-white lg:text-5xl">
+  return (
+    <div className="min-h-svh bg-[var(--section-bg)]" style={productsThemeVars}>
+      {/* Same banner language as the category index, one step shorter — this is
+          a level down in the catalogue, not its front door. */}
+      <header className="relative h-[clamp(260px,28vw,340px)] overflow-hidden">
+        <div className="absolute inset-0 bg-[var(--brand)]" />
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={bannerPoster}
+          alt=""
+          className="absolute inset-0 h-full w-full object-cover"
+        />
+        <div className="absolute inset-0 bg-[var(--brand)] opacity-40 mix-blend-multiply" />
+        <div className="absolute inset-0 bg-black/45" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/45 to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[var(--section-bg)] to-transparent" />
+
+        <div className="rcontainer relative flex h-full flex-col justify-end pt-28 pb-8">
+          <Link
+            href="/products"
+            className="label-mono mb-5 inline-flex w-max items-center gap-2 text-white/70 transition-colors hover:text-[var(--accent)]"
+          >
+            <ArrowLeft className="h-4 w-4" />
+            {t("title")}
+          </Link>
+          <h1 className="rtitle rtitle-large text-white">
             {categoryTitle(activeCategory) || t("all")}
           </h1>
         </div>
+      </header>
+
+      <section className="pt-10 pb-24">
+        <div className="rcontainer">
+          <div className="label-mono mb-8 flex items-center gap-3 border-b border-[var(--card-border)] pb-4 text-white/60">
+            <span className="h-2 w-2 rounded-full bg-[var(--brand)]" />
+            {companyId}
+          </div>
 
         <div className="mb-8 flex items-center justify-between gap-3">
-          <SearchInput className="border border-[var(--card-border)] bg-[var(--card-bg)] text-white md:max-w-[420px]" />
+          <SearchInput className="rounded-[var(--radius-fluid)] border border-[var(--card-border)] bg-[var(--card-bg)] text-white md:max-w-[420px]" />
           <div className="block md:hidden">
             <Filters
               handleFilters={handleFilters}
@@ -133,17 +154,18 @@ const CompanyProducts = ({ companyId }: { companyId: string }) => {
           ) : dataShow?.data?.length ? (
             <ProductsSection companyName={companyId} products={dataShow.data} />
           ) : (
-            <p className="flex h-min flex-1 items-center gap-3 rounded-lg border border-[var(--card-border)] bg-[var(--card-bg)] p-6 text-gray-400">
+            <p className="flex h-min flex-1 items-center gap-3 rounded-[var(--radius-panel)] border border-[var(--card-border)] bg-[var(--card-bg)] p-6 text-white/50">
               <CircleAlertIcon className="h-5 w-5" /> {t("notFound")}
             </p>
           )}
         </div>
 
-        <div className="mt-12">
-          <Pagination limit={12} totalCount={allProducts?.meta.total || 0} />
+          <div className="mt-12">
+            <Pagination limit={12} totalCount={allProducts?.meta.total || 0} />
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
   )
 }
 

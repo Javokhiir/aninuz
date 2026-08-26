@@ -36,12 +36,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
-      url: siteConfig.url + "/cart",
-      lastModified: new Date(),
-      changeFrequency: "yearly",
-      priority: 0.9,
-    },
-    {
       url: siteConfig.url + "/cart/checkout",
       lastModified: new Date(),
       changeFrequency: "yearly",

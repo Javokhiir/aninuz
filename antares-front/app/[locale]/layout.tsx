@@ -11,8 +11,9 @@ import { getMessages, setRequestLocale } from "next-intl/server"
 import { Suspense } from "react"
 
 import { Toaster } from "@/components/ui/sonner"
-import Footer from "@/components/footer"
+import { CartDrawer } from "@/components/cart/cart-drawer"
 import { FloatingHeader } from "@/components/relats/site-chrome"
+import { SiteFrame } from "@/components/relats/site-frame"
 import { Providers } from "@/components/Providers"
 
 const onest = Onest({
@@ -77,10 +78,10 @@ const RootLayout = async ({
             <Suspense>
               <FloatingHeader />
             </Suspense>
-            <div className="min-h-svh pt-[60px] md:mt-[90px] md:pt-0">
-              {children}
-            </div>
-            <Footer />
+            <SiteFrame>{children}</SiteFrame>
+
+            {/* Site-wide, so the cart opens over whatever page you are on. */}
+            <CartDrawer />
           </NextIntlClientProvider>
 
         </Providers>

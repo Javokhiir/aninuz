@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react"
 import Image from "next/image"
 import { Link, usePathname } from "@/i18n/routing"
+import { useCartDrawer } from "@/states/cart-drawer"
 import { useCartStore } from "@/states/store"
 import { AnimatePresence, motion } from "framer-motion"
 import { ChevronDown } from "lucide-react"
@@ -48,6 +49,7 @@ export function FloatingHeader() {
   const pathname = usePathname()
   const mounted = useMounted()
   const totalItems = useCartStore((state) => state.totalItems())
+  const openCart = useCartDrawer((state) => state.openCart)
 
   const [moreOpen, setMoreOpen] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
@@ -92,13 +94,21 @@ export function FloatingHeader() {
             aria-label="Antares Investments"
             className="flex h-10 shrink-0 items-center rounded-[8px] pr-5 pl-4"
           >
+            {/* The only logo asset is dark navy on transparent, and over a dark
+                section the pill is just 20% white — the mark disappears into it.
+                So it follows the tone like the nav labels do: `brightness-0`
+                flattens it to black, `invert` takes that to white. On a light
+                surface it stays the black mark, untouched. */}
             <Image
               src="/logos/logo-with-text.png"
               alt="Antares Investments"
               width={340}
               height={34}
               priority
-              className="h-[30px] w-auto"
+              className={cn(
+                "h-[30px] w-auto transition-[filter] duration-500 [transition-timing-function:var(--e-expo-out)]",
+                onDark && "brightness-0 invert"
+              )}
             />
           </Link>
 
@@ -238,24 +248,22 @@ export function FloatingHeader() {
             />
           </div>
 
-          <Link
-            href="/cart"
+          {/* Opens the cart drawer rather than navigating: the cart is a
+              running total you adjust while browsing, so leaving the page to
+              look at it loses your place. Checkout is still a route. */}
+          <button
+            type="button"
+            onClick={openCart}
             aria-label="Cart"
             className={cn(
-              "relative flex size-10 items-center justify-center rounded-[15px] transition-colors duration-300",
-              pathname.startsWith("/cart")
-                ? "bg-ink"
-                : onDark
-                  ? "hover:bg-white/15"
-                  : "hover:bg-ink/5"
+              "relative flex size-10 cursor-pointer items-center justify-center rounded-[15px] transition-colors duration-300",
+              onDark ? "hover:bg-white/15" : "hover:bg-ink/5"
             )}
           >
             <Icons.ShoppingCart
               className={cn(
                 "size-[18px] transition-colors duration-300",
-                pathname.startsWith("/cart") || onDark
-                  ? "text-white"
-                  : "text-ink"
+                onDark ? "text-white" : "text-ink"
               )}
             />
             {mounted && totalItems > 0 && (
@@ -263,7 +271,7 @@ export function FloatingHeader() {
                 {totalItems > 99 ? "99+" : totalItems}
               </span>
             )}
-          </Link>
+          </button>
 
           <LangSwitcher variant="glass" align="end" tone={tone} />
         </div>

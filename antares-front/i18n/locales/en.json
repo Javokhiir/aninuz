@@ -248,9 +248,21 @@
     "notFound": "Catalog not found"
   },
   "cart": {
-    "title": "cart",
-    "priceoOnRequest": "PRICE UPON REQUEST",
-    "emptyCart": "Your cart is empty"
+    "title": "Cart",
+    "emptyCart": "Your cart is empty",
+    "eyebrow": "Your selection",
+    "lead": "Everything you have shortlisted. Send it over and our engineers come back with pricing and lead times.",
+    "priceOnRequest": "Price upon request",
+    "emptyLead": "Nothing selected yet — browse the catalogue and add what you need.",
+    "emptyCta": "Browse products",
+    "summary": "Summary",
+    "price": "Price",
+    "items": "Items",
+    "itemsUnit": "{count} pcs",
+    "checkout": "Request a quote",
+    "remove": "Remove",
+    "count": "{count} in cart",
+    "close": "Close"
   },
   "checkout": {
     "title": "checkout",
@@ -316,11 +328,18 @@
       "submit": "Get the file",
       "sending": "Sending…",
       "started": "Download started"
-    }
+    },
+    "lead": "Sealing and insulation products engineered with Inmarco — compression packings, gaskets, graphite and thermal insulation for heavy industry.",
+    "partner": "In partnership with Inmarco",
+    "browse": "Browse",
+    "count": "{count} categories"
   },
   "services": {
     "title": "Services",
-    "empty": "No data"
+    "empty": "No data",
+    "lead": "Engineering, supply and on-site support for sealing, insulation and flow control across oil and gas, power, chemical and metallurgy.",
+    "browse": "Read more",
+    "count": "{count} services"
   },
   "error": {
     "title": "Oops, something went wrong!",

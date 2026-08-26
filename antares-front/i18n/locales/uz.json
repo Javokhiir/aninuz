@@ -248,9 +248,21 @@
     "notFound": "Katalog topilmadi"
   },
   "cart": {
-    "title": "savat",
-    "priceoOnRequest": "NARX SO‘ROV ASOSIDA",
-    "emptyCart": "Savatingiz boʻsh"
+    "title": "Savat",
+    "emptyCart": "Savatingiz bo‘sh",
+    "eyebrow": "Sizning tanlovingiz",
+    "lead": "Siz tanlagan hamma narsa. So‘rov yuboring — muhandislarimiz narx va yetkazib berish muddati bilan qaytadi.",
+    "priceOnRequest": "Narx so‘rov bo‘yicha",
+    "emptyLead": "Hozircha hech narsa tanlanmagan — katalogni oching va kerakligini qo‘shing.",
+    "emptyCta": "Katalogni ochish",
+    "summary": "Yakun",
+    "price": "Narx",
+    "items": "Mahsulotlar soni",
+    "itemsUnit": "{count} dona",
+    "checkout": "Narx so‘rash",
+    "remove": "O‘chirish",
+    "count": "savatda {count} ta",
+    "close": "Yopish"
   },
   "checkout": {
     "title": "buyurtma",
@@ -316,11 +328,18 @@
       "submit": "Faylni olish",
       "sending": "Yuborilmoqda…",
       "started": "Yuklab olish boshlandi"
-    }
+    },
+    "lead": "Inmarco bilan birgalikda ishlab chiqilgan zichlash va izolyatsiya mahsulotlari — salnik zichlagichlari, prokladkalar, grafit va issiqlik izolyatsiyasi.",
+    "partner": "Inmarco bilan hamkorlikda",
+    "browse": "Ko‘rish",
+    "count": "{count} ta kategoriya"
   },
   "services": {
     "title": "Xizmatlar",
-    "empty": "Ma'lumot yo'q"
+    "empty": "Ma'lumot yo'q",
+    "lead": "Neft-gaz, energetika, kimyo va metallurgiya uchun zichlash, izolyatsiya va oqim boshqaruvi bo‘yicha injiniring, yetkazib berish va obyektda qo‘llab-quvvatlash.",
+    "browse": "Batafsil",
+    "count": "{count} ta xizmat"
   },
   "error": {
     "title": "Voy, nimadadir xato yuz berdi!",

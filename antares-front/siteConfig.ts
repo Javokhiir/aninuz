@@ -50,12 +50,6 @@ export const siteTabs: Array<LinkTab> = [
     section: null,
   },
   {
-    key: "cart",
-    label: "Cart",
-    link: "/cart",
-    section: null,
-  },
-  {
     key: "checkout",
     label: "Checkout",
     link: "/cart/checkout",
