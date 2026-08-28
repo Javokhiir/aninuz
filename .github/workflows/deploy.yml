@@ -61,6 +61,7 @@ jobs:
           server-dir: public_html/
           state-name: .ftp-deploy-sync-state.json
           log-level: minimal
+          timeout: 600000
 
   deploy-backend:
     needs: detect-changes
@@ -93,6 +94,7 @@ jobs:
           server-dir: public_html/api/
           state-name: .ftp-deploy-sync-state-api-entry.json
           log-level: minimal
+          timeout: 600000
 
       - name: Deploy to cPanel via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
@@ -104,6 +106,7 @@ jobs:
           server-dir: public_html/api/antares-back-main/
           state-name: .ftp-deploy-sync-state-backend.json
           log-level: minimal
+          timeout: 600000
           exclude: |
             **/.git*
             **/.git*/**
