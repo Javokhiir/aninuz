@@ -1,12 +1,11 @@
 # Product datasheets
 
-Drop PDF files here. They are served statically at `/datasheets/<file>.pdf`.
+Datasheets are not stored here. Each product links straight to Inmarco's
+published PDF on their CDN; the slug-to-file map lives in
+`app/[locale]/products/[companyId]/[product]/components/datasheet.tsx`.
 
-Which file a product hands out is decided in
-`app/[locale]/products/[companyId]/[product]/components/datasheet.tsx`:
-
-- `DATASHEETS` maps a product slug to its own PDF.
-- `GENERIC_DATASHEET` is used for every product that is not in that map.
+Products missing from that map (no datasheet on inmarco.ae) do not show the
+download button. To add one, put the Inmarco file name next to the product slug.
 
 A visitor has to leave an email before the download starts; the address is
 recorded via `POST /api/datasheet-lead` and listed in the admin panel under

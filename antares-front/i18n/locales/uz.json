@@ -246,7 +246,9 @@
     "name": "Ism",
     "email": "Elektron pochta",
     "phoneNumber": "Telefon raqami",
-    "message": "Xabar"
+    "message": "Xabar",
+    "sent": "Xabar yuborildi",
+    "smthWentWrong": "Xatolik yuz berdi"
   },
   "catalog": {
     "title": "katalog",
@@ -281,7 +283,18 @@
     "address": "Yetkazib berish manzili",
     "addressPlaceholder": "Pushkin ko'chasi",
     "btn": "Soʻrov yuborish",
-    "price": "NARX SO‘ROV ASOSIDA"
+    "price": "NARX SO‘ROV ASOSIDA",
+    "orderCreated": "Buyurtma yaratildi",
+    "smthWentWrong": "Xatolik yuz berdi",
+    "payment": {
+      "title": "To'lov usuli",
+      "hint": "Onlayn to'lov ulanmoqda. Hozircha menejer narxni tasdiqlab, hisob-faktura yuboradi.",
+      "click": "Click",
+      "clickDesc": "Kartalar va Click hamyoni",
+      "payme": "Payme",
+      "paymeDesc": "Uzcard, Humo va Payme hamyoni",
+      "comingSoon": "Tez orada"
+    }
   },
   "certificates": {
     "title": "SERTIFIKATLAR",
@@ -331,7 +344,6 @@
       "description": "Email qoldiring va «{product}» fayli darhol yuklab olinadi.",
       "emailPlaceholder": "you@company.com",
       "submit": "Faylni olish",
-      "sending": "Yuborilmoqda…",
       "started": "Yuklab olish boshlandi"
     },
     "lead": "Inmarco bilan birgalikda ishlab chiqilgan zichlash va izolyatsiya mahsulotlari — salnik zichlagichlari, prokladkalar, grafit va issiqlik izolyatsiyasi.",
@@ -400,5 +412,15 @@
     "desc": "Bu bo'lim hozirda to'ldirilmoqda. Keyinroq qaytib keling — biz eng yaxshi kontentni tayyorlamoqdamiz.",
     "status": "Ishlar davom etmoqda",
     "close": "Tushundim, davom etish"
+  },
+  "validation": {
+    "nameMin": "Ism kamida 2 ta belgidan iborat bo'lishi kerak",
+    "surnameMin": "Familiya kamida 2 ta belgidan iborat bo'lishi kerak",
+    "emailInvalid": "To'g'ri elektron pochta kiriting",
+    "phoneRequired": "Telefon raqamini kiriting",
+    "phoneInvalid": "To'g'ri telefon raqamini kiriting",
+    "cityRequired": "Shaharni kiriting",
+    "addressRequired": "Manzilni kiriting",
+    "messageRequired": "Xabar kiriting"
   }
 }

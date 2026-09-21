@@ -27,11 +27,6 @@ export function initService(root: ParentNode) {
   const timelines: (gsap.core.Timeline | null)[] = []
   let speedTicker: gsap.TickerCallback | null = null
 
-  // Warm the crane canvas early so the first scrub already has frames.
-  const earlyTimer = window.setTimeout(() => {
-    if (el.isConnected) buildFrameSequences(false)
-  }, 400)
-
   const trigger = onceInRange(el, () => {
     if (!viewport().isMobile) initSpeedometer()
     buildScrub()
@@ -898,7 +893,6 @@ export function initService(root: ParentNode) {
   }
 
   return () => {
-    window.clearTimeout(earlyTimer)
     trigger.kill()
     if (speedTicker) gsap.ticker.remove(speedTicker)
 

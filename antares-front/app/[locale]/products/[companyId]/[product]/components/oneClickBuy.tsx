@@ -1,5 +1,6 @@
 "use client"
 
+import { useMemo } from "react"
 import { useCompanyColorStore } from "@/states/store"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useMutation } from "@tanstack/react-query"
@@ -29,18 +30,21 @@ import {
 import { Input } from "@/components/ui/input"
 import { PhoneInput } from "@/components/ui/phone-input"
 
-const oneClickBuySchema = z.object({
-  name: z.string().min(2, {
-    message: "Name is required",
-  }),
-  phoneNumber: z.string().min(2, {
-    message: "phoneNumber must be valid.",
-  }),
-})
-
 const OneClickBuy = ({ productId }: { productId: number }) => {
   const { color } = useCompanyColorStore()
   const t = useTranslations("products.productId")
+  const tv = useTranslations("validation")
+
+  const oneClickBuySchema = useMemo(
+    () =>
+      z.object({
+        name: z.string().min(2, { message: tv("nameMin") }),
+        phoneNumber: z
+          .string({ message: tv("phoneRequired") })
+          .min(2, { message: tv("phoneInvalid") }),
+      }),
+    [tv]
+  )
 
   const form = useForm<z.infer<typeof oneClickBuySchema>>({
     resolver: zodResolver(oneClickBuySchema),

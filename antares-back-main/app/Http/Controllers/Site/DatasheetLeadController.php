@@ -12,7 +12,7 @@ class DatasheetLeadController extends Controller
     /**
      * Records the email a visitor gives to unlock a product datasheet.
      *
-     * The file itself is served statically by the frontend; this endpoint only
+     * The file itself is Inmarco's PDF on their CDN; this endpoint only
      * captures the lead, so a storage failure must not block the download.
      */
     public function store(Request $request)

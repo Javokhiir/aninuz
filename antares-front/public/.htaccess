@@ -5,8 +5,8 @@ RewriteEngine On
 RewriteCond %{HTTP_HOST} ^www\.anin\.uz [NC]
 RewriteRule ^(.*)$ https://anin.uz/$1 [R=301,L]
 
-# Redirect root to /en
-RewriteRule ^$ /en [R=302,L]
+# Redirect root to the default locale
+RewriteRule ^$ /ru [R=302,L]
 
 # Serve existing files directly (_next assets, .txt RSC payloads, etc.)
 RewriteCond %{REQUEST_FILENAME} -f

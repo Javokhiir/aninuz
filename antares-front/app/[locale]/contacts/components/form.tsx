@@ -1,6 +1,6 @@
 "use client"
 
-import React from "react"
+import React, { useMemo } from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useMutation } from "@tanstack/react-query"
 import { useTranslations } from "next-intl"
@@ -23,16 +23,22 @@ import { PhoneInput } from "@/components/ui/phone-input"
 import { Textarea } from "@/components/ui/textarea"
 import { Icons } from "@/components/icons"
 
-const contactsFormSchema = z.object({
-  name: z.string().min(2, { message: "Name must be at least 2 characters." }),
-  email: z.string({ message: "Email is required" }).email(),
-  phone: z
-    .string()
-    .min(13, { message: "Phone number must be at least 13 characters." }),
-  message: z.string({ message: "Message is required" }),
-})
 const ContactsForm = () => {
   const t = useTranslations("contacts")
+  const tv = useTranslations("validation")
+
+  const contactsFormSchema = useMemo(
+    () =>
+      z.object({
+        name: z.string().min(2, { message: tv("nameMin") }),
+        email: z.string().email({ message: tv("emailInvalid") }),
+        phone: z
+          .string({ message: tv("phoneRequired") })
+          .min(13, { message: tv("phoneInvalid") }),
+        message: z.string().min(1, { message: tv("messageRequired") }),
+      }),
+    [tv]
+  )
 
   const form = useForm<z.infer<typeof contactsFormSchema>>({
     resolver: zodResolver(contactsFormSchema),
@@ -49,10 +55,10 @@ const ContactsForm = () => {
 
     onSuccess: () => {
       form.reset()
-      toast.success("Message sent successfully!")
+      toast.success(t("sent"))
     },
     onError: () => {
-      toast.error("Что то пошло не так")
+      toast.error(t("smthWentWrong"))
     },
   })
 

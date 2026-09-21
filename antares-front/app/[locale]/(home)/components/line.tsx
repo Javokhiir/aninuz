@@ -1,8 +1,15 @@
 "use client"
 
+import dynamic from "next/dynamic"
 import { useTranslations } from "next-intl"
 
-import { LineScrollAnimation } from "@/components/ui/line-animation"
+// The animation is ~180 KB of inline SVG paths at the foot of the page, so it
+// is kept out of the server-rendered HTML and fetched only in the browser.
+const LineScrollAnimation = dynamic(
+  () =>
+    import("@/components/ui/line-animation").then((m) => m.LineScrollAnimation),
+  { ssr: false }
+)
 
 const LineSection = () => {
   const t = useTranslations("home.line")

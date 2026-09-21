@@ -246,7 +246,9 @@
     "name": "Name",
     "email": "Email",
     "phoneNumber": "Phone number",
-    "message": "Message"
+    "message": "Message",
+    "sent": "Message sent",
+    "smthWentWrong": "Something went wrong"
   },
   "catalog": {
     "title": "catalog",
@@ -281,7 +283,18 @@
     "address": "Delivery address",
     "addressPlaceholder": "Pushkin St.",
     "btn": "Submit request",
-    "price": "PRICE UPON REQUEST"
+    "price": "PRICE UPON REQUEST",
+    "orderCreated": "Order created",
+    "smthWentWrong": "Something went wrong",
+    "payment": {
+      "title": "Payment method",
+      "hint": "Online payment is being connected. For now the manager confirms the price and sends an invoice.",
+      "click": "Click",
+      "clickDesc": "Cards and Click wallet",
+      "payme": "Payme",
+      "paymeDesc": "Uzcard, Humo and Payme wallet",
+      "comingSoon": "Soon"
+    }
   },
   "certificates": {
     "title": "CERTIFICATES",
@@ -331,7 +344,6 @@
       "description": "Leave your email and the “{product}” datasheet download starts right away.",
       "emailPlaceholder": "you@company.com",
       "submit": "Get the file",
-      "sending": "Sending…",
       "started": "Download started"
     },
     "lead": "Sealing and insulation products engineered with Inmarco — compression packings, gaskets, graphite and thermal insulation for heavy industry.",
@@ -400,5 +412,15 @@
     "desc": "This section is currently being prepared. Please check back later — we are working hard to bring you the best content.",
     "status": "Work in progress",
     "close": "Got it, continue browsing"
+  },
+  "validation": {
+    "nameMin": "Name must be at least 2 characters",
+    "surnameMin": "Last name must be at least 2 characters",
+    "emailInvalid": "Enter a valid email",
+    "phoneRequired": "Phone number is required",
+    "phoneInvalid": "Enter a valid phone number",
+    "cityRequired": "City is required",
+    "addressRequired": "Address is required",
+    "messageRequired": "Message is required"
   }
 }
