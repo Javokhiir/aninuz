@@ -5,8 +5,9 @@ import { fetchBuildJson } from "@/http/buildFetch"
 import ProductId from "./components"
 
 export async function generateStaticParams() {
-  const brandsData =
-    await fetchBuildJson<{ data: { slug: string }[] }>("/brands")
+  const brandsData = await fetchBuildJson<{ data: { slug: string }[] }>(
+    "/brands"
+  )
   const brands = brandsData?.data ?? []
 
   const params: { companyId: string; product: string }[] = []
@@ -21,7 +22,9 @@ export async function generateStaticParams() {
     }
   }
 
-  return params.length > 0 ? params : [{ companyId: "_", product: "_" }]
+  // The placeholder page is always exported: .htaccess falls back to it for
+  // slugs that were not in the API at build time.
+  return [...params, { companyId: "_", product: "_" }]
 }
 
 const ProductIdPage = () => {

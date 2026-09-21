@@ -14,7 +14,9 @@ export async function generateStaticParams() {
   )
   const slugs = (data?.data ?? []).map((event) => ({ event: event.slug }))
 
-  return slugs.length > 0 ? slugs : [{ event: "_" }]
+  // The placeholder page is always exported: .htaccess falls back to it for
+  // slugs that were not in the API at build time.
+  return [...slugs, { event: "_" }]
 }
 
 const EventsPage = async ({ params }: Props) => {

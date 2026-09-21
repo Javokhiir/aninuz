@@ -12,6 +12,18 @@ RewriteRule ^$ /ru [R=302,L]
 RewriteCond %{REQUEST_FILENAME} -f
 RewriteRule ^ - [L]
 
+# --- Exported pages ---
+
+# The export writes one .html per URL. Serve that page whenever it exists;
+# the placeholder rewrites further down only cover slugs the API did not
+# return at build time.
+RewriteCond %{DOCUMENT_ROOT}/$1.html -f
+RewriteRule ^(.+?)/?$ /$1.html [L]
+
+# A request that already names an export file and got this far has no file
+# behind it. Stop here so the placeholder rewrites cannot loop on themselves.
+RewriteRule \.(html|txt)$ - [L]
+
 # --- Dashboard routes ---
 RewriteRule ^dashboard/?$ /dashboard.html [L]
 RewriteRule ^dashboard/([^/]+)/?$ /dashboard/$1.html [L]

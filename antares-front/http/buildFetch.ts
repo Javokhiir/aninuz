@@ -11,19 +11,28 @@ import { routing } from "@/i18n/routing"
 export const fetchBuildJson = async <T>(path: string): Promise<T | null> => {
   const url = `${process.env.NEXT_PUBLIC_API_URL}${path}`
 
-  try {
-    const res = await fetch(url, {
-      headers: { "Accept-Language": routing.defaultLocale },
-    })
+  // One flaky response during export silently drops every page behind it
+  // (a whole locale's products, once), so a request gets a few attempts.
+  for (let attempt = 1; attempt <= 3; attempt++) {
+    try {
+      const res = await fetch(url, {
+        headers: { "Accept-Language": routing.defaultLocale },
+      })
 
-    if (!res.ok) {
-      console.warn(`[generateStaticParams] ${url} responded ${res.status}`)
-      return null
+      if (res.ok) return (await res.json()) as T
+
+      console.warn(
+        `[generateStaticParams] ${url} responded ${res.status} (attempt ${attempt})`
+      )
+    } catch (error) {
+      console.warn(
+        `[generateStaticParams] ${url} failed (attempt ${attempt}):`,
+        error
+      )
     }
 
-    return (await res.json()) as T
-  } catch (error) {
-    console.warn(`[generateStaticParams] ${url} failed:`, error)
-    return null
+    await new Promise((resolve) => setTimeout(resolve, 1500 * attempt))
   }
+
+  return null
 }

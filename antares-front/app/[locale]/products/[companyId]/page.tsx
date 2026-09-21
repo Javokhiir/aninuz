@@ -13,7 +13,9 @@ export async function generateStaticParams() {
   const data = await fetchBuildJson<{ data: { slug: string }[] }>("/brands")
   const slugs = (data?.data ?? []).map((brand) => ({ companyId: brand.slug }))
 
-  return slugs.length > 0 ? slugs : [{ companyId: "_" }]
+  // The placeholder page is always exported: .htaccess falls back to it for
+  // slugs that were not in the API at build time.
+  return [...slugs, { companyId: "_" }]
 }
 
 const CompanyIdPage = async ({ params }: Props) => {

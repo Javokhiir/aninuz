@@ -1,10 +1,9 @@
 import React from "react"
 import { Link } from "@/i18n/routing"
-
-import { Icons } from "@/components/icons"
 import { setRequestLocale } from "next-intl/server"
 
 import { fetchBuildJson } from "@/http/buildFetch"
+import { Icons } from "@/components/icons"
 
 import Service from "./components"
 
@@ -18,7 +17,9 @@ export async function generateStaticParams() {
   )
   const slugs = (data?.data ?? []).map((service) => ({ service: service.slug }))
 
-  return slugs.length > 0 ? slugs : [{ service: "_" }]
+  // The placeholder page is always exported: .htaccess falls back to it for
+  // slugs that were not in the API at build time.
+  return [...slugs, { service: "_" }]
 }
 
 const ServiceId = async ({ params }: Props) => {
