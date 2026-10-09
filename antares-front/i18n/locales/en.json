@@ -29,9 +29,9 @@
   },
   "home": {
     "hero": {
-      "eyebrow": "Official Inmarco FZC distributor in Uzbekistan",
+      "eyebrow": "Official INMARCO FZC distributor in Uzbekistan",
       "title": "Industrial solutions for tomorrow",
-      "intro": "Inmarco FZC is an engineering-led manufacturer and solution provider specializing in industrial fluid sealing systems — from compression packings and gaskets to custom-engineered sealing materials for pumps, valves and other critical process equipment. Antares supplies the full range in Uzbekistan.",
+      "intro": "INMARCO FZC is an engineering-led manufacturer and solution provider specializing in industrial fluid sealing systems, from compression packings and gaskets to custom-engineered sealing materials for pumps, valves and other critical process equipment. Antares supplies the full range in Uzbekistan.",
       "titleLine1": "Industrial solutions",
       "titleLine2": "for tomorrow",
       "scrollHint": "Scroll down",
@@ -346,8 +346,22 @@
       "submit": "Get the file",
       "started": "Download started"
     },
-    "lead": "Sealing and insulation products engineered with Inmarco — compression packings, gaskets, graphite and thermal insulation for heavy industry.",
-    "partner": "In partnership with Inmarco",
+    "brandSelector": {
+      "eyebrow": "Product brands",
+      "title": "Choose a brand",
+      "lead": "Each catalogue opens with the selected manufacturer's products and its own visual identity.",
+      "open": "Open catalogue",
+      "brands": {
+        "inmarco": {
+          "description": "Industrial sealing, compression packings, gaskets and thermal insulation solutions."
+        },
+        "erithGlobal": {
+          "description": "Industrial equipment, components and engineering solutions for production processes."
+        }
+      }
+    },
+    "lead": "Sealing and insulation products engineered with INMARCO: compression packings, gaskets, graphite and thermal insulation for heavy industry.",
+    "partner": "In partnership with INMARCO",
     "browse": "Browse",
     "count": "{count} categories"
   },

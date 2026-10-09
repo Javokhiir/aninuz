@@ -1,6 +1,7 @@
 "use client"
 
 import React, { useEffect } from "react"
+import Image from "next/image"
 import { Link } from "@/i18n/routing"
 import { useMutation, useQuery } from "@tanstack/react-query"
 import { ArrowLeft, CircleAlertIcon } from "lucide-react"
@@ -17,7 +18,7 @@ import { useQueryParams } from "@/hooks/useQueryParams"
 import { Pagination } from "@/components/ui/pagination"
 import { SearchInput } from "@/components/Search"
 
-import { productsThemeVars } from "../../theme"
+import { getProductBrandProfile, getProductsThemeVars } from "../../theme"
 import Filters from "./filters"
 import ProductsSection, { ProductsGridSkeleton } from "./products"
 
@@ -34,6 +35,8 @@ const CompanyProducts = ({ companyId }: { companyId: string }) => {
   const filter = getParam("category")
   const search = getParam("search")
   const t = useTranslations("products")
+  const brand = getProductBrandProfile(companyId)
+  const themeVars = getProductsThemeVars(companyId)
 
   const [productsData, setProductsData] = React.useState<ProductsResponse>()
 
@@ -91,10 +94,10 @@ const CompanyProducts = ({ companyId }: { companyId: string }) => {
   // subject it was opened for; the reel still stands in for "all products".
   const bannerPoster = filter
     ? `/images/posters/${filter}.jpg`
-    : "/images/posters/hero-reel.jpg"
+    : brand.heroImage
 
   return (
-    <div className="min-h-svh bg-[var(--section-bg)]" style={productsThemeVars}>
+    <div className="min-h-svh bg-[var(--section-bg)]" style={themeVars}>
       {/* Same banner language as the category index, one step shorter — this is
           a level down in the catalogue, not its front door. */}
       <header className="relative h-[clamp(260px,28vw,340px)] overflow-hidden">
@@ -118,6 +121,16 @@ const CompanyProducts = ({ companyId }: { companyId: string }) => {
             <ArrowLeft className="h-4 w-4" />
             {t("title")}
           </Link>
+          <div className="mb-5 flex h-16 w-36 items-center justify-center bg-white px-4 py-2 md:h-20 md:w-44">
+            <Image
+              src={brand.logo}
+              alt={`${brand.name} logo`}
+              width={340}
+              height={150}
+              className="h-full w-full object-contain"
+              priority
+            />
+          </div>
           <h1 className="rtitle rtitle-large text-white">
             {categoryTitle(activeCategory) || t("all")}
           </h1>
@@ -127,38 +140,43 @@ const CompanyProducts = ({ companyId }: { companyId: string }) => {
       <section className="pt-10 pb-24">
         <div className="rcontainer">
           <div className="label-mono mb-8 flex items-center gap-3 border-b border-[var(--card-border)] pb-4 text-white/60">
-            <span className="h-2 w-2 rounded-full bg-[var(--brand)]" />
-            {companyId}
+            <span className="h-[2px] w-8 bg-[var(--brand)]" />
+            {brand.name}
           </div>
 
-        <div className="mb-8 flex items-center justify-between gap-3">
-          <SearchInput className="rounded-[var(--radius-fluid)] border border-[var(--card-border)] bg-[var(--card-bg)] text-white md:max-w-[420px]" />
-          <div className="block md:hidden">
-            <Filters
-              handleFilters={handleFilters}
-              categories={filters?.data || []}
-            />
-          </div>
-        </div>
-
-        <div className="flex gap-8">
-          <div className="hidden md:block">
-            <Filters
-              handleFilters={handleFilters}
-              categories={filters?.data || []}
-            />
+          <div className="mb-8 flex items-center justify-between gap-3">
+            <SearchInput className="rounded-[var(--radius-fluid)] border border-[var(--card-border)] bg-[var(--card-bg)] text-white md:max-w-[420px]" />
+            <div className="block md:hidden">
+              <Filters
+                handleFilters={handleFilters}
+                categories={filters?.data || []}
+                themeVars={themeVars}
+              />
+            </div>
           </div>
 
-          {pending ? (
-            <ProductsGridSkeleton />
-          ) : dataShow?.data?.length ? (
-            <ProductsSection companyName={companyId} products={dataShow.data} />
-          ) : (
-            <p className="flex h-min flex-1 items-center gap-3 rounded-[var(--radius-panel)] border border-[var(--card-border)] bg-[var(--card-bg)] p-6 text-white/50">
-              <CircleAlertIcon className="h-5 w-5" /> {t("notFound")}
-            </p>
-          )}
-        </div>
+          <div className="flex gap-8">
+            <div className="hidden md:block">
+              <Filters
+                handleFilters={handleFilters}
+                categories={filters?.data || []}
+                themeVars={themeVars}
+              />
+            </div>
+
+            {pending ? (
+              <ProductsGridSkeleton />
+            ) : dataShow?.data?.length ? (
+              <ProductsSection
+                companyName={companyId}
+                products={dataShow.data}
+              />
+            ) : (
+              <p className="flex h-min flex-1 items-center gap-3 rounded-[var(--radius-panel)] border border-[var(--card-border)] bg-[var(--card-bg)] p-6 text-white/50">
+                <CircleAlertIcon className="h-5 w-5" /> {t("notFound")}
+              </p>
+            )}
+          </div>
 
           <div className="mt-12">
             <Pagination limit={12} totalCount={allProducts?.meta.total || 0} />

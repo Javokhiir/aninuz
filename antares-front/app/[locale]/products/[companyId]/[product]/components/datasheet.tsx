@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { useParams } from "next/navigation"
 import { useMutation } from "@tanstack/react-query"
 import { Download } from "lucide-react"
 import { useTranslations } from "next-intl"
@@ -16,11 +17,11 @@ import {
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 
-import { productsThemeVars } from "../../../theme"
+import { getProductsThemeVars } from "../../../theme"
 
 /**
- * Inmarco publishes one PDF per product on its CDN; the key is our product
- * slug, the value is Inmarco's file name. Products without an entry have no
+ * INMARCO publishes one PDF per product on its CDN; the key is our product
+ * slug, the value is INMARCO's file name. Products without an entry have no
  * datasheet on inmarco.ae either, so the button is not rendered for them.
  */
 const DATASHEET_CDN = "https://d24gq0kplkhyxr.cloudfront.net/datasheets/"
@@ -100,6 +101,9 @@ const DatasheetDownload = ({
   productTitle: string
 }) => {
   const t = useTranslations("products.datasheet")
+  const { companyId } = useParams()
+  const companySlug = Array.isArray(companyId) ? companyId[0] : companyId || ""
+  const themeVars = getProductsThemeVars(companySlug)
   const [open, setOpen] = useState(false)
   const [email, setEmail] = useState("")
 
@@ -145,7 +149,7 @@ const DatasheetDownload = ({
       {/* Radix portals the dialog to <body>, outside the section that defines
           the palette, so the custom properties have to be re-applied here. */}
       <DialogContent
-        style={productsThemeVars}
+        style={themeVars}
         className="border-[var(--card-border)] bg-[var(--section-bg)]"
       >
         <DialogHeader className="space-y-2">

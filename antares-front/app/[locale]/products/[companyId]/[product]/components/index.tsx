@@ -11,7 +11,7 @@ import { ProductResponse } from "@/types/models/product"
 import { getProductById } from "@/http/requests/products"
 import { useQueryParams } from "@/hooks/useQueryParams"
 
-import { productsThemeVars } from "../../../theme"
+import { getProductBrandProfile, getProductsThemeVars } from "../../../theme"
 import ProductAccordion from "./accordion"
 import ProductImageCarousel from "./carousel"
 import ProductContent from "./productContent"
@@ -43,6 +43,9 @@ const ProductId = () => {
   const expand = getParam("expand", "images, faqs")
   const product_slug = pathname.split("/")[3]
   const { companyId } = useParams()
+  const companySlug = Array.isArray(companyId) ? companyId[0] : companyId || ""
+  const brand = getProductBrandProfile(companySlug)
+  const themeVars = getProductsThemeVars(companySlug)
 
   const { isLoading, data: product } = useQuery<ProductResponse>({
     queryKey: ["product", product_slug, expand],
@@ -54,14 +57,14 @@ const ProductId = () => {
   const faqs = data?.faqs ?? []
 
   return (
-    <section className="bg-[var(--section-bg)] py-16" style={productsThemeVars}>
+    <section className="bg-[var(--section-bg)] py-16" style={themeVars}>
       <div className="mx-auto max-w-[1400px] px-6 lg:px-12">
         <Link
-          href={`/products/${companyId}`}
+          href={`/products/${companySlug}`}
           className="mb-10 inline-flex items-center gap-2 text-sm text-gray-400 transition-colors hover:text-[var(--accent)]"
         >
           <ArrowLeft className="h-4 w-4" />
-          {companyId}
+          {brand.name}
         </Link>
 
         {isLoading || !data ? (

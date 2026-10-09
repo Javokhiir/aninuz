@@ -49,7 +49,7 @@ const SustainabilitySection = () => {
             lines={[t("titleLine1")]}
             className="rtitle rtitle-large mt-4"
           />
-          {/* Second line carries the accent — the emphasis inmarco puts on the
+          {/* Second line carries the accent — the emphasis INMARCO puts on the
               word that makes the claim a commitment rather than a feature. */}
           <div style={{ color: ACCENT }}>
             <MaskText

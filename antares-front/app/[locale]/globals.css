@@ -322,11 +322,6 @@ html.lenis body {
   overflow: hidden;
 }
 
-/* While the preloader is up the page must not scroll or paint through. */
-body[data-preloading="true"] {
-  overflow: hidden;
-}
-
 @media (prefers-reduced-motion: reduce) {
   .text-display,
   .text-display-sm {

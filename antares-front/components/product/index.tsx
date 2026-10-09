@@ -12,7 +12,7 @@ import { Product } from "@/types/models/product"
 /**
  * Product card for the brand listing.
  *
- * Carries the Inmarco red the same way the category index does: the media sits
+ * Carries the INMARCO red the same way the category index does: the media sits
  * on a red ground, and the footer wipes to a full red bar on hover instead of
  * only tinting a link. The tokens come from the products theme, so the card
  * follows whatever partner colour that file is set to.

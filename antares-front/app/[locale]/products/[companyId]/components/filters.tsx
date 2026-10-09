@@ -23,11 +23,10 @@ import {
 } from "@/components/ui/dialog"
 import { ScrollArea } from "@/components/ui/scroll-area"
 
-import { productsThemeVars } from "../../theme"
-
 type FiltersProps = {
   categories: Categories
   handleFilters: (filter: string) => void
+  themeVars: React.CSSProperties
 }
 
 const MAX_DEPTH = 4
@@ -50,7 +49,7 @@ const Dot = ({ active }: { active: boolean }) => (
   />
 )
 
-const Filters = ({ categories, handleFilters }: FiltersProps) => {
+const Filters = ({ categories, handleFilters, themeVars }: FiltersProps) => {
   const { getParam } = useQueryParams()
   const category = getParam("category")
   const [isActive, setIsActive] = useState<string>()
@@ -123,7 +122,9 @@ const Filters = ({ categories, handleFilters }: FiltersProps) => {
         <button
           onClick={() => select("")}
           className={`flex w-full cursor-pointer items-center gap-2 transition-colors ${
-            !isActive ? "text-[var(--accent)]" : "text-gray-400 hover:text-white"
+            !isActive
+              ? "text-[var(--accent)]"
+              : "text-gray-400 hover:text-white"
           }`}
         >
           <Dot active={!isActive} />
@@ -148,7 +149,7 @@ const Filters = ({ categories, handleFilters }: FiltersProps) => {
             </Button>
           </DialogTrigger>
           <DialogContent
-            style={productsThemeVars}
+            style={themeVars}
             className="border-[var(--card-border)] bg-[var(--section-bg)]"
           >
             <ScrollArea className="max-h-[70vh] px-2">

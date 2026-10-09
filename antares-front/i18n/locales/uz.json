@@ -29,9 +29,9 @@
   },
   "home": {
     "hero": {
-      "eyebrow": "O‘zbekistonda Inmarco FZC rasmiy distribyutori",
+      "eyebrow": "O‘zbekistonda INMARCO FZC rasmiy distribyutori",
       "title": "Ertangi kun uchun sanoat yechimlari",
-      "intro": "Inmarco FZC — sanoat germetizatsiya tizimlari sohasida muhandislik yechimlarini ishlab chiqaruvchi va yetkazib beruvchi kompaniya: salnik to‘qimalari va prokladkalardan tortib nasoslar, zadvijkalar va boshqa kritik texnologik uskunalar uchun individual loyihalangan zichlash materiallarigacha. Antares ushbu mahsulotlarning to‘liq spektrini O‘zbekistonda yetkazib beradi.",
+      "intro": "INMARCO FZC sanoat germetizatsiya tizimlari sohasida muhandislik yechimlarini ishlab chiqaruvchi va yetkazib beruvchi kompaniya: salnik to‘qimalari va prokladkalardan tortib nasoslar, zadvijkalar va boshqa kritik texnologik uskunalar uchun individual loyihalangan zichlash materiallarigacha. Antares ushbu mahsulotlarning to‘liq spektrini O‘zbekistonda yetkazib beradi.",
       "titleLine1": "Ertangi kun uchun",
       "titleLine2": "sanoat yechimlari",
       "scrollHint": "Pastga suring",
@@ -328,7 +328,7 @@
       "smthWentWrong": "Xatolik yuz berdi!",
       "phone": "Telefon raqam",
       "sendRequest": "Soʻrov yuborish",
-      "leaveYourContact": "Ma'lumotlaringizni qoldiring — biz siz bilan bogʻlanamiz!",
+      "leaveYourContact": "Ma'lumotlaringizni qoldiring, biz siz bilan bogʻlanamiz!",
       "price": "NARX SO‘ROV ASOSIDA",
       "addToCard": "savatga qoʻshish",
       "technicalDetails": "Texnik xususiyatlar",
@@ -346,8 +346,22 @@
       "submit": "Faylni olish",
       "started": "Yuklab olish boshlandi"
     },
-    "lead": "Inmarco bilan birgalikda ishlab chiqilgan zichlash va izolyatsiya mahsulotlari — salnik zichlagichlari, prokladkalar, grafit va issiqlik izolyatsiyasi.",
-    "partner": "Inmarco bilan hamkorlikda",
+    "brandSelector": {
+      "eyebrow": "Mahsulot brendlari",
+      "title": "Brendni tanlang",
+      "lead": "Har bir katalog ishlab chiqaruvchining mahsulotlari va o‘ziga xos vizual uslubida ochiladi.",
+      "open": "Katalogga kirish",
+      "brands": {
+        "inmarco": {
+          "description": "Sanoat germetizatsiyasi, salnik to‘qimalari, prokladkalar va issiqlik izolyatsiyasi yechimlari."
+        },
+        "erithGlobal": {
+          "description": "Sanoat uskunalari, komponentlar va ishlab chiqarish jarayonlari uchun muhandislik yechimlari."
+        }
+      }
+    },
+    "lead": "INMARCO bilan birgalikda ishlab chiqilgan zichlash va izolyatsiya mahsulotlari: salnik zichlagichlari, prokladkalar, grafit va issiqlik izolyatsiyasi.",
+    "partner": "INMARCO bilan hamkorlikda",
     "browse": "Ko‘rish",
     "count": "{count} ta kategoriya"
   },

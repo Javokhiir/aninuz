@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="952027e7-f2da-4a92-8107-723d8c406fa9" name="Changes" comment="revert home screen into old design">
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/prettier.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/antares-front/app/[locale]/(home)/components/lazy-home-sections.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/antares-front/app/[locale]/products/components/brands.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/antares-front/public/gallery/fifth-poster.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/antares-front/public/gallery/fourth-poster.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/antares-front/public/gallery/sixth-poster.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/antares-front/public/gallery/third-poster.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/antares-front/public/images/hero/fields/field1.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/antares-front/public/images/hero/fields/field2.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/antares-front/public/images/hero/fields/field3.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/antares-front/public/images/hero/fields/field4.webp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/antares-back-main/app/Http/Controllers/Site/DatasheetLeadController.php" beforeDir="false" afterPath="$PROJECT_DIR$/antares-back-main/app/Http/Controllers/Site/DatasheetLeadController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/antares-front/app/[locale]/(home)/components/fields.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/antares-front/app/[locale]/(home)/components/fields.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/antares-front/app/[locale]/(home)/components/hero.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/antares-front/app/[locale]/(home)/components/hero.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/antares-front/app/[locale]/(home)/components/partners.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/antares-front/app/[locale]/(home)/components/partners.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/antares-front/app/[locale]/(home)/components/sustainability.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/antares-front/app/[locale]/(home)/components/sustainability.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/antares-front/app/[locale]/(home)/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/antares-front/app/[locale]/(home)/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/antares-front/app/[locale]/gallery/components/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/antares-front/app/[locale]/gallery/components/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/antares-front/app/[locale]/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/antares-front/app/[locale]/globals.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/antares-front/app/[locale]/products/[companyId]/[product]/components/datasheet.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/antares-front/app/[locale]/products/[companyId]/[product]/components/datasheet.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/antares-front/app/[locale]/products/[companyId]/[product]/components/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/antares-front/app/[locale]/products/[companyId]/[product]/components/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/antares-front/app/[locale]/products/[companyId]/[product]/components/oneClickBuy.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/antares-front/app/[locale]/products/[companyId]/[product]/components/oneClickBuy.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/antares-front/app/[locale]/products/[companyId]/components/filters.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/antares-front/app/[locale]/products/[companyId]/components/filters.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/antares-front/app/[locale]/products/[companyId]/components/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/antares-front/app/[locale]/products/[companyId]/components/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/antares-front/app/[locale]/products/components/categories.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/antares-front/app/[locale]/products/components/categories.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/antares-front/app/[locale]/products/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/antares-front/app/[locale]/products/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/antares-front/app/[locale]/products/theme.ts" beforeDir="false" afterPath="$PROJECT_DIR$/antares-front/app/[locale]/products/theme.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/antares-front/app/[locale]/services/theme.ts" beforeDir="false" afterPath="$PROJECT_DIR$/antares-front/app/[locale]/services/theme.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/antares-front/components/product/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/antares-front/components/product/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/antares-front/components/relats/site-chrome.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/antares-front/components/relats/site-chrome.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/antares-front/components/ui/logo-carousel.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/antares-front/components/ui/logo-carousel.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/antares-front/components/ui/spinning-text.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/antares-front/components/ui/spinning-text.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/antares-front/hooks/useSurfaceTone.ts" beforeDir="false" afterPath="$PROJECT_DIR$/antares-front/hooks/useSurfaceTone.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/antares-front/i18n/locales/en.json" beforeDir="false" afterPath="$PROJECT_DIR$/antares-front/i18n/locales/en.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/antares-front/i18n/locales/ru.json" beforeDir="false" afterPath="$PROJECT_DIR$/antares-front/i18n/locales/ru.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/antares-front/i18n/locales/uz.json" beforeDir="false" afterPath="$PROJECT_DIR$/antares-front/i18n/locales/uz.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/antares-front/lib/house-theme.ts" beforeDir="false" afterPath="$PROJECT_DIR$/antares-front/lib/house-theme.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/antares-front/public/datasheets/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/antares-front/public/datasheets/README.md" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Javokhiir&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Javokhiir/aninuz.git&quot;,
+    &quot;accountId&quot;: &quot;90155a18-8e0d-4bf8-95d3-de94f1669401&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 1,
+  &quot;fromUser&quot;: false
+}</component>
+  <component name="ProjectId" id="3IXpVyGoV4q4mUBo6ZLCUrP5bkk" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;javascript.preferred.runtime.type.id&quot;: &quot;node&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/macstore.uz/Desktop/aninuz&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Users/macstore.uz/Desktop/aninuz/antares-front/node_modules/typescript/lib&quot;
+  }
+}</component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-4abd2a77f808-JavaScript-WS-262.9437.145" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="952027e7-f2da-4a92-8107-723d8c406fa9" name="Changes" comment="" />
+      <created>1787920795420</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1787920795420</updated>
+      <workItem from="1787920796927" duration="4119000" />
+      <workItem from="1790073647527" duration="5145000" />
+      <workItem from="1790414160668" duration="18000" />
+      <workItem from="1790659874240" duration="75000" />
+      <workItem from="1790846138067" duration="20000" />
+      <workItem from="1790926666246" duration="11000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="revert home screen into old design" />
+    <option name="LAST_COMMIT_MESSAGE" value="revert home screen into old design" />
+  </component>
+</project>

@@ -41,7 +41,7 @@ const categoryTitle = (category: Category) =>
  * One category, as a discrete product-catalogue card.
  *
  * The media is the card's top half: the poster frame at rest under a brand-red
- * duotone, which is what carries the Inmarco colour across the whole grid, and
+ * duotone, which is what carries the INMARCO colour across the whole grid, and
  * the category's own clip playing once the card is hovered. Only the hovered
  * clip plays — seven autoplaying videos would run seven decoders for footage
  * nobody is looking at.
@@ -122,7 +122,7 @@ const CategoryCard = ({
             on white, and multiply turns every white pixel the full strength of
             whatever sits over it — at the old 20/75 the grid read as pink
             plates rather than photographs. A tenth at rest is a tint, and the
-            hover lands on Inmarco's own lighter red rather than the deep one.
+            hover lands on INMARCO's own lighter red rather than the deep one.
             The card still answers the pointer by going to the partner's colour;
             it just no longer drowns the product doing it. */}
         <div className="absolute inset-0 bg-[var(--brand-soft)] opacity-10 mix-blend-multiply transition-opacity duration-700 group-hover:opacity-45" />

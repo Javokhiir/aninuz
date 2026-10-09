@@ -1,6 +1,7 @@
 "use client"
 
 import React from "react"
+import Image from "next/image"
 import { motion } from "framer-motion"
 import { useTranslations } from "next-intl"
 
@@ -33,10 +34,16 @@ const FieldsSection = () => {
           <p className="text-muted hidden w-full max-w-[300px] text-xl font-medium md:block">
             {t("field1Desc")}
           </p>
-          <div
-            className="flex h-full w-full items-center justify-end rounded-full bg-cover bg-center px-5 md:px-10"
-            style={{ backgroundImage: "url('/images/hero/fields/field1.png')" }}
-          ></div>
+          <div className="relative h-full w-full overflow-hidden rounded-full">
+            <Image
+              src="/images/hero/fields/field1.webp"
+              alt=""
+              fill
+              loading="lazy"
+              sizes="(max-width: 767px) 50vw, 33vw"
+              className="object-cover"
+            />
+          </div>
         </motion.div>
         <motion.div
           style={{
@@ -53,10 +60,16 @@ const FieldsSection = () => {
               {t("field2")}
             </h4>
           </div>
-          <div
-            className="order-1 flex h-full w-full items-center justify-end rounded-full bg-cover bg-center px-5 md:order-2"
-            style={{ backgroundImage: "url('/images/hero/fields/field2.png')" }}
-          ></div>
+          <div className="relative order-1 h-full w-full overflow-hidden rounded-full md:order-2">
+            <Image
+              src="/images/hero/fields/field2.webp"
+              alt=""
+              fill
+              loading="lazy"
+              sizes="(max-width: 767px) 50vw, 33vw"
+              className="object-cover"
+            />
+          </div>
           <div className="order-last hidden items-center justify-between px-10 md:flex">
             <p className="text-muted w-full max-w-[300px] text-xl font-medium">
               {t("field2Desc")}
@@ -79,10 +92,16 @@ const FieldsSection = () => {
           <p className="text-muted hidden w-full max-w-[300px] text-xl font-medium md:block">
             {t("field3Desc")}
           </p>
-          <div
-            className="flex h-full w-full items-center justify-end rounded-full bg-cover bg-center px-5 md:px-10"
-            style={{ backgroundImage: "url('/images/hero/fields/field3.png')" }}
-          ></div>
+          <div className="relative h-full w-full overflow-hidden rounded-full">
+            <Image
+              src="/images/hero/fields/field3.webp"
+              alt=""
+              fill
+              loading="lazy"
+              sizes="(max-width: 767px) 50vw, 33vw"
+              className="object-cover"
+            />
+          </div>
         </motion.div>
         <motion.div
           style={{
@@ -99,10 +118,16 @@ const FieldsSection = () => {
               {t("field4")}
             </h4>
           </div>
-          <div
-            className="flex h-full w-full items-center justify-end rounded-full bg-cover bg-center px-5"
-            style={{ backgroundImage: "url('/images/hero/fields/field4.png')" }}
-          ></div>
+          <div className="relative h-full w-full overflow-hidden rounded-full">
+            <Image
+              src="/images/hero/fields/field4.webp"
+              alt=""
+              fill
+              loading="lazy"
+              sizes="(max-width: 767px) 50vw, 33vw"
+              className="object-cover"
+            />
+          </div>
 
           <div className="order-last hidden items-center justify-between px-10 md:flex">
             <p className="text-muted w-full max-w-[300px] text-xl font-medium">

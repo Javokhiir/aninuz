@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 
 /**
  * What the fixed chrome is currently floating over.
@@ -173,15 +173,21 @@ function readTone(x: number, y: number): Tone {
  * @param y  Viewport offset of the point to sample, or a function returning it
  *           (the bottom pill's position depends on the viewport height).
  */
-export function useSurfaceTone(y: number | (() => number)): Tone {
+export function useSurfaceTone(
+  y: number | (() => number),
+  refreshKey?: string
+): Tone {
   const [tone, setTone] = useState<Tone>("dark")
+  const yRef = useRef(y)
+  yRef.current = y
 
   useEffect(() => {
     let frame = 0
 
     const read = () => {
       frame = 0
-      const py = typeof y === "function" ? y() : y
+      const currentY = yRef.current
+      const py = typeof currentY === "function" ? currentY() : currentY
       // Three samples across the pill's width: a section boundary or a dark
       // panel under one edge shouldn't flip the whole bar on its own, so the
       // darker reading only wins if at least two points agree.
@@ -199,19 +205,26 @@ export function useSurfaceTone(y: number | (() => number)): Tone {
     window.addEventListener("scroll", schedule, { passive: true })
     window.addEventListener("resize", schedule)
 
-    // The bar outlives every route change, and much of what it floats over
-    // arrives after it: client navigation, images, the first video frame. So it
-    // re-reads on a slow tick too — three hit-tests four times a second is far
-    // cheaper than wiring every one of those events into the hook.
-    const tick = window.setInterval(schedule, 250)
+    // Re-check a few times while media and route content settle. A permanent
+    // 250ms poll kept sampling image/video pixels even when the page was idle.
+    const settleTimers = [120, 600, 1600].map((delay) =>
+      window.setTimeout(schedule, delay)
+    )
+    const handleVisibility = () => {
+      if (!document.hidden) schedule()
+    }
+    window.addEventListener("load", schedule)
+    document.addEventListener("visibilitychange", handleVisibility)
 
     return () => {
       if (frame) cancelAnimationFrame(frame)
-      window.clearInterval(tick)
+      settleTimers.forEach(window.clearTimeout)
       window.removeEventListener("scroll", schedule)
       window.removeEventListener("resize", schedule)
+      window.removeEventListener("load", schedule)
+      document.removeEventListener("visibilitychange", handleVisibility)
     }
-  }, [y])
+  }, [refreshKey])
 
   return tone
 }

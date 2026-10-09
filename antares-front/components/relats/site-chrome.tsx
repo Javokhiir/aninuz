@@ -90,7 +90,7 @@ export function FloatingHeader() {
   }
 
   // 17px of padding plus half the 52px pill: the point the bar actually covers.
-  const tone = useSurfaceTone(43)
+  const tone = useSurfaceTone(43, pathname)
   const onDark = tone === "dark" && !mobileOpen
 
   const more = MORE_LINKS.map(({ key, href }) => ({ key, href }))

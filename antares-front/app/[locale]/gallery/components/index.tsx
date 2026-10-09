@@ -30,21 +30,25 @@ const images = [
     id: 3,
     type: "video",
     src: "/gallery/third.mp4",
+    poster: "/gallery/third-poster.jpg",
   },
   {
     id: 4,
     type: "video",
     src: "/gallery/fourth.mp4",
+    poster: "/gallery/fourth-poster.jpg",
   },
   {
     id: 5,
     type: "video",
     src: "/gallery/fifth.mp4",
+    poster: "/gallery/fifth-poster.jpg",
   },
   {
     id: 6,
     type: "video",
     src: "/gallery/sixth.mp4",
+    poster: "/gallery/sixth-poster.jpg",
   },
 ]
 
@@ -55,18 +59,22 @@ const Gallery = () => {
   const t = useTranslations("gallery");
 
   React.useEffect(() => {
-    if (!api) {
-      return
+    if (!api) return
+
+    const updateSelection = () => {
+      setCount(api.scrollSnapList().length)
+      setCurrent(api.selectedScrollSnap() + 1)
     }
 
-    setCount(api.scrollSnapList().length)
-    setCurrent(api.selectedScrollSnap() + 1)
- 
-    api.on("select", () => {
-      setCurrent(api.selectedScrollSnap() + 1)
-    });
-    console.log(current, count);
-  }, [api, current, count])
+    updateSelection()
+    api.on("select", updateSelection)
+    api.on("reInit", updateSelection)
+
+    return () => {
+      api.off("select", updateSelection)
+      api.off("reInit", updateSelection)
+    }
+  }, [api])
   
   return (
     <div className="space-y-10">
@@ -91,16 +99,18 @@ const Gallery = () => {
                       height={500}
                       src={image.src}
                       alt="gallery"
+                      loading="lazy"
+                      sizes="(max-width: 639px) 67vw, (max-width: 1023px) 34vw, 23vw"
                       className="h-full w-full object-cover"
                     />
                   ) : (
                     <video
                       src={image.src}
+                      poster={image.poster}
                       className="h-full w-full object-cover"
                       controls
-                      loop
-                      muted
-                      autoPlay
+                      preload="none"
+                      playsInline
                     />
                   )}
                 </CardContent>

@@ -1,7 +1,7 @@
 "use client"
 
 import { useMemo } from "react"
-import { useCompanyColorStore } from "@/states/store"
+import { useParams } from "next/navigation"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useMutation } from "@tanstack/react-query"
 import { useTranslations } from "next-intl"
@@ -30,8 +30,12 @@ import {
 import { Input } from "@/components/ui/input"
 import { PhoneInput } from "@/components/ui/phone-input"
 
+import { getProductsThemeVars } from "../../../theme"
+
 const OneClickBuy = ({ productId }: { productId: number }) => {
-  const { color } = useCompanyColorStore()
+  const { companyId } = useParams()
+  const companySlug = Array.isArray(companyId) ? companyId[0] : companyId || ""
+  const themeVars = getProductsThemeVars(companySlug)
   const t = useTranslations("products.productId")
   const tv = useTranslations("validation")
 
@@ -84,7 +88,10 @@ const OneClickBuy = ({ productId }: { productId: number }) => {
           {t("findOutPrice")}
         </button>
       </DialogTrigger>
-      <DialogContent className="w-full">
+      <DialogContent
+        style={themeVars}
+        className="w-full border-[var(--card-border)] bg-[var(--section-bg)] text-white"
+      >
         <DialogHeader className="w-full space-y-4">
           <div className="space-y-2">
             <DialogTitle> {t("findOutPrice")}</DialogTitle>
@@ -126,9 +133,8 @@ const OneClickBuy = ({ productId }: { productId: number }) => {
               <div className="flex w-full justify-end">
                 <Button
                   type="submit"
-                  className="ml-auto"
+                  className="ml-auto bg-[var(--brand)] text-[var(--on-brand)] hover:bg-[var(--brand)]/90"
                   disabled={oneClickBuyMutation.isPending}
-                  style={{ backgroundColor: color }}
                 >
                   {t("sendRequest")}
                 </Button>

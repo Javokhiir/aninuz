@@ -3,7 +3,7 @@
  *
  * Structurally identical to the products theme — same token names, so the same
  * banner and card recipes read from either — but on the Antares blue. The red
- * in `app/[locale]/products/theme.ts` belongs to the Inmarco partnership that
+ * in `app/[locale]/products/theme.ts` belongs to the INMARCO partnership that
  * catalogue carries; everything else on the site runs on the house colour.
  *
  * The accent is a lightened `--primary`: the brand blue #1c3bab only clears

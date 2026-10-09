@@ -1,7 +1,6 @@
 "use client"
 
 import React, { CSSProperties } from "react"
-import { motion, Transition, Variants } from "framer-motion"
 
 import { cn } from "@/lib/utils"
 
@@ -13,70 +12,37 @@ type SpinningTextProps = {
   reverse?: boolean
   fontSize?: number
   radius?: number
-  transition?: Transition
-  variants?: {
-    container?: Variants
-    item?: Variants
-  }
-}
-
-const BASE_TRANSITION: Transition = {
-  repeat: Infinity,
-  ease: "linear",
-}
-
-const BASE_ITEM_VARIANTS = {
-  hidden: {
-    opacity: 1,
-  },
-  visible: {
-    opacity: 1,
-  },
 }
 
 export function SpinningText({
   children,
+  style,
   duration = 10,
 
   className,
   reverse = false,
   fontSize = 1,
   radius = 5,
-  transition,
-  variants,
 }: SpinningTextProps) {
   const letters = children.split("")
   const totalLetters = letters.length
 
-  const finalTransition = {
-    ...BASE_TRANSITION,
-    ...transition,
-    duration: (transition as { duration?: number })?.duration ?? duration,
-  }
-
-  const containerVariants = {
-    visible: { rotate: reverse ? -360 : 360 },
-    ...variants?.container,
-  }
-
-  const itemVariants = {
-    ...BASE_ITEM_VARIANTS,
-    ...variants?.item,
-  }
-
   return (
-    <motion.div
-      className={cn("relative", className)}
-      initial="hidden"
-      animate="visible"
-      variants={containerVariants}
-      transition={finalTransition}
+    <div
+      className={cn(
+        "relative motion-safe:animate-spin motion-reduce:transform-none",
+        className
+      )}
+      style={{
+        ...style,
+        animationDuration: `${duration}s`,
+        animationDirection: reverse ? "reverse" : "normal",
+      }}
     >
       {letters.map((letter, index) => (
-        <motion.span
+        <span
           aria-hidden="true"
           key={`${index}-${letter}`}
-          variants={itemVariants}
           className="absolute top-1/2 left-1/2 inline-block"
           style={
             {
@@ -95,9 +61,9 @@ export function SpinningText({
           }
         >
           {letter}
-        </motion.span>
+        </span>
       ))}
       <span className="sr-only">{children}</span>
-    </motion.div>
+    </div>
   )
 }

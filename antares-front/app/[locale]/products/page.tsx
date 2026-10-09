@@ -2,10 +2,10 @@
 
 import React from "react"
 
-import Categories from "./components/categories"
+import Brands from "./components/brands"
 
 const ProductsPage = () => {
-  return <Categories />
+  return <Brands />
 }
 
 export default ProductsPage
