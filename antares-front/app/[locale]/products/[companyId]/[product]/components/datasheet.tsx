@@ -1,13 +1,13 @@
 "use client"
 
 import { useState } from "react"
-import { useParams } from "next/navigation"
 import { useMutation } from "@tanstack/react-query"
 import { Download } from "lucide-react"
 import { useTranslations } from "next-intl"
 import { toast } from "sonner"
 
 import { postDatasheetLead } from "@/http/requests/datasheet"
+import { useBrandSlug } from "@/hooks/useBrandSlug"
 import {
   Dialog,
   DialogContent,
@@ -101,8 +101,7 @@ const DatasheetDownload = ({
   productTitle: string
 }) => {
   const t = useTranslations("products.datasheet")
-  const { companyId } = useParams()
-  const companySlug = Array.isArray(companyId) ? companyId[0] : companyId || ""
+  const companySlug = useBrandSlug()
   const themeVars = getProductsThemeVars(companySlug)
   const [open, setOpen] = useState(false)
   const [email, setEmail] = useState("")

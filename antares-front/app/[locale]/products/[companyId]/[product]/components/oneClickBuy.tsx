@@ -1,7 +1,6 @@
 "use client"
 
 import { useMemo } from "react"
-import { useParams } from "next/navigation"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useMutation } from "@tanstack/react-query"
 import { useTranslations } from "next-intl"
@@ -11,6 +10,7 @@ import { z } from "zod"
 
 import { OneClickBuyRequest } from "@/types/models/product"
 import { oneClickBuy } from "@/http/requests"
+import { useBrandSlug } from "@/hooks/useBrandSlug"
 import { Button } from "@/components/ui/button"
 import {
   Dialog,
@@ -33,8 +33,7 @@ import { PhoneInput } from "@/components/ui/phone-input"
 import { getProductsThemeVars } from "../../../theme"
 
 const OneClickBuy = ({ productId }: { productId: number }) => {
-  const { companyId } = useParams()
-  const companySlug = Array.isArray(companyId) ? companyId[0] : companyId || ""
+  const companySlug = useBrandSlug()
   const themeVars = getProductsThemeVars(companySlug)
   const t = useTranslations("products.productId")
   const tv = useTranslations("validation")

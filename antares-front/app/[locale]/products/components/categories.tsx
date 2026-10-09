@@ -59,7 +59,8 @@ const CategoryCard = ({
   const title = categoryTitle(category)
   const children = category.children ?? []
   const media = CATEGORY_MEDIA.has(category.slug)
-  const uploaded = category.images?.[0]?.preview_url || category.images?.[0]?.url
+  const uploaded =
+    category.images?.[0]?.preview_url || category.images?.[0]?.url
   const poster = media ? `/images/posters/${category.slug}.jpg` : uploaded
 
   const play = () => {
@@ -152,7 +153,7 @@ const CategoryCard = ({
 
         {/* Footer bar. Empty ground at rest, solid brand red once the card is
             hovered — the card's main piece of colour. */}
-        <div className="relative mt-auto -mx-6 -mb-6 overflow-hidden border-t border-[var(--card-border)] px-6 py-4">
+        <div className="relative -mx-6 mt-auto -mb-6 overflow-hidden border-t border-[var(--card-border)] px-6 py-4">
           <div
             className="absolute inset-0 origin-left scale-x-0 bg-[var(--brand)] transition-transform duration-700 group-hover:scale-x-100"
             style={{ transitionTimingFunction: "var(--e-expo-out)" }}

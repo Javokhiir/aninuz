@@ -1,7 +1,6 @@
 "use client"
 
 import React from "react"
-import { useParams } from "next/navigation"
 import { Link, usePathname } from "@/i18n/routing"
 import { useQuery } from "@tanstack/react-query"
 import { ArrowLeft } from "lucide-react"
@@ -9,6 +8,7 @@ import { useTranslations } from "next-intl"
 
 import { ProductResponse } from "@/types/models/product"
 import { getProductById } from "@/http/requests/products"
+import { useBrandSlug } from "@/hooks/useBrandSlug"
 import { useQueryParams } from "@/hooks/useQueryParams"
 
 import { getProductBrandProfile, getProductsThemeVars } from "../../../theme"
@@ -42,8 +42,7 @@ const ProductId = () => {
   const { getParam } = useQueryParams()
   const expand = getParam("expand", "images, faqs")
   const product_slug = pathname.split("/")[3]
-  const { companyId } = useParams()
-  const companySlug = Array.isArray(companyId) ? companyId[0] : companyId || ""
+  const companySlug = useBrandSlug()
   const brand = getProductBrandProfile(companySlug)
   const themeVars = getProductsThemeVars(companySlug)
 

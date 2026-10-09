@@ -312,6 +312,7 @@
   "products": {
     "title": "Products",
     "notFound": "No products found",
+    "brandEmpty": "This brand has no products yet",
     "filter": "Filter",
     "all": "All",
     "filterSuccess": "Filter successfully applied!",

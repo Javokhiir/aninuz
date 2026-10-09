@@ -14,6 +14,7 @@ import {
   getAllProductsByCompanyId,
   searchProductsByBrands,
 } from "@/http/requests/products"
+import { useBrandSlug } from "@/hooks/useBrandSlug"
 import { useQueryParams } from "@/hooks/useQueryParams"
 import { Pagination } from "@/components/ui/pagination"
 import { SearchInput } from "@/components/Search"
@@ -28,7 +29,8 @@ const categoryTitle = (category?: Category) =>
     category.translations?.find((translation) => translation.title)?.title ||
     category.slug)
 
-const CompanyProducts = ({ companyId }: { companyId: string }) => {
+const CompanyProducts = ({ companyId: paramId }: { companyId: string }) => {
+  const companyId = useBrandSlug() || paramId
   const { getParam, setParam } = useQueryParams()
   const images = getParam("expand", "images")
   const page = getParam("page", "1")
@@ -85,6 +87,11 @@ const CompanyProducts = ({ companyId }: { companyId: string }) => {
 
   const dataShow = search?.trim() ? productsData : allProducts
   const pending = isLoading || searchMutation.isPending
+
+  // The category tree is shared across brands, so a brand with no products yet
+  // gets a plain "no products" panel instead of another brand's filters.
+  const brandEmpty =
+    !filter && !search && !isLoading && allProducts?.meta.total === 0
 
   // Name the page after the selected category so the header is not empty when a
   // brand has no logo to show.
@@ -144,43 +151,62 @@ const CompanyProducts = ({ companyId }: { companyId: string }) => {
             {brand.name}
           </div>
 
-          <div className="mb-8 flex items-center justify-between gap-3">
-            <SearchInput className="rounded-[var(--radius-fluid)] border border-[var(--card-border)] bg-[var(--card-bg)] text-white md:max-w-[420px]" />
-            <div className="block md:hidden">
-              <Filters
-                handleFilters={handleFilters}
-                categories={filters?.data || []}
-                themeVars={themeVars}
-              />
+          {brandEmpty ? (
+            <div className="flex flex-col items-center gap-4 rounded-[var(--radius-panel)] border border-[var(--card-border)] bg-[var(--card-bg)] px-6 py-20 text-center">
+              <CircleAlertIcon className="h-8 w-8 text-[var(--accent)]" />
+              <p className="rtitle-xsmall text-white">{t("brandEmpty")}</p>
+              <Link
+                href="/products"
+                className="label-mono inline-flex items-center gap-2 text-white/60 transition-colors hover:text-[var(--accent)]"
+              >
+                <ArrowLeft className="h-4 w-4" />
+                {t("title")}
+              </Link>
             </div>
-          </div>
+          ) : (
+            <>
+              <div className="mb-8 flex items-center justify-between gap-3">
+                <SearchInput className="rounded-[var(--radius-fluid)] border border-[var(--card-border)] bg-[var(--card-bg)] text-white md:max-w-[420px]" />
+                <div className="block md:hidden">
+                  <Filters
+                    handleFilters={handleFilters}
+                    categories={filters?.data || []}
+                    themeVars={themeVars}
+                  />
+                </div>
+              </div>
 
-          <div className="flex gap-8">
-            <div className="hidden md:block">
-              <Filters
-                handleFilters={handleFilters}
-                categories={filters?.data || []}
-                themeVars={themeVars}
-              />
-            </div>
+              <div className="flex gap-8">
+                <div className="hidden md:block">
+                  <Filters
+                    handleFilters={handleFilters}
+                    categories={filters?.data || []}
+                    themeVars={themeVars}
+                  />
+                </div>
 
-            {pending ? (
-              <ProductsGridSkeleton />
-            ) : dataShow?.data?.length ? (
-              <ProductsSection
-                companyName={companyId}
-                products={dataShow.data}
-              />
-            ) : (
-              <p className="flex h-min flex-1 items-center gap-3 rounded-[var(--radius-panel)] border border-[var(--card-border)] bg-[var(--card-bg)] p-6 text-white/50">
-                <CircleAlertIcon className="h-5 w-5" /> {t("notFound")}
-              </p>
-            )}
-          </div>
+                {pending ? (
+                  <ProductsGridSkeleton />
+                ) : dataShow?.data?.length ? (
+                  <ProductsSection
+                    companyName={companyId}
+                    products={dataShow.data}
+                  />
+                ) : (
+                  <p className="flex h-min flex-1 items-center gap-3 rounded-[var(--radius-panel)] border border-[var(--card-border)] bg-[var(--card-bg)] p-6 text-white/50">
+                    <CircleAlertIcon className="h-5 w-5" /> {t("notFound")}
+                  </p>
+                )}
+              </div>
 
-          <div className="mt-12">
-            <Pagination limit={12} totalCount={allProducts?.meta.total || 0} />
-          </div>
+              <div className="mt-12">
+                <Pagination
+                  limit={12}
+                  totalCount={allProducts?.meta.total || 0}
+                />
+              </div>
+            </>
+          )}
         </div>
       </section>
     </div>

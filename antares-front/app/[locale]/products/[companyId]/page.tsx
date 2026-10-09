@@ -3,6 +3,7 @@ import { setRequestLocale } from "next-intl/server"
 
 import { fetchBuildJson } from "@/http/buildFetch"
 
+import { PRODUCT_BRANDS } from "../theme"
 import CompanyProducts from "./components"
 
 interface Props {
@@ -11,11 +12,16 @@ interface Props {
 
 export async function generateStaticParams() {
   const data = await fetchBuildJson<{ data: { slug: string }[] }>("/brands")
-  const slugs = (data?.data ?? []).map((brand) => ({ companyId: brand.slug }))
+  // Every brand on the selector gets its own page, even one the API does not
+  // list yet, so it never lands on the placeholder and borrows another brand.
+  const slugs = new Set([
+    ...(data?.data ?? []).map((brand) => brand.slug),
+    ...PRODUCT_BRANDS.map((brand) => brand.fallbackSlug),
+  ])
 
   // The placeholder page is always exported: .htaccess falls back to it for
   // slugs that were not in the API at build time.
-  return [...slugs, { companyId: "_" }]
+  return [...slugs, "_"].map((companyId) => ({ companyId }))
 }
 
 const CompanyIdPage = async ({ params }: Props) => {

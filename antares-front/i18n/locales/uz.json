@@ -312,6 +312,7 @@
   "products": {
     "title": "Mahsulotlar",
     "notFound": "Mahsulotlar topilmadi",
+    "brandEmpty": "Bu brendda hozircha mahsulot yo‘q",
     "filter": "Filter",
     "all": "Barchasi",
     "filterSuccess": "Filter muvaffaqiyatli yoqildi!",
