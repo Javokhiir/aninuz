@@ -19,9 +19,10 @@ import {
 type Props = {
   totalCount: number
   limit: number
+  className?: string
 }
 
-export const Pagination: FC<Props> = ({ totalCount, limit }) => {
+export const Pagination: FC<Props> = ({ totalCount, limit, className }) => {
   const { getParam, setParam } = useQueryParams()
 
   const currentPage = Number(getParam("page") || 1)
@@ -45,7 +46,7 @@ export const Pagination: FC<Props> = ({ totalCount, limit }) => {
 
   const lastPage = paginationRange[paginationRange.length - 1]
   return (
-    <PaginationPrimitive>
+    <PaginationPrimitive className={className}>
       <PaginationContent>
         <PaginationPrevious
           onClick={() => onPageChange(currentPage - 1)}

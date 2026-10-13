@@ -200,9 +200,12 @@ const CompanyProducts = ({ companyId: paramId }: { companyId: string }) => {
               </div>
 
               <div className="mt-12">
+                {/* The shadcn ghost/outline links read dark-on-dark on this
+                    page, so they take the products palette instead. */}
                 <Pagination
                   limit={12}
                   totalCount={allProducts?.meta.total || 0}
+                  className="[&_a]:cursor-pointer [&_a]:border [&_a]:border-[var(--card-border)] [&_a]:bg-[var(--card-bg)] [&_a]:text-white/80 [&_a:hover]:border-[var(--brand)] [&_a:hover]:bg-[var(--brand)] [&_a:hover]:text-[var(--on-brand)] [&_a[aria-current=page]]:border-[var(--brand)] [&_a[aria-current=page]]:bg-[var(--brand)] [&_a[aria-current=page]]:text-[var(--on-brand)] [&_span]:text-white/60"
                 />
               </div>
             </>

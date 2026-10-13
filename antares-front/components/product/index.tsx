@@ -47,7 +47,7 @@ const ProductCard = ({
                 alt={product.title}
                 width={500}
                 height={500}
-                className="h-full w-full object-contain p-6 transition-transform duration-700 group-hover:scale-110"
+                className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
             ) : (
               // No photograph on file. A letter mark read as a rendering bug
